@@ -536,7 +536,7 @@ function CelestialObject({ obj, index, overridePosition }) {
         <ImageSprite 
           imageUrl={imageUrl} 
           size={0.3}
-          onClick={handleClick}
+         // onClick={handleClick}
          // onPointerEnter={() => setHovered(true)}
          // onPointerLeave={() => setHovered(false)}
         />
@@ -550,6 +550,7 @@ function CelestialObject({ obj, index, overridePosition }) {
           outlineColor="black"
           onPointerEnter={() => setHovered(true)}
           onPointerLeave={() => setHovered(false)}
+          onClick={handleClick}
         >
           {obj.name}
         </Text>
@@ -561,7 +562,7 @@ function CelestialObject({ obj, index, overridePosition }) {
   return (
     <group position={[x, y, z]}>
       <mesh
-        onClick={handleClick}
+        //onClick={handleClick}
         //onPointerEnter={() => setHovered(true)}
         //onPointerLeave={() => setHovered(false)}
       >
@@ -582,6 +583,7 @@ function CelestialObject({ obj, index, overridePosition }) {
         outlineColor="black"
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
+        onClick={handleClick}
       >
         {obj.name}
       </Text>
