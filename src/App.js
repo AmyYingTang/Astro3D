@@ -329,6 +329,50 @@ function EarthFallback() {
   );
 }
 
+// === 银河系渲染（使用真实纹理）===
+function MilkyWayWithTexture() {
+  const milkyWayRadius = 9.8;
+  const milkyWayTexture = useLoader(
+    THREE.TextureLoader, 
+    '/textures/milky_way_panorama.jpg'
+  );
+  
+  milkyWayTexture.colorSpace = THREE.SRGBColorSpace;
+  
+  // 🔧 关键修复：调整纹理映射以对齐 RA/DEC 坐标系
+  // ESO 全景图通常以银河系中心为中心点
+  // 银河系中心在 RA ≈ 266.4° (17h 45m), DEC ≈ -29°
+  // 我们需要旋转纹理使 RA=0（春分点）对齐到正确位置
+  milkyWayTexture.wrapS = THREE.RepeatWrapping;
+  milkyWayTexture.wrapT = THREE.ClampToEdgeWrapping;
+  milkyWayTexture.repeat.x = -1; // 水平翻转（因为从内部看球体）
+  milkyWayTexture.offset.x = 0.26; // 调整偏移使银河系中心对齐（266.4°/360° ≈ 0.74, 需要偏移 1-0.74 = 0.26）
+  
+  return (
+    <mesh rotation={[0, Math.PI, 0]}> {/* Y轴旋转180度进一步对齐 */}
+      <sphereGeometry args={[milkyWayRadius, 64, 64]} />
+      <meshBasicMaterial 
+        map={milkyWayTexture} 
+        transparent={true}
+        opacity={0.85}
+        side={THREE.BackSide}  // 从内部看
+        depthWrite={false}
+        toneMapped={false}     // 保持原始亮度
+      />
+    </mesh>
+  );
+}
+
+// 主银河系组件（带错误处理）
+function MilkyWay() {
+  return (
+    <Suspense fallback={null}>
+      <MilkyWayWithTexture />
+    </Suspense>
+  );
+}
+
+
 // === 天球网格 ===
 function CelestialGrid({ radius = 3 }) {
   const lines = [];
@@ -412,7 +456,7 @@ function Axes({ length = 3.1 }) {
 }
 
 // === 单个梅西耶天体 ===
-function MessierObject({ obj, index }) {
+function CelestialObject({ obj, index }) {
   console.log(`......................: ${obj.wikiUrl}`);
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
   const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
@@ -420,7 +464,7 @@ function MessierObject({ obj, index }) {
   const [hovered, setHovered] = useState(false);
 
   const handleClick = () => {
-    const wikiUrl = `https://en.wikipedia.org/wiki/${obj.wikiName}`;
+    const wikiUrl = `${obj.wikiUrl}`;
     window.open(wikiUrl, '_blank');
   };
 
@@ -573,13 +617,13 @@ function ImageSprite({ imageUrl, size = 0.3, onClick, onPointerEnter, onPointerL
 }
 
 // === 梅西耶星体组 ===
-function MessierObjects({data}) {
+function CelestialObjects({data}) {
   if (!data?.length) return null;
   
   return (
     <group>
       {data.map((obj, i) => (
-        <MessierObject key={i} obj={obj} index={i} />
+        <CelestialObject key={i} obj={obj} index={i} />
       ))}
     </group>
   );
@@ -629,10 +673,11 @@ export default function App() {
         <ambientLight intensity={1.6} />
         <pointLight position={[5, 5, 5]} />
         <Suspense fallback={<LoadingIndicator />}>
+          <MilkyWay />
           <Earth />
           <CelestialGrid />
           <Axes />
-          <MessierObjects data={messierData}/>
+          <CelestialObjects data={messierData}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls enablePan={false} />
