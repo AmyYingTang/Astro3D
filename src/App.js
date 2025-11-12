@@ -2,7 +2,7 @@
 import React, { Suspense, useMemo, useState, useEffect, useRef } from "react";
 import Papa from "papaparse"
 import { Canvas,useLoader,useFrame,useThree} from "@react-three/fiber";
-import { OrbitControls, Stars, Text, Html } from "@react-three/drei";
+import { OrbitControls, Stars, Text, Html, Billboard  } from "@react-three/drei";
 import * as THREE from "three";
 
 // === 梅西耶星体数据（包含Wikipedia页面名称） ===
@@ -536,20 +536,27 @@ function CelestialObject({ obj, index, overridePosition }) {
          // onPointerEnter={() => setHovered(true)}
          // onPointerLeave={() => setHovered(false)}
         />
-        <Text
-          position={[0, -0.2, 0]}
-          fontSize={0.1 * fontScale}
-          color="#ffffff"
-          anchorX="center"
-          anchorY="top"
-          outlineWidth={0.01}
-          outlineColor="black"
-          onPointerEnter={() => setHovered(true)}
-          onPointerLeave={() => setHovered(false)}
-          onClick={handleClick}
+        <Billboard
+          follow={true}
+          lockX={false}
+          lockY={false}
+          lockZ={false}
         >
-          {obj.name}
-        </Text>
+          <Text
+            position={[0, -0.2, 0]}
+            fontSize={0.1 * fontScale}
+            color="#ffffff"
+            anchorX="center"
+            anchorY="top"
+            outlineWidth={0.01}
+            outlineColor="black"
+            onPointerEnter={() => setHovered(true)}
+            onPointerLeave={() => setHovered(false)}
+            onClick={handleClick}
+          >
+            {obj.name}
+          </Text>
+        </Billboard>
         {hovered && <InfoPanel />}
       </group>
     );
@@ -569,20 +576,27 @@ function CelestialObject({ obj, index, overridePosition }) {
           emissiveIntensity={hovered ? 0.5 : 0}
         />  */}
       </mesh>
-      <Text
-        position={[0.1, 0.1, 0]}
-        fontSize={0.12 * fontScale}
-        color="#ffffff"
-        anchorX="left"
-        anchorY="bottom"
-        outlineWidth={0.01}
-        outlineColor="black"
-        onPointerEnter={() => setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
-        onClick={handleClick}
+      <Billboard
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false}
       >
-        {obj.name}
-      </Text>
+        <Text
+          position={[0.1, 0.1, 0]}
+          fontSize={0.12 * fontScale}
+          color="#ffffff"
+          anchorX="left"
+          anchorY="bottom"
+          outlineWidth={0.01}
+          outlineColor="black"
+          onPointerEnter={() => setHovered(true)}
+          onPointerLeave={() => setHovered(false)}
+          onClick={handleClick}
+        >
+          {obj.name}
+        </Text>
+      </Billboard>
       {hovered && <InfoPanel />}
       {loading && (
         <Html position={[0, -0.15, 0]} center>
