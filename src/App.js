@@ -1,7 +1,7 @@
 // 文件：App.jsx
 import React, { Suspense, useMemo, useState, useEffect, useRef } from "react";
 import Papa from "papaparse"
-import { Canvas,useLoader,useFrame} from "@react-three/fiber";
+import { Canvas,useLoader,useFrame,useThree} from "@react-three/fiber";
 import { OrbitControls, Stars, Text, Html } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -455,11 +455,25 @@ function Axes({ length = 3.1 }) {
   );
 }
 
+function useFontScale() {
+  const { camera } = useThree();
+  const [fontScale, setFontScale] = useState(1);
+  
+  useFrame(() => {
+    const distance = camera.position.length();
+    const scale = Math.min(1.5, Math.max(1, distance / 8));
+    setFontScale(scale);
+  });
+  
+  return fontScale;
+}
+
 // === 单个天体 ===
 function CelestialObject({ obj, index, overridePosition }) {
   console.log(`......................: ${obj.wikiUrl}`);
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
   //const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
+  const fontScale = useFontScale(); 
   const isExtragalactic = obj.dist > 100000;
   const radius = isExtragalactic ? 10.2 : astronomicalScore(obj.dist);
 
@@ -496,20 +510,20 @@ function CelestialObject({ obj, index, overridePosition }) {
         color: 'white',
         padding: '10px 15px',
         borderRadius: '8px',
-        fontSize: '7px',
+        fontSize: `${10 * fontScale}px`,
         fontFamily: 'monospace',
         whiteSpace: 'nowrap',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         pointerEvents: 'none',
         userSelect: 'none'
       }}>
-        <div style={{ fontWeight: 'bold', marginBottom: '5px', color: '#4a9eff' }}>
+        <div style={{ fontWeight: 'bold', fontSize: `${10 * fontScale}px`, marginBottom: '5px', color: '#4a9eff' }}>
           {obj.name}
         </div>
         <div>RA: {convertRA(obj.ra).toFixed(2)}°</div>
         <div>DEC: {convertDEC(obj.dec) > 0 ? '+' : ''}{convertDEC(obj.dec).toFixed(2)}°</div>
         <div>Distance: {obj.dist} light years</div>
-        <div style={{ marginTop: '5px', fontSize: '7px', color: '#aaa' }}>
+        <div style={{ marginTop: '5px', fontSize: `${10 * fontScale}px`, color: '#aaa' }}>
           {loading ? 'Loading...' : 'Click to view on Wikipedia →'}
         </div>
       </div>
@@ -528,7 +542,7 @@ function CelestialObject({ obj, index, overridePosition }) {
         />
         <Text
           position={[0, -0.2, 0]}
-          fontSize={0.1}
+          fontSize={0.1 * fontScale}
           color="#ffffff"
           anchorX="center"
           anchorY="top"
@@ -560,7 +574,7 @@ function CelestialObject({ obj, index, overridePosition }) {
       </mesh>
       <Text
         position={[0.1, 0.1, 0]}
-        fontSize={0.12}
+        fontSize={0.12 * fontScale}
         color="#ffffff"
         anchorX="left"
         anchorY="bottom"
