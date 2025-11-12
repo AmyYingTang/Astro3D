@@ -472,13 +472,9 @@ function useFontScale() {
 function CelestialObject({ obj, index, overridePosition }) {
   console.log(`......................: ${obj.wikiUrl}`);
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
-  //const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
   const fontScale = useFontScale(); 
-  const isExtragalactic = obj.dist > 100000;
-  const radius = isExtragalactic ? 10.2 : astronomicalScore(obj.dist);
 
-  //const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), radius);
-// 🔧 如果传入了overridePosition就用它，否则正常计算
+  // 🔧 如果传入了overridePosition就用它，否则正常计算
   let x, y, z;
   if (overridePosition) {
     [x, y, z] = overridePosition;
@@ -520,9 +516,9 @@ function CelestialObject({ obj, index, overridePosition }) {
         <div style={{ fontWeight: 'bold', fontSize: `${10 * fontScale}px`, marginBottom: '5px', color: '#4a9eff' }}>
           {obj.name}
         </div>
-        <div>RA: {convertRA(obj.ra).toFixed(2)}°</div>
-        <div>DEC: {convertDEC(obj.dec) > 0 ? '+' : ''}{convertDEC(obj.dec).toFixed(2)}°</div>
-        <div>Distance: {obj.dist} light years</div>
+        <div>RA: {obj.ra}</div>
+        <div>DEC: {obj.dec}</div>
+        <div>Distance: {parseFloat(obj.dist).toLocaleString()} light years</div>
         <div style={{ marginTop: '5px', fontSize: `${10 * fontScale}px`, color: '#aaa' }}>
           {loading ? 'Loading...' : 'Click to view on Wikipedia →'}
         </div>
