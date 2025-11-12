@@ -42,37 +42,31 @@ const astronomicalScore = (lightYears) => {
 };
 
 const convertRA = (raString) => {
-  // 处理格式: "05h 23m 34s"
   const match = raString.match(/(\d+)h\s*(\d+)m\s*(\d+)s/);
-  if (!match) return 0;
+  if (!match) return raString;
   
   const hours = parseInt(match[1]);
   const minutes = parseInt(match[2]);
-  const seconds = parseInt(match[3]);
   
-  // 转换为度数 (小时 * 15 + 分钟 * 0.25 + 秒 * 0.00416667)
-  return hours * 15 + minutes * 0.25 + seconds * 0.004166667;
+  return (hours + minutes / 100).toFixed(2);
 };
 
 const convertDEC = (decString) => {
-  // 处理格式: "-69° 45' 22"" 或 "+41° 16' 09""
   const match = decString.match(/([+-]?\d+)°\s*(\d+)'\s*(\d+)/);
-  if (!match) return 0;
+  if (!match) return decString;
   
   const degrees = parseInt(match[1]);
   const minutes = parseInt(match[2]);
-  const seconds = parseInt(match[3]);
   
   const isNegative = degrees < 0;
-  const decimal = Math.abs(degrees) + minutes / 60 + seconds / 3600;
+  const decimal = Math.abs(degrees) + minutes / 100;
   
-  return (isNegative ? -decimal : decimal);
+  return (isNegative ? -decimal : decimal).toFixed(2);
 };
 
 const extractWikiTitle = (url) => {
   const parts = url.split('/wiki/');
   return parts.length > 1 ? decodeURIComponent(parts[1]) : url;
-  //return url.split('/wiki/')[1] || url;
 };
 
 // === Wikipedia API 图片获取 Hook ===
@@ -413,8 +407,7 @@ function Axes({ length = 3.1 }) {
 
 // === 单个梅西耶天体 ===
 function MessierObject({ obj, index }) {
-  console.log(`......................: ${obj.wikiUrl}`);
-  const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
+  const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.Wikipedia));
   const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
   const color = new THREE.Color(`hsl(${(index * 25) % 360}, 80%, 60%)`);
   const [hovered, setHovered] = useState(false);
@@ -450,7 +443,7 @@ function MessierObject({ obj, index }) {
         </div>
         <div>RA: {convertRA(obj.ra).toFixed(2)}°</div>
         <div>DEC: {convertDEC(obj.dec) > 0 ? '+' : ''}{convertDEC(obj.dec).toFixed(2)}°</div>
-        <div>Distance: {obj.dist} light years</div>
+        <div>Distance: {astronomicalScore(obj.dist).toFixed(1)} units</div>
         <div style={{ marginTop: '5px', fontSize: '7px', color: '#aaa' }}>
           {loading ? 'Loading...' : 'Click to view on Wikipedia →'}
         </div>
@@ -613,11 +606,10 @@ export default function App() {
         // 清理数据，转为数值
         const cleaned = parsed.map(d => ({
           name: d.天体名称,
-          ra: d.RA,
-          dec: d.DEC,
-          dist: d.距离光年,
+          ra: parseFloat(d.RA),
+          dec: parseFloat(d.DEC),
+          dist: parseFloat(d.距离光年),
           imageUrl: d.Image || null,
-          wikiUrl: d.Wikipedia || null,
         }));
         setMessierData(cleaned);
       });

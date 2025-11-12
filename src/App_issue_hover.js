@@ -1,79 +1,32 @@
 // 文件：App.jsx
-import React, { Suspense, useMemo, useState, useEffect, useRef } from "react";
-import Papa from "papaparse"
-import { Canvas,useLoader,useFrame} from "@react-three/fiber";
+import React, { Suspense, useMemo, useState, useEffect } from "react";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars, Text, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 // === 梅西耶星体数据（包含Wikipedia页面名称） ===
-// const messierData = [
-//   { name: "M1", wikiName: "Crab_Nebula", ra: 83.63, dec: 22.01, dist: 2 },
-//   { name: "M13", wikiName: "Messier_13", ra: 250.42, dec: 36.46, dist: 2.5 },
-//   { name: "M31", wikiName: "Andromeda_Galaxy", ra: 10.68, dec: 41.27, dist: 3 },
-//   { name: "M42", wikiName: "Orion_Nebula", ra: 83.82, dec: -5.39, dist: 2 },
-//   { name: "M45", wikiName: "Pleiades", ra: 56.75, dec: 24.12, dist: 2.2 },
-//   { name: "M51", wikiName: "Whirlpool_Galaxy", ra: 202.47, dec: 47.19, dist: 3 },
-//   { name: "M57", wikiName: "Ring_Nebula", ra: 283.39, dec: 33.03, dist: 2.8 },
-//   { name: "M81", wikiName: "Messier_81", ra: 148.89, dec: 69.07, dist: 3 },
-//   { name: "M82", wikiName: "Messier_82", ra: 148.97, dec: 69.68, dist: 3.1 },
-//   { name: "M87", wikiName: "Messier_87", ra: 187.71, dec: 12.39, dist: 3.5 },
-//   { name: "M8", wikiName: "Lagoon_Nebula", ra: 270.92, dec: -24.38, dist: 2.3 },
-//   { name: "M20", wikiName: "Trifid_Nebula", ra: 270.68, dec: -22.97, dist: 2.4 },
-//   { name: "M27", wikiName: "Dumbbell_Nebula", ra: 299.90, dec: 22.72, dist: 2.5 },
-//   { name: "M33", wikiName: "Triangulum_Galaxy", ra: 23.46, dec: 30.66, dist: 2.8 },
-//   { name: "M63", wikiName: "Sunflower_Galaxy", ra: 198.96, dec: 42.03, dist: 3.1 },
-//   { name: "M64", wikiName: "Black_Eye_Galaxy", ra: 194.19, dec: 21.68, dist: 2.7 },
-//   { name: "M101", wikiName: "Pinwheel_Galaxy", ra: 210.80, dec: 54.35, dist: 3 },
-//   { name: "M104", wikiName: "Sombrero_Galaxy", ra: 190.00, dec: -11.62, dist: 2.9 },
-//   { name: "M83", wikiName: "Southern_Pinwheel_Galaxy", ra: 204.25, dec: -29.87, dist: 2.6 },
-//   { name: "M5", wikiName: "Messier_5", ra: 229.64, dec: 2.08, dist: 2.4 },
-// ];
-const messierData = [];
-
-const astronomicalScore = (lightYears) => {
-  if (lightYears < 5000) {
-    return Math.round((2.0 + (lightYears / 5000) * 3.0) * 10) / 10;
-  } else if (lightYears < 200000) {
-    return Math.round((5.0 + ((lightYears - 5000) / 195000) * 2.0) * 10) / 10;
-  } else {
-    const score = 7.0 + Math.min((lightYears - 200000) / 28800000, 1) * 3.0;
-    return Math.round(score * 10) / 10;
-  }
-};
-
-const convertRA = (raString) => {
-  // 处理格式: "05h 23m 34s"
-  const match = raString.match(/(\d+)h\s*(\d+)m\s*(\d+)s/);
-  if (!match) return 0;
-  
-  const hours = parseInt(match[1]);
-  const minutes = parseInt(match[2]);
-  const seconds = parseInt(match[3]);
-  
-  // 转换为度数 (小时 * 15 + 分钟 * 0.25 + 秒 * 0.00416667)
-  return hours * 15 + minutes * 0.25 + seconds * 0.004166667;
-};
-
-const convertDEC = (decString) => {
-  // 处理格式: "-69° 45' 22"" 或 "+41° 16' 09""
-  const match = decString.match(/([+-]?\d+)°\s*(\d+)'\s*(\d+)/);
-  if (!match) return 0;
-  
-  const degrees = parseInt(match[1]);
-  const minutes = parseInt(match[2]);
-  const seconds = parseInt(match[3]);
-  
-  const isNegative = degrees < 0;
-  const decimal = Math.abs(degrees) + minutes / 60 + seconds / 3600;
-  
-  return (isNegative ? -decimal : decimal);
-};
-
-const extractWikiTitle = (url) => {
-  const parts = url.split('/wiki/');
-  return parts.length > 1 ? decodeURIComponent(parts[1]) : url;
-  //return url.split('/wiki/')[1] || url;
-};
+const messierData = [
+  { name: "M1", wikiName: "Crab_Nebula", ra: 83.63, dec: 22.01, dist: 2 },
+  { name: "M13", wikiName: "Messier_13", ra: 250.42, dec: 36.46, dist: 2.5 },
+  { name: "M31", wikiName: "Andromeda_Galaxy", ra: 10.68, dec: 41.27, dist: 3 },
+  { name: "M42", wikiName: "Orion_Nebula", ra: 83.82, dec: -5.39, dist: 2 },
+  { name: "M45", wikiName: "Pleiades", ra: 56.75, dec: 24.12, dist: 2.2 },
+  { name: "M51", wikiName: "Whirlpool_Galaxy", ra: 202.47, dec: 47.19, dist: 3 },
+  { name: "M57", wikiName: "Ring_Nebula", ra: 283.39, dec: 33.03, dist: 2.8 },
+  { name: "M81", wikiName: "Messier_81", ra: 148.89, dec: 69.07, dist: 3 },
+  { name: "M82", wikiName: "Messier_82", ra: 148.97, dec: 69.68, dist: 3.1 },
+  { name: "M87", wikiName: "Messier_87", ra: 187.71, dec: 12.39, dist: 3.5 },
+  { name: "M8", wikiName: "Lagoon_Nebula", ra: 270.92, dec: -24.38, dist: 2.3 },
+  { name: "M20", wikiName: "Trifid_Nebula", ra: 270.68, dec: -22.97, dist: 2.4 },
+  { name: "M27", wikiName: "Dumbbell_Nebula", ra: 299.90, dec: 22.72, dist: 2.5 },
+  { name: "M33", wikiName: "Triangulum_Galaxy", ra: 23.46, dec: 30.66, dist: 2.8 },
+  { name: "M63", wikiName: "Sunflower_Galaxy", ra: 198.96, dec: 42.03, dist: 3.1 },
+  { name: "M64", wikiName: "Black_Eye_Galaxy", ra: 194.19, dec: 21.68, dist: 2.7 },
+  { name: "M101", wikiName: "Pinwheel_Galaxy", ra: 210.80, dec: 54.35, dist: 3 },
+  { name: "M104", wikiName: "Sombrero_Galaxy", ra: 190.00, dec: -11.62, dist: 2.9 },
+  { name: "M83", wikiName: "Southern_Pinwheel_Galaxy", ra: 204.25, dec: -29.87, dist: 2.6 },
+  { name: "M5", wikiName: "Messier_5", ra: 229.64, dec: 2.08, dist: 2.4 },
+];
 
 // === Wikipedia API 图片获取 Hook ===
 function useWikipediaImage(wikiPageName) {
@@ -133,78 +86,15 @@ function raDecToXYZ(raDeg, decDeg, radius) {
   return [x, y, z];
 }
 
-
-// === 地球模型（使用真实纹理） ===
+// === 地球模型 ===
 function Earth() {
-  // 使用高质量的地球纹理
-  // 纹理来源说明：
-  // 这些纹理应该从以下来源下载并放入 public 文件夹：
-  // 1. Solar System Scope: https://www.solarsystemscope.com/textures/
-  // 2. Planet Pixel Emporium: https://planetpixelemporium.com/earth8081.html
-  // 3. NASA Visible Earth: https://visibleearth.nasa.gov/
-  
-  // 如果你还没有纹理文件，可以使用备用方案（程序化生成）
-  const USE_REAL_TEXTURES = true; // 设置为 true 当你下载了纹理文件
-  
-  if (USE_REAL_TEXTURES) {
-    // 真实纹理版本
-    return <EarthWithTextures />;
-  } else {
-    // 备用方案：简化的程序化地球
-    return <EarthFallback />;
-  }
-}
-
-// 使用真实纹理的地球组件
-function EarthWithTextures() {
-  // 加载纹理
-  // 请确保这些文件存在于 public 文件夹中
-  const earthTexture = useLoader(THREE.TextureLoader, '/textures/earth_day.jpg');
-  const cloudsTexture = useLoader(THREE.TextureLoader, '/textures/earth_clouds.jpg');
-  
-  // 设置纹理的颜色空间
-  earthTexture.colorSpace = THREE.SRGBColorSpace;
-  cloudsTexture.colorSpace = THREE.SRGBColorSpace;
-
-  //TODO useFrame(({ clock }) => { cloudRef.current.rotation.y = clock.getElapsedTime() * 0.01; });
-  
-  return (
-    <group>
-      {/* 地球主体 */}
-      <mesh>
-        <sphereGeometry args={[1, 64, 64]} />
-        <meshStandardMaterial
-          map={earthTexture}
-          roughness={0.8}
-          metalness={0.1}
-          emissive="#224466"        // 稍微自发光一点，让暗处不太黑
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-
-      {/* 云层（半透明球体） */}
-      <mesh>
-        <sphereGeometry args={[1.01, 64, 64]} />
-        <meshPhongMaterial
-          map={cloudsTexture}
-          transparent={true}
-          opacity={0.4}
-          depthWrite={false}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-// 备用方案：简化但更准确的程序化地球
-function EarthFallback() {
   const texture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 2048;
     canvas.height = 1024;
     const ctx = canvas.getContext("2d");
     
-    // 使用更真实的海洋颜色
+    // 海洋渐变
     const oceanGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
     oceanGradient.addColorStop(0, "#1a4d6b");
     oceanGradient.addColorStop(0.5, "#0d3a52");
@@ -212,18 +102,15 @@ function EarthFallback() {
     ctx.fillStyle = oceanGradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // 绘制简化但识别度高的大陆
     const w = canvas.width;
     const h = canvas.height;
     
-    // 转换经纬度到像素
     const lonLatToXY = (lon, lat) => {
       const x = ((lon + 180) / 360) * w;
       const y = ((90 - lat) / 180) * h;
       return [x, y];
     };
     
-    // 绘制大陆
     const drawLand = (coords, color) => {
       ctx.fillStyle = color;
       ctx.beginPath();
@@ -236,7 +123,6 @@ function EarthFallback() {
       ctx.fill();
     };
     
-    // 主要大陆（简化版）
     // 非洲
     drawLand([
       [10, 37], [35, 30], [51, 12], [40, -10], [32, -28], [18, -35],
@@ -269,12 +155,11 @@ function EarthFallback() {
       [113, -20]
     ], '#4a7a3a');
     
-    // 极地冰盖
+    // 极地
     ctx.fillStyle = '#e8f0f8';
-    // 北极
     ctx.fillRect(0, 0, w, h * 0.08);
-    // 南极
     ctx.fillRect(0, h * 0.87, w, h * 0.13);
+    
     // 格陵兰
     ctx.beginPath();
     const greenland = [[-45, 80], [-40, 83], [-25, 80], [-20, 70], [-40, 65], [-50, 70]];
@@ -286,7 +171,7 @@ function EarthFallback() {
     ctx.closePath();
     ctx.fill();
     
-    // 添加地形细节
+    // 细节
     ctx.globalAlpha = 0.15;
     for (let i = 0; i < 600; i++) {
       ctx.fillStyle = i % 2 === 0 ? '#1a3a15' : '#0a2a10';
@@ -302,7 +187,7 @@ function EarthFallback() {
     }
     ctx.globalAlpha = 1.0;
     
-    // 添加云层
+    // 云层
     ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
     for (let i = 0; i < 50; i++) {
       ctx.beginPath();
@@ -369,7 +254,7 @@ function CelestialGrid({ radius = 3 }) {
 }
 
 // === 赤经/赤纬主轴 ===
-function Axes({ length = 3.1 }) {
+function Axes({ length = 3.5 }) {
   const makeLine = (start, end, color, label, labelPos) => {
     const points = [start, end];
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -413,9 +298,8 @@ function Axes({ length = 3.1 }) {
 
 // === 单个梅西耶天体 ===
 function MessierObject({ obj, index }) {
-  console.log(`......................: ${obj.wikiUrl}`);
-  const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
-  const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
+  const { imageUrl, loading } = useWikipediaImage(obj.wikiName);
+  const [x, y, z] = raDecToXYZ(obj.ra, obj.dec, obj.dist);
   const color = new THREE.Color(`hsl(${(index * 25) % 360}, 80%, 60%)`);
   const [hovered, setHovered] = useState(false);
 
@@ -438,7 +322,7 @@ function MessierObject({ obj, index }) {
         color: 'white',
         padding: '10px 15px',
         borderRadius: '8px',
-        fontSize: '7px',
+        fontSize: '12px',
         fontFamily: 'monospace',
         whiteSpace: 'nowrap',
         border: '1px solid rgba(255, 255, 255, 0.3)',
@@ -448,10 +332,10 @@ function MessierObject({ obj, index }) {
         <div style={{ fontWeight: 'bold', marginBottom: '5px', color: '#4a9eff' }}>
           {obj.name}
         </div>
-        <div>RA: {convertRA(obj.ra).toFixed(2)}°</div>
-        <div>DEC: {convertDEC(obj.dec) > 0 ? '+' : ''}{convertDEC(obj.dec).toFixed(2)}°</div>
-        <div>Distance: {obj.dist} light years</div>
-        <div style={{ marginTop: '5px', fontSize: '7px', color: '#aaa' }}>
+        <div>RA: {obj.ra.toFixed(2)}°</div>
+        <div>DEC: {obj.dec > 0 ? '+' : ''}{obj.dec.toFixed(2)}°</div>
+        <div>Distance: {obj.dist.toFixed(1)} units</div>
+        <div style={{ marginTop: '5px', fontSize: '10px', color: '#aaa' }}>
           {loading ? 'Loading...' : 'Click to view on Wikipedia →'}
         </div>
       </div>
@@ -492,11 +376,11 @@ function MessierObject({ obj, index }) {
         onPointerLeave={() => setHovered(false)}
       >
         <sphereGeometry args={[0.05, 16, 16]} />
-        {/* <meshBasicMaterial 
+        <meshBasicMaterial 
           color={loading ? "#666" : color}
           emissive={hovered ? color : "#000000"}
           emissiveIntensity={hovered ? 0.5 : 0}
-        /> */}
+        />
       </mesh>
       <Text
         position={[0.1, 0.1, 0]}
@@ -573,12 +457,10 @@ function ImageSprite({ imageUrl, size = 0.3, onClick, onPointerEnter, onPointerL
 }
 
 // === 梅西耶星体组 ===
-function MessierObjects({data}) {
-  if (!data?.length) return null;
-  
+function MessierObjects() {
   return (
     <group>
-      {data.map((obj, i) => (
+      {messierData.map((obj, i) => (
         <MessierObject key={i} obj={obj} index={i} />
       ))}
     </group>
@@ -604,35 +486,17 @@ function LoadingIndicator() {
 
 // === 主组件 ===
 export default function App() {
-  const [messierData, setMessierData] = useState([]);
-  useEffect(() => {
-    fetch("/data/celestial_objects_database_southern_all.csv")      
-      .then((res) => res.text())
-      .then((text) => {
-        const parsed = Papa.parse(text, { header: true }).data;
-        // 清理数据，转为数值
-        const cleaned = parsed.map(d => ({
-          name: d.天体名称,
-          ra: d.RA,
-          dec: d.DEC,
-          dist: d.距离光年,
-          imageUrl: d.Image || null,
-          wikiUrl: d.Wikipedia || null,
-        }));
-        setMessierData(cleaned);
-      });
-  }, []);
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <color attach="background" args={["#000"]} />
-        <ambientLight intensity={1.6} />
+        <ambientLight intensity={0.6} />
         <pointLight position={[5, 5, 5]} />
         <Suspense fallback={<LoadingIndicator />}>
           <Earth />
           <CelestialGrid />
           <Axes />
-          <MessierObjects data={messierData}/>
+          <MessierObjects />
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls enablePan={false} />
@@ -650,13 +514,15 @@ export default function App() {
         fontSize: '14px',
         maxWidth: '300px'
       }}>
-        <h3 style={{ margin: '0 0 10px 0' }}>天体可视化Draft</h3>
+        <h3 style={{ margin: '0 0 10px 0' }}>梅西耶天体可视化</h3>
         <p style={{ margin: '5px 0', fontSize: '12px' }}>
           • 图片来源：Wikipedia<br/>
-          • Textures by Solar System Scope<br/>
           • 鼠标拖动旋转 / 滚轮缩放<br/>
           • <strong>悬停星体</strong>查看详细信息<br/>
           • <strong>点击星体</strong>打开Wikipedia页面<br/>
+          • 灰色 = 加载中<br/>
+          • 橙色 = 无图片<br/>
+          • 打开控制台查看详细信息
         </p>
       </div>
     </div>

@@ -1,0 +1,37 @@
+﻿天体名称,Wikipedia,可见性,天体类型,星座,最佳观测月份,滤镜,简介,视星等,角直径,DEC,RA,距离光年
+LMC - 大麦哲伦云 - Large Magellanic Cloud,https://en.wikipedia.org/wiki/Large_Magellanic_Cloud,南半球专属,矮星系,剑鱼座 - Dorado,全年,"RGB(宽彩), 无滤镜",银河系最大卫星星系，南天奇观,0.9,650×550角分,"-69° 45' 22""",05h 23m 34s,163000
+SMC - 小麦哲伦云 - Small Magellanic Cloud,https://en.wikipedia.org/wiki/Small_Magellanic_Cloud,南半球专属,矮星系,杜鹃座 - Tucana,全年,"RGB(宽彩), 无滤镜",银河系第二卫星星系,2.7,320×205角分,"-72° 48' 01""",00h 52m 38s,200000
+NGC 3372 - 船底座星云 - Carina Nebula,https://en.wikipedia.org/wiki/Carina_Nebula,南半球专属,发射星云,船底座 - Carina,2-5月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",南天最壮观星云，超越猎户座,3,120×120角分,"-59° 52' 04""",10h 43m 48s,8500
+NGC 5139 - 半人马座欧米茄星团,https://en.wikipedia.org/wiki/Omega_Centauri,南半球专属,球状星团,半人马座 - Centaurus,3-7月,"L(宽带亮度), 无滤镜",最大最亮球状星团，肉眼可见,3.9,36角分,"-47° 28' 46""",13h 26m 47s,15800
+"NGC 104 - 杜鹃座47 - ",https://en.wikipedia.org/wiki/47_Tucanae,南半球专属,球状星团,杜鹃座 - Tucana,10-1月,"L(宽带亮度), 无滤镜",第二亮球状星团,4,31角分,"-72° 04' 53""",00h 24m 05s,13000
+南十字座煤袋星云 - Coalsack,https://en.wikipedia.org/wiki/Coalsack_Nebula,南半球专属,暗星云,南十字座 - Crux,3-8月,"RGB(宽彩), 无滤镜",最著名暗星云，肉眼可见,,400×300角分,-63° 00',12h 50m,600
+"NGC 4755 - 南十字座珠宝盒星团 - ",https://en.wikipedia.org/wiki/Jewel_Box_(star_cluster),南半球专属,疏散星团,南十字座 - Crux,3-8月,"RGB(宽彩), 无滤镜",色彩斑斓的开放星团,4.2,10角分,"-60° 20' 00""",12h 53m 39s,7600
+"NGC 3324 - 船底座钥匙孔星云 - ",https://en.wikipedia.org/wiki/NGC_3324,南半球专属,发射星云,船底座 - Carina,2-5月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",船底座星云的一部分,,16×14角分,"-58° 38' 00""",10h 37m 20s,7500
+"NGC 2070 - 蜘蛛星云 - ",https://en.wikipedia.org/wiki/Tarantula_Nebula,南半球专属,发射星云,剑鱼座 - Dorado,12-3月,"Ha(氢阿尔法), OIII(氧III)",大麦云内最亮区域,8,40角分,"-69° 05' 39""",05h 38m 38s,160000
+"NGC 300 - ",https://en.wikipedia.org/wiki/NGC_300,南半球优势,旋涡星系,玉夫座 - Sculptor,10-12月,"L(宽带亮度), RGB(宽彩)",玉夫座星系群成员,8.1,22×16角分,"-37° 41' 03""",00h 54m 54s,6070000
+NGC 253 - 雕刻家星系,https://en.wikipedia.org/wiki/Sculptor_Galaxy,南半球优势,旋涡星系,玉夫座 - Sculptor,10-12月,"Ha(氢阿尔法), L(宽带亮度), RGB(宽彩)",明亮的侧向星系,7.1,27×7角分,"-25° 17' 18""",00h 47m 33s,11400000
+"NGC 5128 - 半人马座A - ",https://en.wikipedia.org/wiki/Centaurus_A,南半球优势,透镜状星系,半人马座 - Centaurus,3-8月,"L(宽带亮度), RGB(宽彩)",著名活跃星系，明显尘埃带,7,26×20角分,"-43° 01' 09""",13h 25m 28s,12000000
+" NGC 3372-1 - 南回归星云 -",https://en.wikipedia.org/wiki/Carina_Nebula,南半球专属,发射星云,船底座 - Carina,2-5月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",船底座星云的经典区域,,4角分,"-59° 41' 04""",10h 44m 15s,8500
+IC 2944 - 跑鸡星云,https://en.wikipedia.org/wiki/IC_2944,南半球优势,发射星云,半人马座 - Centaurus,3-7月,"Ha(氢阿尔法), OIII(氧III)",含塞特柱（Thackeray's Globules）,4.5,75×50角分,"-63° 02' 00""",11h 36m 37s,5900
+NGC2070 30 Doradus,https://en.wikipedia.org/wiki/Tarantula_Nebula,南半球专属,发射星云,剑鱼座 - Dorado,12-3月,"Ha(氢阿尔法), OIII(氧III)",蜘蛛星云，超大质量恒星诞生地,8,40角分,"-69° 06' 03""",05h 38m 42s,160000
+M42 - 猎户座大星云 - M42,https://en.wikipedia.org/wiki/Orion_Nebula,全年可见,发射星云,猎户座 - Orion,12-3月,"Ha(氢阿尔法), OIII(氧III), RGB(宽彩)",最著名星云，冬季低空可见,4,65×60角分,"-05° 23' 28""",05h 35m 17s,1344
+M31 - 仙女座星系 - M31,https://en.wikipedia.org/wiki/Andromeda_Galaxy,北半球天体,旋涡星系,仙女座 - Andromeda,从不升起,"L(宽带亮度), RGB(宽彩)",对-38度几乎不可见,3.4,178×63角分,"+41° 16' 09""",00h 42m 44s,2537000
+NGC 2237 - 玫瑰星云 - NGC2237,https://en.wikipedia.org/wiki/Rosette_Nebula,低空可见,发射星云,麒麟座 - Monoceros,1-3月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",冬季近地平线,,80×60角分,"+04° 52' 00""",06h 32m 18s,5200
+IC 434 - 马头星云 - IC434,https://en.wikipedia.org/wiki/Horsehead_Nebula,低空可见,暗星云,猎户座 - Orion,12-3月,Ha(氢阿尔法),冬季低空，需Ha滤镜,,60×10角分,"-02° 27' 30""",05h 40m 59s,1500
+NGC 2024 - 火焰星云 - NGC2024,https://en.wikipedia.org/wiki/Flame_Nebula,低空可见,发射星云,猎户座 - Orion,12-3月,"Ha(氢阿尔法), OIII(氧III)",猎户座腰带附近,,30×30角分,"-01° 50' 33""",05h 41m 43s,1500
+M45 - 昴星团 - M45,https://en.wikipedia.org/wiki/Pleiades,低空可见,疏散星团,金牛座 - Taurus,11-2月,"RGB(宽彩), 无滤镜",冬季低空，位置不理想,1.6,110角分,"+24° 07' 00""",03h 47m 00s,444
+M33 - 三角座星系 - M33,https://en.wikipedia.org/wiki/Triangulum_Galaxy,北半球天体,旋涡星系,三角座 - Triangulum,从不升起,"L(宽带亮度), RGB(宽彩)",-38度看不到,5.7,70×45角分,"+30° 39' 37""",01h 33m 51s,2730000
+IC 1805 - 心脏星云 - IC1805,https://en.wikipedia.org/wiki/Heart_Nebula,北半球天体,发射星云,仙后座 - Cassiopeia,从不升起,"Ha(氢阿尔法), OIII(氧III)",-38度看不到,6.5,60角分,"+61° 27' 00""",02h 32m 42s,7500
+IC 1848 - 灵魂星云 - IC1848,https://en.wikipedia.org/wiki/Soul_Nebula,北半球天体,发射星云,仙后座 - Cassiopeia,从不升起,"Ha(氢阿尔法), OIII(氧III)",-38度看不到,6.5,60角分,"+60° 26' 00""",02h 51m 30s,7500
+"NGC7000 - 北美洲星云 - ",https://en.wikipedia.org/wiki/North_America_Nebula,北半球天体,发射星云,天鹅座 - Cygnus,从不升起,"Ha(氢阿尔法), OIII(氧III)",-38度看不到,4,120×100角分,"+44° 20' 00""",20h 58m 48s,2590
+M20 - 三裂星云,https://en.wikipedia.org/wiki/Trifid_Nebula,全年可见,发射星云,人马座 - Sagittarius,6-8月,"Ha(氢阿尔法), OIII(氧III), RGB(宽彩)",与礁湖星云相邻,6.3,28角分,"-23° 01' 48""",18h 02m 23s,5200
+M8 - 礁湖星云 -,https://en.wikipedia.org/wiki/Lagoon_Nebula,全年可见,发射星云,人马座 - Sagittarius,6-8月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",夏季银河区，位置很好,6,90×40角分,"-24° 23' 12""",18h 03m 37s,5200
+M16 - 鹰状星云,https://en.wikipedia.org/wiki/Eagle_Nebula,全年可见,发射星云,巨蛇座 - Serpens,6-8月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",创生之柱，夏季可见,6,7角分,"-13° 49' 00""",18h 18m 48s,7000
+NGC 6543 - 猫眼星云,https://en.wikipedia.org/wiki/Cat%27s_Eye_Nebula,北半球天体,行星状星云,天龙座 - Draco,从不升起,"Ha(氢阿尔法), OIII(氧III)",-38度看不到,8.1,0.3角分,"+66° 37' 59""",17h 58m 33s,3300
+M104 - 草帽星系,https://en.wikipedia.org/wiki/Sombrero_Galaxy,全年可见,透镜状星系,室女座 - Virgo,3-6月,"L(宽带亮度), RGB(宽彩)",春季天空，位置尚可,8,9×4角分,"-11° 37' 23""",12h 39m 59s,29000000
+M51 - 涡状星系,https://en.wikipedia.org/wiki/Whirlpool_Galaxy,北半球天体,旋涡星系,猎犬座 - Canes Venatici,从不升起,"Ha(氢阿尔法), L(宽带亮度), RGB(宽彩)",-38度看不到,8.4,11×7角分,"+47° 11' 43""",13h 29m 53s,23000000
+NGC 7293 - 螺旋星云 - Helix Nebula,"https://en.wikipedia.org/wiki/Helix_Nebula ",南半球优势,行星状星云,宝瓶座 - Aquarius,8-11月,"Ha(氢阿尔法), OIII(氧III)",最近的行星状星云之一，角直径超过满月的一半，适合中等焦距拍摄，Ha+OIII效果极佳,7.6,16x12角分,"-20° 50' 14""",22h 29m 39s,695
+NGC 3132 - 八裂星云 - Southern Ring Nebula,https://en.wikipedia.org/wiki/NGC_3132,南半球优势,行星状星云,船帆座 - Vela,2-5月,"Ha(氢阿尔法), OIII(氧III)",南天环状星云，双星系统产生，结构对称美丽，韦伯望远镜拍摄对象，中等焦距即可拍摄,8.2,62x47角秒,-40° 26' 11”,10h 07m 02s,2000
+NGC 6302 - 虫状星云 - Bug Nebula,https://en.wikipedia.org/wiki/Bug_Nebula,南半球优势,行星状星云,天蝎座 - Scorpius,6-8月,"Ha(氢阿尔法), OIII(氧III)",双极行星状星云，形似蝴蝶或虫子，中心星温度极高达20万K，哈勃拍摄名作，结构复杂适合长焦拍摄,9.6,50角秒,-37° 06' 13”,17h 13m 44s,3400
+"NGC 2440 ",https://en.wikipedia.org/wiki/NGC_2440,全年可见,行星状星云,船尾座 - Puppis,1-4月,"Ha(氢阿尔法), OIII(氧III)",不规则行星状星云，中心白矮星是已知最热的恒星之一(20万K)，混乱的多层结构显示多次抛射历史,9.4,72x32角秒,-18° 12' 32”,07h 41m 55s,4000
+IC 5148 - 备胎星云 - Spare Tyre Nebula,https://en.wikipedia.org/wiki/IC_5148,南半球优势,行星状星云,天鹤座 - Grus,8-11月,"Ha(氢阿尔法), OIII(氧III)",备胎星云，大型行星状星云，环状结构清晰，南半球-38度位置极佳，Ha+OIII效果显著，适合中等焦距拍摄,11,120角秒,-39° 23' 08”,21h 59m 35s,3000

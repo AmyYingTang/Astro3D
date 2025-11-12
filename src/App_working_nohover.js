@@ -1,79 +1,32 @@
 // 文件：App.jsx
-import React, { Suspense, useMemo, useState, useEffect, useRef } from "react";
-import Papa from "papaparse"
-import { Canvas,useLoader,useFrame} from "@react-three/fiber";
+import React, { Suspense, useMemo, useState, useEffect } from "react";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stars, Text, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 // === 梅西耶星体数据（包含Wikipedia页面名称） ===
-// const messierData = [
-//   { name: "M1", wikiName: "Crab_Nebula", ra: 83.63, dec: 22.01, dist: 2 },
-//   { name: "M13", wikiName: "Messier_13", ra: 250.42, dec: 36.46, dist: 2.5 },
-//   { name: "M31", wikiName: "Andromeda_Galaxy", ra: 10.68, dec: 41.27, dist: 3 },
-//   { name: "M42", wikiName: "Orion_Nebula", ra: 83.82, dec: -5.39, dist: 2 },
-//   { name: "M45", wikiName: "Pleiades", ra: 56.75, dec: 24.12, dist: 2.2 },
-//   { name: "M51", wikiName: "Whirlpool_Galaxy", ra: 202.47, dec: 47.19, dist: 3 },
-//   { name: "M57", wikiName: "Ring_Nebula", ra: 283.39, dec: 33.03, dist: 2.8 },
-//   { name: "M81", wikiName: "Messier_81", ra: 148.89, dec: 69.07, dist: 3 },
-//   { name: "M82", wikiName: "Messier_82", ra: 148.97, dec: 69.68, dist: 3.1 },
-//   { name: "M87", wikiName: "Messier_87", ra: 187.71, dec: 12.39, dist: 3.5 },
-//   { name: "M8", wikiName: "Lagoon_Nebula", ra: 270.92, dec: -24.38, dist: 2.3 },
-//   { name: "M20", wikiName: "Trifid_Nebula", ra: 270.68, dec: -22.97, dist: 2.4 },
-//   { name: "M27", wikiName: "Dumbbell_Nebula", ra: 299.90, dec: 22.72, dist: 2.5 },
-//   { name: "M33", wikiName: "Triangulum_Galaxy", ra: 23.46, dec: 30.66, dist: 2.8 },
-//   { name: "M63", wikiName: "Sunflower_Galaxy", ra: 198.96, dec: 42.03, dist: 3.1 },
-//   { name: "M64", wikiName: "Black_Eye_Galaxy", ra: 194.19, dec: 21.68, dist: 2.7 },
-//   { name: "M101", wikiName: "Pinwheel_Galaxy", ra: 210.80, dec: 54.35, dist: 3 },
-//   { name: "M104", wikiName: "Sombrero_Galaxy", ra: 190.00, dec: -11.62, dist: 2.9 },
-//   { name: "M83", wikiName: "Southern_Pinwheel_Galaxy", ra: 204.25, dec: -29.87, dist: 2.6 },
-//   { name: "M5", wikiName: "Messier_5", ra: 229.64, dec: 2.08, dist: 2.4 },
-// ];
-const messierData = [];
-
-const astronomicalScore = (lightYears) => {
-  if (lightYears < 5000) {
-    return Math.round((2.0 + (lightYears / 5000) * 3.0) * 10) / 10;
-  } else if (lightYears < 200000) {
-    return Math.round((5.0 + ((lightYears - 5000) / 195000) * 2.0) * 10) / 10;
-  } else {
-    const score = 7.0 + Math.min((lightYears - 200000) / 28800000, 1) * 3.0;
-    return Math.round(score * 10) / 10;
-  }
-};
-
-const convertRA = (raString) => {
-  // 处理格式: "05h 23m 34s"
-  const match = raString.match(/(\d+)h\s*(\d+)m\s*(\d+)s/);
-  if (!match) return 0;
-  
-  const hours = parseInt(match[1]);
-  const minutes = parseInt(match[2]);
-  const seconds = parseInt(match[3]);
-  
-  // 转换为度数 (小时 * 15 + 分钟 * 0.25 + 秒 * 0.00416667)
-  return hours * 15 + minutes * 0.25 + seconds * 0.004166667;
-};
-
-const convertDEC = (decString) => {
-  // 处理格式: "-69° 45' 22"" 或 "+41° 16' 09""
-  const match = decString.match(/([+-]?\d+)°\s*(\d+)'\s*(\d+)/);
-  if (!match) return 0;
-  
-  const degrees = parseInt(match[1]);
-  const minutes = parseInt(match[2]);
-  const seconds = parseInt(match[3]);
-  
-  const isNegative = degrees < 0;
-  const decimal = Math.abs(degrees) + minutes / 60 + seconds / 3600;
-  
-  return (isNegative ? -decimal : decimal);
-};
-
-const extractWikiTitle = (url) => {
-  const parts = url.split('/wiki/');
-  return parts.length > 1 ? decodeURIComponent(parts[1]) : url;
-  //return url.split('/wiki/')[1] || url;
-};
+const messierData = [
+  { name: "M1", wikiName: "Crab_Nebula", ra: 83.63, dec: 22.01, dist: 2 },
+  { name: "M13", wikiName: "Messier_13", ra: 250.42, dec: 36.46, dist: 2.5 },
+  { name: "M31", wikiName: "Andromeda_Galaxy", ra: 10.68, dec: 41.27, dist: 3 },
+  { name: "M42", wikiName: "Orion_Nebula", ra: 83.82, dec: -5.39, dist: 2 },
+  { name: "M45", wikiName: "Pleiades", ra: 56.75, dec: 24.12, dist: 2.2 },
+  { name: "M51", wikiName: "Whirlpool_Galaxy", ra: 202.47, dec: 47.19, dist: 3 },
+  { name: "M57", wikiName: "Ring_Nebula", ra: 283.39, dec: 33.03, dist: 2.8 },
+  { name: "M81", wikiName: "Messier_81", ra: 148.89, dec: 69.07, dist: 3 },
+  { name: "M82", wikiName: "Messier_82", ra: 148.97, dec: 69.68, dist: 3.1 },
+  { name: "M87", wikiName: "Messier_87", ra: 187.71, dec: 12.39, dist: 3.5 },
+  { name: "M8", wikiName: "Lagoon_Nebula", ra: 270.92, dec: -24.38, dist: 2.3 },
+  { name: "M20", wikiName: "Trifid_Nebula", ra: 270.68, dec: -22.97, dist: 2.4 },
+  { name: "M27", wikiName: "Dumbbell_Nebula", ra: 299.90, dec: 22.72, dist: 2.5 },
+  { name: "M33", wikiName: "Triangulum_Galaxy", ra: 23.46, dec: 30.66, dist: 2.8 },
+  { name: "M63", wikiName: "Sunflower_Galaxy", ra: 198.96, dec: 42.03, dist: 3.1 },
+  { name: "M64", wikiName: "Black_Eye_Galaxy", ra: 194.19, dec: 21.68, dist: 2.7 },
+  { name: "M101", wikiName: "Pinwheel_Galaxy", ra: 210.80, dec: 54.35, dist: 3 },
+  { name: "M104", wikiName: "Sombrero_Galaxy", ra: 190.00, dec: -11.62, dist: 2.9 },
+  { name: "M83", wikiName: "Southern_Pinwheel_Galaxy", ra: 204.25, dec: -29.87, dist: 2.6 },
+  { name: "M5", wikiName: "Messier_5", ra: 229.64, dec: 2.08, dist: 2.4 },
+];
 
 // === Wikipedia API 图片获取 Hook ===
 function useWikipediaImage(wikiPageName) {
@@ -85,6 +38,7 @@ function useWikipediaImage(wikiPageName) {
       try {
         console.log(`Fetching image for Wikipedia page: ${wikiPageName}`);
         
+        // 直接使用Wikipedia页面名称获取图片
         const imageApiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(wikiPageName)}&prop=pageimages&pithumbsize=500`;
         
         const response = await fetch(imageApiUrl);
@@ -104,12 +58,61 @@ function useWikipediaImage(wikiPageName) {
           console.log(`✓ Image found for ${wikiPageName}: ${thumbnail}`);
           setImageUrl(thumbnail);
         } else {
-          console.log(`✗ No thumbnail for ${wikiPageName}`);
+          console.log(`✗ No thumbnail for ${wikiPageName}, trying alternative method...`);
+          // 尝试获取页面的第一张图片
+          await fetchFirstImage(wikiPageName);
         }
       } catch (error) {
         console.error(`Error fetching image for ${wikiPageName}:`, error);
       } finally {
         setLoading(false);
+      }
+    }
+
+    // 获取页面中的第一张图片
+    async function fetchFirstImage(pageTitle) {
+      try {
+        const imageListUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(pageTitle)}&prop=images&imlimit=10`;
+        
+        const response = await fetch(imageListUrl);
+        const data = await response.json();
+        
+        const pages = data.query?.pages;
+        if (!pages) return;
+        
+        const pageId = Object.keys(pages)[0];
+        const images = pages[pageId]?.images;
+        
+        if (images && images.length > 0) {
+          // 找到第一个看起来像主图的图片
+          for (const img of images) {
+            const filename = img.title;
+            if (!filename.includes('Commons-logo') && 
+                !filename.includes('Wiki') &&
+                !filename.includes('Icon') &&
+                (filename.includes('.jpg') || filename.includes('.png') || filename.includes('.jpeg'))) {
+              
+              // 获取图片URL
+              const imgUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(filename)}&prop=imageinfo&iiprop=url&iiurlwidth=500`;
+              const imgResponse = await fetch(imgUrl);
+              const imgData = await imgResponse.json();
+              
+              const imgPages = imgData.query?.pages;
+              if (imgPages) {
+                const imgPageId = Object.keys(imgPages)[0];
+                const imageUrl = imgPages[imgPageId]?.imageinfo?.[0]?.thumburl || imgPages[imgPageId]?.imageinfo?.[0]?.url;
+                
+                if (imageUrl) {
+                  console.log(`✓ Alternative image found for ${pageTitle}: ${imageUrl}`);
+                  setImageUrl(imageUrl);
+                  break;
+                }
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.error(`Error fetching alternative image:`, error);
       }
     }
 
@@ -132,7 +135,6 @@ function raDecToXYZ(raDeg, decDeg, radius) {
   const z = -radius * Math.cos(dec) * Math.sin(ra);
   return [x, y, z];
 }
-
 
 // === 地球模型（使用真实纹理） ===
 function Earth() {
@@ -160,39 +162,15 @@ function EarthWithTextures() {
   // 加载纹理
   // 请确保这些文件存在于 public 文件夹中
   const earthTexture = useLoader(THREE.TextureLoader, '/textures/earth_day.jpg');
-  const cloudsTexture = useLoader(THREE.TextureLoader, '/textures/earth_clouds.jpg');
   
   // 设置纹理的颜色空间
   earthTexture.colorSpace = THREE.SRGBColorSpace;
-  cloudsTexture.colorSpace = THREE.SRGBColorSpace;
-
-  //TODO useFrame(({ clock }) => { cloudRef.current.rotation.y = clock.getElapsedTime() * 0.01; });
   
   return (
-    <group>
-      {/* 地球主体 */}
-      <mesh>
-        <sphereGeometry args={[1, 64, 64]} />
-        <meshStandardMaterial
-          map={earthTexture}
-          roughness={0.8}
-          metalness={0.1}
-          emissive="#224466"        // 稍微自发光一点，让暗处不太黑
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-
-      {/* 云层（半透明球体） */}
-      <mesh>
-        <sphereGeometry args={[1.01, 64, 64]} />
-        <meshPhongMaterial
-          map={cloudsTexture}
-          transparent={true}
-          opacity={0.4}
-          depthWrite={false}
-        />
-      </mesh>
-    </group>
+    <mesh>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial map={earthTexture} />
+    </mesh>
   );
 }
 
@@ -330,21 +308,22 @@ function EarthFallback() {
 }
 
 // === 天球网格 ===
-function CelestialGrid({ radius = 3 }) {
+function CelestialGrid({ radius = 3, segments = 12 }) {
   const lines = [];
 
+  // 赤纬圈
   for (let dec = -60; dec <= 60; dec += 30) {
     const circle = new THREE.EllipseCurve(
-      0, 0,
+      0,
+      0,
       radius * Math.cos(THREE.MathUtils.degToRad(dec)),
       radius * Math.cos(THREE.MathUtils.degToRad(dec))
     );
-    const points = circle.getPoints(64).map((p) => 
-      new THREE.Vector3(p.x, radius * Math.sin(THREE.MathUtils.degToRad(dec)), p.y)
-    );
+    const points = circle.getPoints(64).map((p) => new THREE.Vector3(p.x, radius * Math.sin(THREE.MathUtils.degToRad(dec)), p.y));
     lines.push(points);
   }
 
+  // 赤经线
   for (let ra = 0; ra < 360; ra += 30) {
     const curve = [];
     for (let dec = -90; dec <= 90; dec += 5) {
@@ -369,105 +348,54 @@ function CelestialGrid({ radius = 3 }) {
 }
 
 // === 赤经/赤纬主轴 ===
-function Axes({ length = 3.1 }) {
-  const makeLine = (start, end, color, label, labelPos) => {
+function Axes({ length = 3.5 }) {
+  const makeLine = (start, end, color) => {
     const points = [start, end];
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     return (
-      <group key={color}>
-        <line geometry={geometry}>
-          <lineBasicMaterial color={color} />
-        </line>
+      <line geometry={geometry}>
+        <lineBasicMaterial color={color} linewidth={8} />
         <Text
-          position={labelPos}
+          position={[length + 0.2, 0, 0]}
           fontSize={0.2}
-          color={color}
-          anchorX={color === 'red' ? 'left' : 'center'}
-          anchorY={color === 'red' ? 'middle' : 'bottom'}
+          color="red"
+          anchorX="left"
+          anchorY="middle"
         >
-          {label}
+          RA 0h
         </Text>
-      </group>
+        <Text
+          position={[0, length + 0.2, 0]}
+          fontSize={0.2}
+          color="blue"
+          anchorX="center"
+          anchorY="bottom"
+        >
+          DEC +90°
+        </Text>
+      </line>
     );
   };
 
   return (
     <group>
-      {makeLine(
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(length, 0, 0),
-        'red',
-        'RA 0h',
-        [length + 0.2, 0, 0]
-      )}
-      {makeLine(
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, length, 0),
-        'blue',
-        'DEC +90°',
-        [0, length + 0.2, 0]
-      )}
+      {makeLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(length, 0, 0), "red")}
+      {makeLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, length, 0), "blue")}
     </group>
   );
 }
 
-// === 单个梅西耶天体 ===
+// === 单个梅西耶天体（带Wikipedia图片） ===
 function MessierObject({ obj, index }) {
-  console.log(`......................: ${obj.wikiUrl}`);
-  const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
-  const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
+  const { imageUrl, loading } = useWikipediaImage(obj.wikiName);
+  const [x, y, z] = raDecToXYZ(obj.ra, obj.dec, obj.dist);
   const color = new THREE.Color(`hsl(${(index * 25) % 360}, 80%, 60%)`);
-  const [hovered, setHovered] = useState(false);
 
-  const handleClick = () => {
-    const wikiUrl = `https://en.wikipedia.org/wiki/${obj.wikiName}`;
-    window.open(wikiUrl, '_blank');
-  };
-
-  useEffect(() => {
-    document.body.style.cursor = hovered ? 'pointer' : 'auto';
-    return () => {
-      document.body.style.cursor = 'auto';
-    };
-  }, [hovered]);
-
-  const InfoPanel = () => (
-    <Html position={[0, imageUrl ? 0.25 : 0.15, 0]} center distanceFactor={10}>
-      <div style={{
-        background: 'rgba(0, 0, 0, 0.85)',
-        color: 'white',
-        padding: '10px 15px',
-        borderRadius: '8px',
-        fontSize: '7px',
-        fontFamily: 'monospace',
-        whiteSpace: 'nowrap',
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        pointerEvents: 'none',
-        userSelect: 'none'
-      }}>
-        <div style={{ fontWeight: 'bold', marginBottom: '5px', color: '#4a9eff' }}>
-          {obj.name}
-        </div>
-        <div>RA: {convertRA(obj.ra).toFixed(2)}°</div>
-        <div>DEC: {convertDEC(obj.dec) > 0 ? '+' : ''}{convertDEC(obj.dec).toFixed(2)}°</div>
-        <div>Distance: {obj.dist} light years</div>
-        <div style={{ marginTop: '5px', fontSize: '7px', color: '#aaa' }}>
-          {loading ? 'Loading...' : 'Click to view on Wikipedia →'}
-        </div>
-      </div>
-    </Html>
-  );
-
+  // 如果有图片，使用Sprite显示
   if (imageUrl && !loading) {
     return (
       <group position={[x, y, z]}>
-        <ImageSprite 
-          imageUrl={imageUrl} 
-          size={0.3}
-          onClick={handleClick}
-          onPointerEnter={() => setHovered(true)}
-          onPointerLeave={() => setHovered(false)}
-        />
+        <ImageSprite imageUrl={imageUrl} size={0.3} />
         <Text
           position={[0, -0.2, 0]}
           fontSize={0.1}
@@ -479,24 +407,16 @@ function MessierObject({ obj, index }) {
         >
           {obj.name}
         </Text>
-        {hovered && <InfoPanel />}
       </group>
     );
   }
 
+  // 如果没有图片或正在加载，显示彩色球体
   return (
     <group position={[x, y, z]}>
-      <mesh
-        onClick={handleClick}
-        onPointerEnter={() => setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
-      >
+      <mesh>
         <sphereGeometry args={[0.05, 16, 16]} />
-        {/* <meshBasicMaterial 
-          color={loading ? "#666" : color}
-          emissive={hovered ? color : "#000000"}
-          emissiveIntensity={hovered ? 0.5 : 0}
-        /> */}
+        <meshBasicMaterial color={loading ? "#666" : color} />
       </mesh>
       <Text
         position={[0.1, 0.1, 0]}
@@ -509,14 +429,12 @@ function MessierObject({ obj, index }) {
       >
         {obj.name}
       </Text>
-      {hovered && <InfoPanel />}
       {loading && (
         <Html position={[0, -0.15, 0]} center>
           <div style={{ 
             color: 'yellow', 
             fontSize: '10px',
-            whiteSpace: 'nowrap',
-            pointerEvents: 'none'
+            whiteSpace: 'nowrap'
           }}>
             loading...
           </div>
@@ -527,7 +445,7 @@ function MessierObject({ obj, index }) {
 }
 
 // === 图片精灵组件 ===
-function ImageSprite({ imageUrl, size = 0.3, onClick, onPointerEnter, onPointerLeave }) {
+function ImageSprite({ imageUrl, size = 0.3 }) {
   const [texture, setTexture] = useState(null);
   const [error, setError] = useState(false);
 
@@ -549,11 +467,7 @@ function ImageSprite({ imageUrl, size = 0.3, onClick, onPointerEnter, onPointerL
 
   if (error || !texture) {
     return (
-      <mesh
-        onClick={onClick}
-        onPointerEnter={onPointerEnter}
-        onPointerLeave={onPointerLeave}
-      >
+      <mesh>
         <sphereGeometry args={[0.05, 16, 16]} />
         <meshBasicMaterial color="#ff6600" />
       </mesh>
@@ -561,24 +475,17 @@ function ImageSprite({ imageUrl, size = 0.3, onClick, onPointerEnter, onPointerL
   }
   
   return (
-    <sprite 
-      scale={[size, size, 1]}
-      onClick={onClick}
-      onPointerOver={onPointerEnter}
-      onPointerOut={onPointerLeave}
-    >
+    <sprite scale={[size, size, 1]}>
       <spriteMaterial map={texture} transparent={true} />
     </sprite>
   );
 }
 
 // === 梅西耶星体组 ===
-function MessierObjects({data}) {
-  if (!data?.length) return null;
-  
+function MessierObjects() {
   return (
     <group>
-      {data.map((obj, i) => (
+      {messierData.map((obj, i) => (
         <MessierObject key={i} obj={obj} index={i} />
       ))}
     </group>
@@ -604,40 +511,23 @@ function LoadingIndicator() {
 
 // === 主组件 ===
 export default function App() {
-  const [messierData, setMessierData] = useState([]);
-  useEffect(() => {
-    fetch("/data/celestial_objects_database_southern_all.csv")      
-      .then((res) => res.text())
-      .then((text) => {
-        const parsed = Papa.parse(text, { header: true }).data;
-        // 清理数据，转为数值
-        const cleaned = parsed.map(d => ({
-          name: d.天体名称,
-          ra: d.RA,
-          dec: d.DEC,
-          dist: d.距离光年,
-          imageUrl: d.Image || null,
-          wikiUrl: d.Wikipedia || null,
-        }));
-        setMessierData(cleaned);
-      });
-  }, []);
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <color attach="background" args={["#000"]} />
-        <ambientLight intensity={1.6} />
+        <ambientLight intensity={0.6} />
         <pointLight position={[5, 5, 5]} />
         <Suspense fallback={<LoadingIndicator />}>
           <Earth />
           <CelestialGrid />
           <Axes />
-          <MessierObjects data={messierData}/>
+          <MessierObjects />
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls enablePan={false} />
       </Canvas>
       
+      {/* 信息面板 */}
       <div style={{
         position: 'absolute',
         top: '20px',
@@ -650,13 +540,15 @@ export default function App() {
         fontSize: '14px',
         maxWidth: '300px'
       }}>
-        <h3 style={{ margin: '0 0 10px 0' }}>天体可视化Draft</h3>
+        <h3 style={{ margin: '0 0 10px 0' }}>梅西耶天体可视化</h3>
         <p style={{ margin: '5px 0', fontSize: '12px' }}>
           • 图片来源：Wikipedia<br/>
           • Textures by Solar System Scope<br/>
           • 鼠标拖动旋转 / 滚轮缩放<br/>
-          • <strong>悬停星体</strong>查看详细信息<br/>
-          • <strong>点击星体</strong>打开Wikipedia页面<br/>
+          • 灰色 = 加载中<br/>
+          • 橙色 = 无图片<br/>
+          • 彩色 = 无数据<br/>
+          • 打开控制台查看详细信息
         </p>
       </div>
     </div>
