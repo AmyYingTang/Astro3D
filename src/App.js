@@ -523,8 +523,8 @@ function CelestialObject({ obj, index, overridePosition }) {
           imageUrl={imageUrl} 
           size={0.3}
           onClick={handleClick}
-          onPointerEnter={() => setHovered(true)}
-          onPointerLeave={() => setHovered(false)}
+         // onPointerEnter={() => setHovered(true)}
+         // onPointerLeave={() => setHovered(false)}
         />
         <Text
           position={[0, -0.2, 0]}
@@ -534,6 +534,8 @@ function CelestialObject({ obj, index, overridePosition }) {
           anchorY="top"
           outlineWidth={0.01}
           outlineColor="black"
+          onPointerEnter={() => setHovered(true)}
+          onPointerLeave={() => setHovered(false)}
         >
           {obj.name}
         </Text>
@@ -546,8 +548,8 @@ function CelestialObject({ obj, index, overridePosition }) {
     <group position={[x, y, z]}>
       <mesh
         onClick={handleClick}
-        onPointerEnter={() => setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
+        //onPointerEnter={() => setHovered(true)}
+        //onPointerLeave={() => setHovered(false)}
       >
         <sphereGeometry args={[0.05, 16, 16]} />
         {/* <meshBasicMaterial 
@@ -564,6 +566,8 @@ function CelestialObject({ obj, index, overridePosition }) {
         anchorY="bottom"
         outlineWidth={0.01}
         outlineColor="black"
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => setHovered(false)}
       >
         {obj.name}
       </Text>
@@ -654,7 +658,7 @@ function CelestialObjects({data}) {
       return null;
     }
     console.log(`Rendering ${data.length} celestial objects`);
-    
+
     const minDistance = 0.5; // 最小允许距离（可调整）
     
     // 计算所有天体的初始位置
