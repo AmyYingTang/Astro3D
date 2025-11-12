@@ -455,11 +455,14 @@ function Axes({ length = 3.1 }) {
   );
 }
 
-// === 单个梅西耶天体 ===
+// === 单个天体 ===
 function CelestialObject({ obj, index }) {
   console.log(`......................: ${obj.wikiUrl}`);
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
-  const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
+  //const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), astronomicalScore(obj.dist));
+  const isExtragalactic = obj.dist > 100000;
+  const radius = isExtragalactic ? 10.2 : astronomicalScore(obj.dist);
+  const [x, y, z] = raDecToXYZ(convertRA(obj.ra), convertDEC(obj.dec), radius);
   const color = new THREE.Color(`hsl(${(index * 25) % 360}, 80%, 60%)`);
   const [hovered, setHovered] = useState(false);
 
@@ -540,7 +543,7 @@ function CelestialObject({ obj, index }) {
           color={loading ? "#666" : color}
           emissive={hovered ? color : "#000000"}
           emissiveIntensity={hovered ? 0.5 : 0}
-        /> */}
+        />  */}
       </mesh>
       <Text
         position={[0.1, 0.1, 0]}
@@ -680,7 +683,7 @@ export default function App() {
           <CelestialObjects data={messierData}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
-        <OrbitControls enablePan={false} />
+        <OrbitControls enablePan={true} panSpeed={0.5} maxDistance={50} minDistance={2}/>
       </Canvas>
       
       <div style={{
@@ -699,7 +702,7 @@ export default function App() {
         <p style={{ margin: '5px 0', fontSize: '12px' }}>
           • 图片来源：Wikipedia<br/>
           • Textures by Solar System Scope<br/>
-          • 鼠标拖动旋转 / 滚轮缩放<br/>
+          • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
           • <strong>悬停星体</strong>查看详细信息<br/>
           • <strong>点击星体</strong>打开Wikipedia页面<br/>
         </p>
