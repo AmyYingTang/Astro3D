@@ -63,6 +63,16 @@ export default function App() {
         <p style={{ margin: '5px 0', fontSize: '12px' }}>
           • 图片来源：Wikipedia<br/>
           • Textures by Solar System Scope<br/>
+          • Milky Way texture by ESO/José Francisco  (
+            <a
+              href="https://josefrancisco.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#4da3ff' }}
+            >
+              josefrancisco.org
+            </a>
+            )<br/>
           • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
           • <strong>悬停星体</strong>查看详细信息<br/>
           • <strong>点击星体</strong>打开Wikipedia页面<br/>
