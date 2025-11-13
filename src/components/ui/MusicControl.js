@@ -89,9 +89,9 @@ const MusicControl = forwardRef(function MusicControl(
 
       <div
         style={{
-          position: "absolute",
-          top: position.top,
-          right: position.right,
+        //   position: "absolute",
+        //   top: position.top,
+        //   right: position.right,
           display: "flex",
           alignItems: "center",
           gap: "8px",
@@ -100,7 +100,7 @@ const MusicControl = forwardRef(function MusicControl(
           background: "rgba(0, 0, 0, 0.5)",
           backdropFilter: "blur(6px)",
           boxShadow: "0 0 6px rgba(0,0,0,0.3)",
-          zIndex: 1000,
+          //zIndex: 1000,
         }}
       >
         <button

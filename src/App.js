@@ -70,9 +70,8 @@ export default function App() {
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls enablePan={false} onStart={handleFirstDrag} panSpeed={0.5} maxDistance={50} minDistance={2}/>
-      </Canvas>
 
-      <MusicControl ref={musicRef} fadeDuration={1200} />
+      </Canvas>
       
       <div style={{
         position: 'absolute',
@@ -106,17 +105,38 @@ export default function App() {
           &nbsp;&nbsp;&nbsp;&nbsp;• Music by Maksym Malko from Pixabay<br/>
         </p>
       </div>
+      
+      {/* UI 控件容器 */}
+      <div
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          display: "flex",
+          flexDirection: "column",  // ✅ 垂直排列
+          alignItems: "flex-end",   // ✅ 靠右对齐
+          gap: "12px",              // ✅ 控件间距
+          zIndex: 1000,
+        }}
+      >
+        <MusicControl ref={musicRef} fadeDuration={1200}  />
 
-       {/* 🔧 添加右侧过滤器面板 */}
-      <CelestialFilter
-        filters={filters}
-        onFilterChange={setFilters}
-        totalObjects={totalCount}
-        filteredObjects={filteredCount}
-        availableTypes={availableTypes}      
-        availableFilters={availableFilters}  
-        availableMonths={availableMonths}    
-      />
+        {/* 🔧 添加右侧过滤器面板 */}
+        <CelestialFilter
+          filters={filters}
+          onFilterChange={setFilters}
+          totalObjects={totalCount}
+          filteredObjects={filteredCount}
+          availableTypes={availableTypes}      
+          availableFilters={availableFilters}  
+          availableMonths={availableMonths}    
+        />
+        
+      </div>
+
+       
+
+      
     </div>
   );
 }

@@ -76,7 +76,7 @@ export function CelestialFilter({
 
   return (
     <div style={{
-      position: 'absolute',
+      //position: 'absolute',
       top: '20px',
       right: '20px',
       width: '300px',
