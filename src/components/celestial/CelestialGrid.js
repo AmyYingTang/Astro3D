@@ -2,7 +2,7 @@ import React from "react";
 import * as THREE from "three";
 import { raDecToXYZ } from "../../utils/coordinates";
 
-export function CelestialGrid({ radius = 3 }) {
+export function CelestialGrid({ radius = 5 }) {
   const lines = [];
 
   // 赤纬圈

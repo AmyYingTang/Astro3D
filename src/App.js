@@ -9,12 +9,25 @@ import { CelestialGrid } from "./components/celestial/CelestialGrid";
 import { Axes } from "./components/scene/Axes";
 import { CelestialObjects } from "./components/celestial/CelestialObjects";
 import { LoadingIndicator } from "./components/scene/LoadingIndicator";
+import { CelestialFilter } from "./components/ui/CelestialFilter";
+import { useCelestialFilter } from "./hooks/useCelestialFilter";
+import "./components/ui/RangeSlider.css"; 
 
 export default function App() {
   const [messierData, setMessierData] = useState([]);
+
+  // 🔧 添加过滤器Hook
+  const { 
+    filters, 
+    setFilters, 
+    filteredData, 
+    totalCount, 
+    filteredCount 
+  } = useCelestialFilter(messierData);
+  
   
   useEffect(() => {
-    fetch("/data/celestial_objects_database_southern_all.csv")      
+    fetch("/data/celestial_objects_full.csv")      
       .then((res) => res.text())
       .then((text) => {
         const parsed = Papa.parse(text, { header: true }).data;
@@ -41,7 +54,7 @@ export default function App() {
           <Earth />
           <CelestialGrid />
           <Axes />
-          <CelestialObjects data={messierData}/>
+          <CelestialObjects data={filteredData}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls enablePan={true} panSpeed={0.5} maxDistance={50} minDistance={2}/>
@@ -78,6 +91,14 @@ export default function App() {
           • <strong>点击星体</strong>打开Wikipedia页面<br/>
         </p>
       </div>
+
+       {/* 🔧 添加右侧过滤器面板 */}
+      <CelestialFilter
+        filters={filters}
+        onFilterChange={setFilters}
+        totalObjects={totalCount}
+        filteredObjects={filteredCount}
+      />
     </div>
   );
 }

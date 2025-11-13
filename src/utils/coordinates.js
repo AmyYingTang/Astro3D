@@ -121,6 +121,11 @@ export const raDecToXYZ = (raDeg, decDeg, radius) => {
 };
 
 export const extractWikiTitle = (url) => {
+  // 处理 null、undefined 和空字符串
+  if (!url || typeof url !== 'string') {
+    return '';
+  }
+  
   const parts = url.split('/wiki/');
   return parts.length > 1 ? decodeURIComponent(parts[1]) : url;
 };
