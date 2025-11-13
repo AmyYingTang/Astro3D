@@ -88,22 +88,22 @@ export default function App() {
       }}>
         <h3 style={{ margin: '0 0 10px 0' }}>天体可视化Draft</h3>
         <p style={{ margin: '5px 0', fontSize: '12px' }}>
-          • 图片来源：Wikipedia<br/>
-          • Textures by Solar System Scope<br/>
-          • Milky Way texture by ESO/José Francisco  (
-            <a
+          
+          • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
+          • <strong>悬停星体</strong>查看详细信息<br/>
+          • <strong>点击星体</strong>打开Wikipedia页面<br/>
+          • Credits:<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;• Celestial objects images from Wikipedia<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;• Earth textures by Solar System Scope<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;• Milky Way texture by <a
               href="https://josefrancisco.org"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: '#4da3ff' }}
-            >
-              josefrancisco.org
+            >ESO/José Francisco
             </a>
-            )<br/>
-          • Music by Maksym Malko from Pixabay
-          • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
-          • <strong>悬停星体</strong>查看详细信息<br/>
-          • <strong>点击星体</strong>打开Wikipedia页面<br/>
+            <br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;• Music by Maksym Malko from Pixabay<br/>
         </p>
       </div>
 
