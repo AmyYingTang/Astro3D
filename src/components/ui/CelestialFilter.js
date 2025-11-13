@@ -90,6 +90,7 @@ export function CelestialFilter({ filters, onFilterChange, totalObjects, filtere
         value={filters.ra}
         onChange={handleRAChange}
         unit="h"
+        plusSignForPositive={false}
       />
 
       {/* DEC 滑块 */}
@@ -101,6 +102,7 @@ export function CelestialFilter({ filters, onFilterChange, totalObjects, filtere
         value={filters.dec}
         onChange={handleDECChange}
         unit="°"
+        plusSignForPositive={true}
       />
 
       {/* 统计信息 */}

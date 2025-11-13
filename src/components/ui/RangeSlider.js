@@ -10,7 +10,7 @@ import React from 'react';
  * @param {function} onChange - 值变化回调
  * @param {string} unit - 单位显示
  */
-export function RangeSlider({ label, min, max, step, value, onChange, unit = '' }) {
+export function RangeSlider({ label, min, max, step, value, onChange, unit = '', plusSignForPositive }) {
   const [minVal, maxVal] = value;
 
   const handleMinChange = (e) => {
@@ -48,7 +48,9 @@ export function RangeSlider({ label, min, max, step, value, onChange, unit = '' 
       }}>
         <span style={{ fontWeight: 'bold' }}>{label}</span>
         <span style={{ color: '#4a9eff' }}>
-          {minVal}{unit} - {maxVal}{unit}
+          {plusSignForPositive && minVal > 0 ? `+${minVal}` : minVal}{unit} 
+          &nbsp;--&nbsp;  
+          {plusSignForPositive && maxVal > 0 ? `+${maxVal}` : maxVal}{unit}
         </span>
       </div>
 
@@ -87,7 +89,7 @@ export function RangeSlider({ label, min, max, step, value, onChange, unit = '' 
           max={max}
           step={step}
           value={minVal}
-          onChange={handleMinChange}
+          onChange={handleMinChange}          
           style={{
             position: 'absolute',
             width: '100%',
@@ -96,12 +98,10 @@ export function RangeSlider({ label, min, max, step, value, onChange, unit = '' 
             left: '0',
             appearance: 'none',
             background: 'transparent',
-            pointerEvents: 'auto',
+            pointerEvents: 'none',
             cursor: 'pointer',
-            //zIndex: minVal > max - (max - min) / 4 ? 5 : 3,
-            zIndex: minVal >= maxVal - (max - min) * 0.1 ? 6 : 4,
-            // 自定义滑块样式
-            WebkitAppearance: 'none',
+            zIndex: minVal > max - (max - min) / 4 ? 5 : 3,
+            WebkitAppearance: 'none',            
           }}
           // CSS-in-JS 不支持伪元素，需要在全局CSS中定义
           className="range-slider-thumb"
@@ -114,7 +114,7 @@ export function RangeSlider({ label, min, max, step, value, onChange, unit = '' 
           max={max}
           step={step}
           value={maxVal}
-          onChange={handleMaxChange}
+          onChange={handleMaxChange}         
           style={{
             position: 'absolute',
             width: '100%',
@@ -123,10 +123,10 @@ export function RangeSlider({ label, min, max, step, value, onChange, unit = '' 
             left: '0',
             appearance: 'none',
             background: 'transparent',
-            pointerEvents: 'auto',
+            pointerEvents: 'none',
             cursor: 'pointer',
-            zIndex: 5,
-            WebkitAppearance: 'none',
+            zIndex: 4,
+            WebkitAppearance: 'none',            
           }}
           className="range-slider-thumb"
         />
@@ -140,7 +140,7 @@ export function RangeSlider({ label, min, max, step, value, onChange, unit = '' 
         color: '#888'
       }}>
         <span>{min}{unit}</span>
-        <span>{max}{unit}</span>
+        <span>{plusSignForPositive && max > 0 ? `+${max}` : max}{unit}</span>
       </div>
     </div>
   );
