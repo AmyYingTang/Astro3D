@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
 
-export function Axes({ length = 3.1 }) {
+export function Axes({ length = 5.1 }) {
   const makeLine = (start, end, color, label, labelPos) => {
     const points = [start, end];
     const geometry = new THREE.BufferGeometry().setFromPoints(points);

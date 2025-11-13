@@ -1,0 +1,23 @@
+src/
+├── App.js                                    # 主应用组件 (70行)
+├── hooks/                                    # 自定义Hooks
+│   ├── index.js                              # Hooks导出
+│   ├── useFontScale.js                       # 字体缩放Hook
+│   └── useWikipediaImage.js                  # Wikipedia图片加载Hook
+├── utils/                                    # 工具函数
+│   ├── index.js                              # 工具函数导出
+│   ├── coordinates.js                        # 坐标转换函数
+│   └── dataProcessing.js                    # 数据处理函数
+└── components/                              # React组件
+    ├── celestial/                           # 天体相关组件
+    │   ├── CelestialGrid.js                 # 天球网格
+    │   ├── CelestialObject.js               # 单个天体组件
+    │   ├── CelestialObjects.js              # 天体组管理
+    │   └── ImageSprite.js                   # 图片精灵
+    ├── scene/                               # 场景组件
+    │   ├── Axes.js                          # 坐标轴
+    │   ├── Earth.js                         # 地球组件
+    │   ├── LoadingIndicator.js              # 加载指示器
+    │   └── MilkyWay.js                      # 银河系组件
+    └── ui/                                  # UI组件（预留）
+        └── (未来的UI组件)
