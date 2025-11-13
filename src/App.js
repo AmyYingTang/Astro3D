@@ -14,7 +14,7 @@ import { useCelestialFilter } from "./hooks/useCelestialFilter";
 import "./components/ui/RangeSlider.css"; 
 
 export default function App() {
-  const [messierData, setMessierData] = useState([]);
+  const [celestialData, setcelestialData] = useState([]);
 
   // 🔧 添加过滤器Hook
   const { 
@@ -23,7 +23,7 @@ export default function App() {
     filteredData, 
     totalCount, 
     filteredCount 
-  } = useCelestialFilter(messierData);
+  } = useCelestialFilter(celestialData);
   
   
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function App() {
           imageUrl: d.Image || null,
           wikiUrl: d.Wikipedia || null,
         }));
-        setMessierData(cleaned);
+        setcelestialData(cleaned);
       });
   }, []);
   
