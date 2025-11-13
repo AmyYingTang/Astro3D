@@ -22,7 +22,10 @@ export default function App() {
     setFilters, 
     filteredData, 
     totalCount, 
-    filteredCount 
+    filteredCount,
+    availableTypes, 
+    availableFilters, 
+    availableMonths
   } = useCelestialFilter(celestialData);
   
   
@@ -38,6 +41,9 @@ export default function App() {
           dist: d.距离光年,
           imageUrl: d.Image || null,
           wikiUrl: d.Wikipedia || null,
+          type: d.天体类型 || null,        
+          filter: d.滤镜 || null,           
+          bestMonth: d.最佳观测月份 || null 
         }));
         setcelestialData(cleaned);
       });
@@ -98,6 +104,9 @@ export default function App() {
         onFilterChange={setFilters}
         totalObjects={totalCount}
         filteredObjects={filteredCount}
+        availableTypes={availableTypes}      
+        availableFilters={availableFilters}  
+        availableMonths={availableMonths}    
       />
     </div>
   );
