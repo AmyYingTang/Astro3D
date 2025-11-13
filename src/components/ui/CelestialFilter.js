@@ -162,7 +162,7 @@ export function CelestialFilter({
               type="text"
               value={filters.nameSearch || ''}
               onChange={handleNameChange}
-              placeholder="搜索... (支持通配符 *)"
+              placeholder="搜索..."
               style={{
                 width: '100%',
                 padding: '8px',

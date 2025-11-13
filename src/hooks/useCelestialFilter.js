@@ -40,18 +40,11 @@ export function useCelestialFilter(data) {
     };
   }, [data]);
 
-  // 通配符匹配函数
   const wildcardMatch = (text, pattern) => {
     if (!pattern) return true;
-    
-    // 转换通配符为正则表达式
-    const regexPattern = pattern
-      .toLowerCase()
-      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // 转义特殊字符
-      .replace(/\\\*/g, '.*'); // * 变成 .*
-    
-    const regex = new RegExp(`^${regexPattern}$`, 'i');
-    return regex.test(text.toLowerCase());
+    if (!text) return false;
+
+    return text.toLowerCase().includes(pattern.toLowerCase());
   };
 
   // 过滤后的数据
