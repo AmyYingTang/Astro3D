@@ -38,7 +38,9 @@ export function CelestialObject({ obj, index, overridePosition }) {
   }, [hovered]);
 
   const InfoPanel = () => (
+    
     <Html position={[0, imageUrl ? 0.25 : 0.15, 0]} center distanceFactor={10}>
+      
       <div style={{
         background: 'rgba(0, 0, 0, 0.85)',
         color: 'white',
@@ -49,8 +51,10 @@ export function CelestialObject({ obj, index, overridePosition }) {
         whiteSpace: 'nowrap',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         pointerEvents: 'none',
-        userSelect: 'none'
-      }}>
+        userSelect: 'none',
+      }} >
+        
+        <div><img src={imageUrl} width="150" height="150" /></div>
         <div style={{ fontWeight: 'bold', fontSize: `${10 * fontScale}px`, marginBottom: '5px', color: '#4a9eff' }}>
           {obj.name}
         </div>
@@ -70,6 +74,9 @@ export function CelestialObject({ obj, index, overridePosition }) {
         <ImageSprite 
           imageUrl={imageUrl} 
           size={0.3}
+          onPointerEnter={() => setHovered(true)}
+          onPointerLeave={() => setHovered(false)}
+          //onClick={handleClick()}
         />
         <Billboard
           follow={true}
@@ -87,7 +94,7 @@ export function CelestialObject({ obj, index, overridePosition }) {
             outlineColor="black"
             onPointerEnter={() => setHovered(true)}
             onPointerLeave={() => setHovered(false)}
-            onClick={handleClick}
+            //onClick={handleClick}
           >
             {obj.name}
           </Text>
@@ -119,7 +126,7 @@ export function CelestialObject({ obj, index, overridePosition }) {
           outlineColor="black"
           onPointerEnter={() => setHovered(true)}
           onPointerLeave={() => setHovered(false)}
-          onClick={handleClick}
+          //onClick={handleClick}
         >
           {obj.name}
         </Text>
