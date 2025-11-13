@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect, useRef } from "react";
 import Papa from "papaparse";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
@@ -12,6 +12,7 @@ import { LoadingIndicator } from "./components/scene/LoadingIndicator";
 import { CelestialFilter } from "./components/ui/CelestialFilter";
 import { useCelestialFilter } from "./hooks/useCelestialFilter";
 import "./components/ui/RangeSlider.css"; 
+import  MusicControl  from "./components/ui/MusicControl";
 
 export default function App() {
   const [celestialData, setcelestialData] = useState([]);
@@ -27,7 +28,12 @@ export default function App() {
     availableFilters, 
     availableMonths
   } = useCelestialFilter(celestialData);
-  
+
+  const musicRef = useRef();
+
+  const handleFirstDrag = () => {
+    musicRef.current?.play();
+  };  
   
   useEffect(() => {
     fetch("/data/celestial_objects_full.csv")      
@@ -63,8 +69,10 @@ export default function App() {
           <CelestialObjects data={filteredData}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
-        <OrbitControls enablePan={true} panSpeed={0.5} maxDistance={50} minDistance={2}/>
+        <OrbitControls enablePan={false} onStart={handleFirstDrag} panSpeed={0.5} maxDistance={50} minDistance={2}/>
       </Canvas>
+
+      <MusicControl ref={musicRef} fadeDuration={1200} />
       
       <div style={{
         position: 'absolute',
@@ -92,6 +100,7 @@ export default function App() {
               josefrancisco.org
             </a>
             )<br/>
+          • Music by Maksym Malko from Pixabay
           • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
           • <strong>悬停星体</strong>查看详细信息<br/>
           • <strong>点击星体</strong>打开Wikipedia页面<br/>
