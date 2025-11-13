@@ -44,7 +44,11 @@ export function useCelestialFilter(data) {
     if (!pattern) return true;
     if (!text) return false;
 
-    return text.toLowerCase().includes(pattern.toLowerCase());
+    const lowerText = text.toLowerCase();
+    return pattern
+      .toLowerCase()
+      .split(/\s+/)
+      .every(word => lowerText.includes(word));
   };
 
   // 过滤后的数据
