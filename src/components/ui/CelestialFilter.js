@@ -198,6 +198,7 @@ export function CelestialFilter({
             value={filters.dec}
             onChange={handleDECChange}
             unit="°"
+            plusSignForPositive={true}
           />
 
           {/* 天体类型多选 */}
