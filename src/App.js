@@ -26,7 +26,9 @@ export default function App() {
     filteredCount,
     availableTypes, 
     availableFilters, 
-    availableMonths
+    availableMonths,
+    showLabels,
+    setShowLabels
   } = useCelestialFilter(celestialData);
 
   const musicRef = useRef();
@@ -66,7 +68,7 @@ export default function App() {
           <Earth />
           <CelestialGrid />
           <Axes />
-          <CelestialObjects data={filteredData}/>
+          <CelestialObjects data={filteredData} showLabels={showLabels}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls enablePan={true} onStart={handleFirstDrag} panSpeed={1} maxDistance={50} minDistance={2}/>
@@ -130,6 +132,8 @@ export default function App() {
           availableTypes={availableTypes}      
           availableFilters={availableFilters}  
           availableMonths={availableMonths}    
+          showLabels={showLabels}
+          onShowLabelsChange={setShowLabels}
         />
         
       </div>

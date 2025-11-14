@@ -7,7 +7,7 @@ import { extractWikiTitle, convertRA, convertDEC, raDecToXYZ } from "../../utils
 import { astronomicalScore } from "../../utils/dataProcessing";
 import { ImageSprite } from "./ImageSprite";
 
-export function CelestialObject({ obj, index, overridePosition }) {
+export function CelestialObject({ obj, index, overridePosition, showLabels }) {
   console.log(`......................: ${obj.wikiUrl}`);
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
   const fontScale = useFontScale(); 
@@ -225,20 +225,22 @@ export function CelestialObject({ obj, index, overridePosition }) {
           lockY={false}
           lockZ={false}
         >
-          <Text
-            position={[0, -0.2, 0]}
-            fontSize={0.1 * fontScale}
-            color="#ffffff"
-            anchorX="center"
-            anchorY="top"
-            outlineWidth={0.01}
-            outlineColor="black"
-            onPointerEnter={handleObjectEnter}
-            onPointerLeave={handleObjectLeave}
-            onClick={handleClick}
-          >
-            {obj.name}
-          </Text>
+          {showLabels && (
+            <Text
+              position={[0, -0.2, 0]}
+              fontSize={0.1 * fontScale}
+              color="#ffffff"
+              anchorX="center"
+              anchorY="top"
+              outlineWidth={0.01}
+              outlineColor="black"
+              onPointerEnter={handleObjectEnter}
+              onPointerLeave={handleObjectLeave}
+              onClick={handleClick}
+            >
+              {obj.name}
+            </Text>
+          )}
         </Billboard>
         {hovered && <InfoPanel />}
       </group>
@@ -261,20 +263,22 @@ export function CelestialObject({ obj, index, overridePosition }) {
         lockY={false}
         lockZ={false}
       >
-        <Text
-          position={[0.1, 0.1, 0]}
-          fontSize={0.12 * fontScale}
-          color="#ffffff"
-          anchorX="left"
-          anchorY="bottom"
-          outlineWidth={0.01}
-          outlineColor="black"
-          onPointerEnter={handleObjectEnter}
-          onPointerLeave={handleObjectLeave}
-          onClick={handleClick}
-        >
-          {obj.name}
-        </Text>
+        {showLabels && (
+          <Text
+            position={[0.1, 0.1, 0]}
+            fontSize={0.12 * fontScale}
+            color="#ffffff"
+            anchorX="left"
+            anchorY="bottom"
+            outlineWidth={0.01}
+            outlineColor="black"
+            onPointerEnter={handleObjectEnter}
+            onPointerLeave={handleObjectLeave}
+            onClick={handleClick}
+          >
+            {obj.name}
+          </Text>
+        )}
       </Billboard>
       {hovered && <InfoPanel />}
       {loading && (

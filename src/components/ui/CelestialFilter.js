@@ -9,6 +9,8 @@ import { RangeSlider } from './RangeSlider';
  * @param {number} filteredObjects - 过滤后的天体数
  * @param {Array} availableTypes - 可用的天体类型列表
  * @param {Array} availableFilters - 可用的滤镜列表
+ * @param {boolean} props.showLabels - 是否显示星体名称
+ * @param {Function} props.onShowLabelsChange - 名称显示状态变化回调
  */
 export function CelestialFilter({ 
   filters, 
@@ -16,7 +18,9 @@ export function CelestialFilter({
   totalObjects, 
   filteredObjects,
   availableTypes = [],
-  availableFilters = []
+  availableFilters = [],
+  showLabels,
+  onShowLabelsChange
 }) {
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -148,6 +152,22 @@ export function CelestialFilter({
           overflowY: 'auto',
           maxHeight: 'calc(90vh - 120px)'
         }}>
+          <div style={{ 
+            marginTop: '15px', 
+            paddingTop: '15px', 
+            borderTop: '1px solid rgba(255,255,255,0.2)' 
+          }}>
+            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+              <input 
+                type="checkbox"
+                checked={showLabels}
+                onChange={(e) => onShowLabelsChange(e.target.checked)}
+                style={{ marginRight: '8px' }}
+              />
+              <span>显示星体名称</span>
+            </label>
+          </div>
+
           {/* 名称搜索 */}
           <div style={{ marginBottom: '15px' }}>
             <label style={{ 

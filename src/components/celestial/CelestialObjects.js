@@ -3,7 +3,7 @@ import { CelestialObject } from "./CelestialObject";
 import { convertRA, convertDEC, raDecToXYZ } from "../../utils/coordinates";
 import { astronomicalScore } from "../../utils/dataProcessing";
 
-export function CelestialObjects({data}) {
+export function CelestialObjects({data, showLabels}) {
   // 自动检测并调整重叠天体位置
   const adjustedData = useMemo(() => {
     if (!data?.length) {
@@ -83,6 +83,7 @@ export function CelestialObjects({data}) {
           obj={obj} 
           index={obj.index}
           overridePosition={obj.position}
+          showLabels={showLabels}
         />
       ))}
     </group>

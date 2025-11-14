@@ -14,6 +14,8 @@ export function useCelestialFilter(data) {
     filters: []
   });
 
+  const [showLabels, setShowLabels] = useState(true);  // 默认显示名称
+
   // 提取可用选项
   const availableOptions = useMemo(() => {
     if (!data?.length) return { types: [], filters: [] };
@@ -103,6 +105,8 @@ export function useCelestialFilter(data) {
     totalCount: data?.length || 0,
     filteredCount: filteredData.length,
     availableTypes: availableOptions.types,
-    availableFilters: availableOptions.filters
+    availableFilters: availableOptions.filters,
+    showLabels,
+    setShowLabels
   };
 }
