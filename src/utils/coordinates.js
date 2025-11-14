@@ -114,9 +114,10 @@ export const convertDEC = (decString) => {
 export const raDecToXYZ = (raDeg, decDeg, radius) => {
   const ra = THREE.MathUtils.degToRad(raDeg);
   const dec = THREE.MathUtils.degToRad(decDeg);
+  // note: this is different to IAU as IAU is from earth outwards, but here we see from universe inwards
   const x = radius * Math.cos(dec) * Math.cos(ra);
   const y = radius * Math.sin(dec);
-  const z = - radius * Math.cos(dec) * Math.sin(ra);
+  const z = -radius * Math.cos(dec) * Math.sin(ra);   
   return [x, y, z];
 };
 

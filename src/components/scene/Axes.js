@@ -35,6 +35,7 @@ export function Axes({ length = 5.1 }) {
 
   return (
     <group>
+      {/* +X轴：RA 0h（非洲） */}
       {makeLine(
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(length, 0, 0),
@@ -42,6 +43,8 @@ export function Axes({ length = 5.1 }) {
         'RA 0h',
         [length + 0.2, 0, 0]
       )}
+
+      {/* +Y轴：北天极 */}
       {makeLine(
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(0, length, 0),
@@ -50,7 +53,7 @@ export function Axes({ length = 5.1 }) {
         [0, length + 0.2, 0]
       )}
 
-      {/* +Z轴：在你的系统中对应 RA 18h（因为有负号） */}
+      {/* +Z轴：RA 18h（银心方向） */}
       {makeLine(
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(0, 0, length),
@@ -58,7 +61,7 @@ export function Axes({ length = 5.1 }) {
         'RA 18h',
         [0, 0, length + 0.2]
       )}
-      
+
       {/* -X轴：RA 12h */}
       {makeLine(
         new THREE.Vector3(0, 0, 0),
@@ -67,8 +70,8 @@ export function Axes({ length = 5.1 }) {
         'RA 12h',
         [-length - 0.2, 0, 0]
       )}
-      
-      {/* -Z轴：在你的系统中对应 RA 6h */}
+
+      {/* -Z轴：RA 6h（亚洲方向） */}
       {makeLine(
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(0, 0, -length),
