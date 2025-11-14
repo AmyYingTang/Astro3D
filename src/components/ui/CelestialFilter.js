@@ -117,7 +117,7 @@ export function CelestialFilter({
           alignItems: 'center',
           gap: '8px'
         }}>
-          🔍 天体过滤器
+          🔍 星体过滤器
           <span style={{ fontSize: '12px', color: '#888' }}>
             {isExpanded ? '▼' : '▶'}
           </span>
@@ -179,7 +179,7 @@ export function CelestialFilter({
               fontWeight: 'bold',
               marginBottom: '5px' 
             }}>
-              天体名称
+              星体名称
             </label>
             <input
               type="text"
@@ -226,7 +226,7 @@ export function CelestialFilter({
 
           {/* 天体类型 - 折叠区域 */}
           <CollapsibleSection
-            title="天体类型"
+            title="星体类型"
             expanded={typeExpanded}
             onToggle={() => setTypeExpanded(!typeExpanded)}
             count={filters.types.length > 0 ? filters.types.length : undefined}
@@ -286,7 +286,7 @@ export function CelestialFilter({
             textAlign: 'center'
           }}>
             <div style={{ color: '#4a9eff', fontWeight: 'bold' }}>
-              显示 {filteredObjects} / {totalObjects} 个天体
+              显示 {filteredObjects} / {totalObjects} 个星体
             </div>
             {filteredObjects < totalObjects && (
               <div style={{ 
@@ -294,7 +294,7 @@ export function CelestialFilter({
                 fontSize: '11px', 
                 color: '#aaa' 
               }}>
-                {totalObjects - filteredObjects} 个天体被过滤
+                {totalObjects - filteredObjects} 个星体被过滤
               </div>
             )}
           </div>

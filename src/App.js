@@ -87,7 +87,7 @@ export default function App() {
         fontSize: '14px',
         maxWidth: '300px'
       }}>
-        <h3 style={{ margin: '0 0 10px 0' }}>天体可视化Draft</h3>
+        <h3 style={{ margin: '0 0 10px 0' }}>MyAstro3D beta</h3>
         <p style={{ margin: '5px 0', fontSize: '12px' }}>
           
           • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
