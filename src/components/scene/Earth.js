@@ -1,17 +1,27 @@
-import React, { useMemo } from "react";
-import { useLoader } from "@react-three/fiber";
+import React, { useMemo, useRef } from "react";
+import { useLoader, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // 使用真实纹理的地球组件
 function EarthWithTextures() {
+  const groupRef = useRef();
+  
   const earthTexture = useLoader(THREE.TextureLoader, '/textures/earth_day.jpg');
   const cloudsTexture = useLoader(THREE.TextureLoader, '/textures/earth_clouds.jpg');
   
   earthTexture.colorSpace = THREE.SRGBColorSpace;
   cloudsTexture.colorSpace = THREE.SRGBColorSpace;
 
+  // 每帧更新旋转
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      // 从西向东旋转（绕 Y 轴正向旋转）
+      groupRef.current.rotation.y += delta * 0.1; // 调整 0.1 来改变旋转速度
+    }
+  });
+
   return (
-    <group>
+    <group ref={groupRef}>
       {/* 地球主体 */}
       <mesh>
         <sphereGeometry args={[1, 64, 64]} />
@@ -40,6 +50,8 @@ function EarthWithTextures() {
 
 // 备用方案：程序化地球
 function EarthFallback() {
+  const meshRef = useRef();
+  
   const texture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 2048;
@@ -153,8 +165,16 @@ function EarthFallback() {
     return new THREE.CanvasTexture(canvas);
   }, []);
 
+  // 每帧更新旋转
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      // 从西向东旋转（绕 Y 轴正向旋转）
+      meshRef.current.rotation.y += delta * 0.1; // 调整 0.1 来改变旋转速度
+    }
+  });
+
   return (
-    <mesh>
+    <mesh ref={meshRef}>
       <sphereGeometry args={[1, 64, 64]} />
       <meshStandardMaterial map={texture} />
     </mesh>
