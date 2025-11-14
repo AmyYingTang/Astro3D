@@ -25,7 +25,9 @@ export function CelestialObject({ obj, index, overridePosition }) {
   const color = new THREE.Color(`hsl(${(index * 25) % 360}, 80%, 60%)`);
   const [hovered, setHovered] = useState(false);
   const [isPanelHovered, setIsPanelHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const leaveTimeoutRef = useRef(null);
+  const dragTimeoutRef = useRef(null);
 
   const handleClick = () => {
     const wikiUrl = `${obj.wikiUrl}`;
@@ -34,6 +36,9 @@ export function CelestialObject({ obj, index, overridePosition }) {
 
   // 处理3D对象的hover
   const handleObjectEnter = () => {
+    // 如果正在拖动，不显示Panel
+    if (isDragging) return;
+    
     if (leaveTimeoutRef.current) {
       clearTimeout(leaveTimeoutRef.current);
       leaveTimeoutRef.current = null;
@@ -70,11 +75,56 @@ export function CelestialObject({ obj, index, overridePosition }) {
 
   useEffect(() => {
     document.body.style.cursor = hovered ? 'pointer' : 'auto';
+    
+    // 监听鼠标移动来检测是否真的在拖动
+    let mouseDownTime = 0;
+    let hasMoved = false;
+    
+    const handleMouseDown = (e) => {
+      mouseDownTime = Date.now();
+      hasMoved = false;
+    };
+    
+    const handleMouseMove = (e) => {
+      // 如果鼠标按下后移动了，说明是拖动
+      if (mouseDownTime > 0) {
+        hasMoved = true;
+        setIsDragging(true);
+        // 如果正在拖动，立即隐藏Panel
+        setHovered(false);
+        setIsPanelHovered(false);
+      }
+    };
+    
+    const handleMouseUp = () => {
+      mouseDownTime = 0;
+      // 只有真的拖动过才需要延迟恢复
+      if (hasMoved) {
+        dragTimeoutRef.current = setTimeout(() => {
+          setIsDragging(false);
+        }, 100);
+      } else {
+        // 如果只是点击没有拖动，立即恢复
+        setIsDragging(false);
+      }
+      hasMoved = false;
+    };
+    
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    
     return () => {
       document.body.style.cursor = 'auto';
       if (leaveTimeoutRef.current) {
         clearTimeout(leaveTimeoutRef.current);
       }
+      if (dragTimeoutRef.current) {
+        clearTimeout(dragTimeoutRef.current);
+      }
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [hovered]);
 
@@ -84,36 +134,27 @@ export function CelestialObject({ obj, index, overridePosition }) {
       center 
       distanceFactor={10}
       zIndexRange={[1000, 0]}
-      style={{ pointerEvents: 'none' }}
       occlude={false}
+      portal={{ current: document.body }}
     >
-      <div style={{ pointerEvents: 'none', display: 'inline-block' }}>
-        <div 
-          style={{
-            background: 'rgba(0, 0, 0, 0.9)',
-            color: 'white',
-            padding: '12px 16px',
-            borderRadius: '8px',
-            fontSize: `${10 * fontScale}px`,
-            fontFamily: 'monospace',
-            whiteSpace: 'nowrap',
-            border: '2px solid rgba(74, 158, 255, 0.5)',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.8)',
-            pointerEvents: 'auto',
-            userSelect: 'none',
-            cursor: 'pointer',
-            zIndex: 9999,
-            position: 'relative',
-            minWidth: imageUrl ? '170px' : 'auto',
-            display: 'inline-block',
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleClick();
-          }}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-          }}
+      <div 
+        style={{
+          background: 'rgba(0, 0, 0, 0.9)',
+          color: 'white',
+          padding: '12px 16px',
+          borderRadius: '8px',
+          fontSize: `${10 * fontScale}px`,
+          fontFamily: 'monospace',
+          whiteSpace: 'nowrap',
+          border: '2px solid rgba(74, 158, 255, 0.5)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.8)',
+          userSelect: 'none',
+          cursor: 'pointer',
+          minWidth: imageUrl ? '170px' : 'auto',
+          pointerEvents: 'auto',
+        }}
+        onClick={handleClick}
+        onMouseEnter={handlePanelEnter}
           onMouseEnter={handlePanelEnter}
           onMouseLeave={handlePanelLeave}
           onPointerEnter={handlePanelEnter}
@@ -164,7 +205,6 @@ export function CelestialObject({ obj, index, overridePosition }) {
         }}>
           {loading ? 'Loading...' : 'Click anywhere to view on Wikipedia →'}
         </div>
-      </div>
       </div>
     </Html>
   );
