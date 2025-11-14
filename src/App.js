@@ -69,7 +69,7 @@ export default function App() {
           <CelestialObjects data={filteredData}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
-        <OrbitControls enablePan={false} onStart={handleFirstDrag} panSpeed={0.5} maxDistance={50} minDistance={2}/>
+        <OrbitControls enablePan={true} onStart={handleFirstDrag} panSpeed={1} maxDistance={50} minDistance={2}/>
 
       </Canvas>
       

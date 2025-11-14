@@ -87,30 +87,38 @@ export function CelestialObject({ obj, index, overridePosition }) {
       style={{ pointerEvents: 'none' }}
       occlude={false}
     >
-      <div 
-        style={{
-          background: 'rgba(0, 0, 0, 0.9)',
-          color: 'white',
-          padding: '12px 16px',
-          borderRadius: '8px',
-          fontSize: `${10 * fontScale}px`,
-          fontFamily: 'monospace',
-          whiteSpace: 'nowrap',
-          border: '2px solid rgba(74, 158, 255, 0.5)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.8)',
-          pointerEvents: 'auto',
-          userSelect: 'none',
-          cursor: 'pointer',
-          zIndex: 9999,
-          position: 'relative',
-          minWidth: imageUrl ? '170px' : 'auto',
-        }}
-        onClick={handleClick}
-        onMouseEnter={handlePanelEnter}
-        onMouseLeave={handlePanelLeave}
-        onPointerEnter={handlePanelEnter}
-        onPointerLeave={handlePanelLeave}
-      >
+      <div style={{ pointerEvents: 'none', display: 'inline-block' }}>
+        <div 
+          style={{
+            background: 'rgba(0, 0, 0, 0.9)',
+            color: 'white',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            fontSize: `${10 * fontScale}px`,
+            fontFamily: 'monospace',
+            whiteSpace: 'nowrap',
+            border: '2px solid rgba(74, 158, 255, 0.5)',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.8)',
+            pointerEvents: 'auto',
+            userSelect: 'none',
+            cursor: 'pointer',
+            zIndex: 9999,
+            position: 'relative',
+            minWidth: imageUrl ? '170px' : 'auto',
+            display: 'inline-block',
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleClick();
+          }}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+          }}
+          onMouseEnter={handlePanelEnter}
+          onMouseLeave={handlePanelLeave}
+          onPointerEnter={handlePanelEnter}
+          onPointerLeave={handlePanelLeave}
+        >
         {imageUrl && (
           <div style={{ marginBottom: '10px', textAlign: 'center' }}>
             <img 
@@ -156,6 +164,7 @@ export function CelestialObject({ obj, index, overridePosition }) {
         }}>
           {loading ? 'Loading...' : 'Click anywhere to view on Wikipedia →'}
         </div>
+      </div>
       </div>
     </Html>
   );
