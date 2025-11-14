@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "@react-three/drei";
+import { Text, Billboard } from "@react-three/drei";
 import * as THREE from "three";
 
 export function Axes({ length = 5.1 }) {
@@ -11,15 +11,24 @@ export function Axes({ length = 5.1 }) {
         <line geometry={geometry}>
           <lineBasicMaterial color={color} />
         </line>
-        <Text
+        <Billboard
+          follow={true}
+          lockX={false}
+          lockY={false}
+          lockZ={false}
           position={labelPos}
-          fontSize={0.2}
-          color={color}
-          anchorX={color === 'red' ? 'left' : 'center'}
-          anchorY={color === 'red' ? 'middle' : 'bottom'}
         >
-          {label}
-        </Text>
+          <Text   
+            position={[0, 0, 0]}         
+            fontSize={0.2}
+            color={color}
+            anchorX="centre"
+            anchorY="middle"
+          >
+            {label}
+          </Text>
+        </Billboard>
+        
       </group>
     );
   };
@@ -39,6 +48,33 @@ export function Axes({ length = 5.1 }) {
         'blue',
         'DEC +90°',
         [0, length + 0.2, 0]
+      )}
+
+      {/* +Z轴：在你的系统中对应 RA 18h（因为有负号） */}
+      {makeLine(
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, 0, length),
+        'green',
+        'RA 18h',
+        [0, 0, length + 0.2]
+      )}
+      
+      {/* -X轴：RA 12h */}
+      {makeLine(
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(-length, 0, 0),
+        'orange',
+        'RA 12h',
+        [-length - 0.2, 0, 0]
+      )}
+      
+      {/* -Z轴：在你的系统中对应 RA 6h */}
+      {makeLine(
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, 0, -length),
+        'cyan',
+        'RA 6h',
+        [0, 0, -length - 0.2]
       )}
     </group>
   );
