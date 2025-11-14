@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RangeSlider } from './RangeSlider';
+import { CollapsibleSection } from './CollapsibleSection';
 
 /**
  * 天体过滤器面板
@@ -23,6 +24,8 @@ export function CelestialFilter({
   onShowLabelsChange
 }) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [typeExpanded, setTypeExpanded] = useState(false);
+  const [filterExpanded, setFilterExpanded] = useState(false);
 
   const handleRAChange = (newRange) => {
     onFilterChange({
@@ -221,89 +224,55 @@ export function CelestialFilter({
             plusSignForPositive={true}
           />
 
-          {/* 天体类型多选 */}
-          {availableTypes.length > 0 && (
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{ 
-                display: 'block', 
-                fontSize: '13px', 
-                fontWeight: 'bold',
-                marginBottom: '8px' 
-              }}>
-                天体类型
+          {/* 天体类型 - 折叠区域 */}
+          <CollapsibleSection
+            title="天体类型"
+            expanded={typeExpanded}
+            onToggle={() => setTypeExpanded(!typeExpanded)}
+            count={filters.types.length > 0 ? filters.types.length : undefined}
+          >
+            {availableTypes.map(type => (
+              <label key={type} style={{ display: 'block', marginBottom: '6px', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={filters.types.includes(type)}
+                  onChange={(e) => {
+                    const newTypes = e.target.checked
+                      ? [...filters.types, type]
+                      : filters.types.filter(t => t !== type);
+                    onFilterChange({ ...filters, types: newTypes });
+                  }}
+                  style={{ marginRight: '8px' }}
+                />
+                {type}
               </label>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '6px',
-                maxHeight: '120px',
-                overflowY: 'auto',
-                padding: '5px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: '4px'
-              }}>
-                {availableTypes.map(type => (
-                  <label key={type} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    padding: '2px'
-                  }}>
-                    <input
-                      type="checkbox"
-                      checked={(filters.types || []).includes(type)}
-                      onChange={() => handleTypeToggle(type)}
-                      style={{ marginRight: '8px', cursor: 'pointer' }}
-                    />
-                    {type}
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
+            ))}
+          </CollapsibleSection>
 
-          {/* 滤镜多选 */}
-          {availableFilters.length > 0 && (
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{ 
-                display: 'block', 
-                fontSize: '13px', 
-                fontWeight: 'bold',
-                marginBottom: '8px' 
-              }}>
-                滤镜
+          {/* 滤镜类型 - 折叠区域 */}
+          <CollapsibleSection
+            title="滤镜"
+            expanded={filterExpanded}
+            onToggle={() => setFilterExpanded(!filterExpanded)}
+            count={filters.filters.length > 0 ? filters.filters.length : undefined}
+          >
+            {availableFilters.map(filter => (
+              <label key={filter} style={{ display: 'block', marginBottom: '6px', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={filters.filters.includes(filter)}
+                  onChange={(e) => {
+                    const newFilters = e.target.checked
+                      ? [...filters.filters, filter]
+                      : filters.filters.filter(f => f !== filter);
+                    onFilterChange({ ...filters, filters: newFilters });
+                  }}
+                  style={{ marginRight: '8px' }}
+                />
+                {filter}
               </label>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '6px',
-                maxHeight: '100px',
-                overflowY: 'auto',
-                padding: '5px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: '4px'
-              }}>
-                {availableFilters.map(filter => (
-                  <label key={filter} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    padding: '2px'
-                  }}>
-                    <input
-                      type="checkbox"
-                      checked={(filters.filters || []).includes(filter)}
-                      onChange={() => handleFilterToggle(filter)}
-                      style={{ marginRight: '8px', cursor: 'pointer' }}
-                    />
-                    {filter}
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
+            ))}
+          </CollapsibleSection>
 
          
 
