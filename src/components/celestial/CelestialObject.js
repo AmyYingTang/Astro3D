@@ -132,10 +132,13 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
     <Html 
       position={[0, imageUrl ? 0.35 : 0.25, 0]} 
       center 
-      distanceFactor={10}
+      //distanceFactor={10}
       zIndexRange={[1000, 0]}
       occlude={false}
       portal={{ current: document.body }}
+      style={{
+        pointerEvents: 'none',  // ⭐ 外层容器不捕获事件
+      }}
     >
       <div 
         style={{
@@ -143,7 +146,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           color: 'white',
           padding: '12px 16px',
           borderRadius: '8px',
-          fontSize: `${10 * fontScale}px`,
+          fontSize: '10px',
           fontFamily: 'monospace',
           whiteSpace: 'nowrap',
           border: '2px solid rgba(74, 158, 255, 0.5)',
@@ -232,7 +235,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
         )}
         <div style={{ 
           fontWeight: 'bold', 
-          fontSize: `${12 * fontScale}px`, 
+          fontSize: '12px', 
           marginBottom: '6px', 
           color: '#4a9eff',
           textAlign: 'center'
@@ -252,7 +255,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           marginTop: '8px',
           paddingTop: '8px',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-          fontSize: `${9 * fontScale}px`, 
+          fontSize: '9px', 
           color: '#4a9eff',
           fontStyle: 'italic',
           textAlign: 'center'
