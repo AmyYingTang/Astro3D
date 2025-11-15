@@ -232,8 +232,26 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
           <span style={{ color: '#888' }}>DEC:</span> {obj.dec}
         </div>
-        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '8px' }}>
-          <span style={{ color: '#888' }}>Distance:</span> {parseFloat(obj.dist).toLocaleString()} ly
+        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>距离光年:</span> {parseFloat(obj.dist).toLocaleString()} ly
+        </div>
+        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>天体类型:</span> {obj.type} 
+        </div>
+        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>推荐拍摄滤镜:</span> {obj.filter} 
+        </div>
+        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>星座:</span> {obj.constel} 
+        </div>
+        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>视星等:</span> {obj.appaMag} 
+        </div>
+        <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>角直径:</span> {obj.angDia} 
+        </div>
+         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
+          <span style={{ color: '#888' }}>简介:</span> {obj.summary} 
         </div>
         <div style={{ 
           marginTop: '8px',

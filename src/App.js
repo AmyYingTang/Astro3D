@@ -75,7 +75,10 @@ export default function App() {
           wikiUrl: d.Wikipedia || null,
           type: d.天体类型 || null,        
           filter: d.滤镜 || null,           
-          bestMonth: d.最佳观测月份 || null 
+          constel: d.星座 || null, 
+          appaMag: d.视星等 || null, 
+          angDia: d.角直径 || null, 
+          summary: d.简介 || null 
         }));
         setcelestialData(cleaned);
       });
