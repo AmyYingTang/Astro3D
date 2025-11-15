@@ -4,10 +4,10 @@ SMC - 小麦哲伦云 - Small Magellanic Cloud,https://en.wikipedia.org/wiki/Sma
 NGC 3372 - 船底座星云 - Carina Nebula,https://en.wikipedia.org/wiki/Carina_Nebula,南半球专属,发射星云,船底座 - Carina,2-5月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",南天最壮观星云，超越猎户座,3,120×120角分,"-59° 52' 04""",10h 43m 48s,8500
 NGC 5139 - 半人马座欧米茄星团 - Omega Centauri,https://en.wikipedia.org/wiki/Omega_Centauri,南半球专属,球状星团,半人马座 - Centaurus,3-7月,"L(宽带亮度), 无滤镜",最大最亮球状星团，肉眼可见,3.9,36角分,"-47° 28' 46""",13h 26m 47s,15800
 NGC 104 - 杜鹃座47 - 47 Tucanae,https://en.wikipedia.org/wiki/47_Tucanae,南半球专属,球状星团,杜鹃座 - Tucana,10-1月,"L(宽带亮度), 无滤镜",第二亮球状星团,4,31角分,"-72° 04' 53""",00h 24m 05s,13000
-南十字座煤袋星云 - Coalsack,https://en.wikipedia.org/wiki/Coalsack_Nebula,南半球专属,暗星云,南十字座 - Crux,3-8月,"RGB(宽彩), 无滤镜",最著名暗星云，肉眼可见,,400×300角分,-62° 30',12h 50m,600
+Coalsack - 南十字座煤袋星云 - Coalsack,https://en.wikipedia.org/wiki/Coalsack_Nebula,南半球专属,暗星云,南十字座 - Crux,3-8月,"RGB(宽彩), 无滤镜",最著名暗星云，肉眼可见,,400×300角分,-62° 30',12h 50m,600
 NGC 4755 - 南十字座珠宝盒星团 - Jewel Box,https://en.wikipedia.org/wiki/Jewel_Box_(star_cluster),南半球专属,疏散星团,南十字座 - Crux,3-8月,"RGB(宽彩), 无滤镜",色彩斑斓的开放星团,4.2,10角分,"-60° 20' 00""",12h 53m 39s,7600
-NGC 3324 - 船底座钥匙孔星云,https://en.wikipedia.org/wiki/NGC_3324,南半球专属,发射星云,船底座 - Carina,2-5月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",船底座星云的一部分,,16×14角分,"-58° 38' 00""",10h 37m 20s,7500
-NGC 300,https://en.wikipedia.org/wiki/NGC_300,南半球优势,旋涡星系,玉夫座 - Sculptor,10-12月,"L(宽带亮度), RGB(宽彩)",玉夫座星系群成员,8.1,22×16角分,"-37° 41' 03""",00h 54m 54s,6100000
+NGC 3324 - 钥匙孔星云 - Keyhole Nebula,https://en.wikipedia.org/wiki/NGC_3324,南半球专属,发射星云,船底座 - Carina,2-5月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",船底座星云的一部分,,16×14角分,"-58° 38' 00""",10h 37m 20s,7500
+NGC 300 - 玉夫座螺旋星系 - Sculptor Spiral Galaxy,https://en.wikipedia.org/wiki/NGC_300,南半球优势,旋涡星系,玉夫座 - Sculptor,10-12月,"L(宽带亮度), RGB(宽彩)",玉夫座星系群成员,8.1,22×16角分,"-37° 41' 03""",00h 54m 54s,6100000
 NGC 253 - 雕刻家星系 - Sculptor Galaxy,https://en.wikipedia.org/wiki/Sculptor_Galaxy,南半球优势,旋涡星系,玉夫座 - Sculptor,10-12月,"Ha(氢阿尔法), L(宽带亮度), RGB(宽彩)",明亮的侧向星系,7.1,27×7角分,"-25° 17' 18""",00h 47m 33s,11400000
 NGC 5128 - 半人马座A - Centaurus A,https://en.wikipedia.org/wiki/Centaurus_A,南半球优势,透镜状星系,半人马座 - Centaurus,3-8月,"L(宽带亮度), RGB(宽彩)",著名活跃星系，明显尘埃带,7,26×20角分,"-43° 01' 09""",13h 25m 28s,12000000
 IC 2944 - 跑鸡星云 - Running Chicken Nebula,https://en.wikipedia.org/wiki/IC_2944,南半球优势,发射星云,半人马座 - Centaurus,3-7月,"Ha(氢阿尔法), OIII(氧III)",含塞特柱（Thackeray's Globules）,4.5,75×50角分,"-63° 02' 00""",11h 36m 37s,5900
@@ -31,61 +31,61 @@ M51 - 涡状星系 - Whirlpool Galaxy,https://en.wikipedia.org/wiki/Whirlpool_Ga
 NGC 7293 - 螺旋星云 - Helix Nebula,https://en.wikipedia.org/wiki/Helix_Nebula,南半球优势,行星状星云,宝瓶座 - Aquarius,8-11月,"Ha(氢阿尔法), OIII(氧III)",最近的行星状星云之一，角直径超过满月的一半,7.6,16×12角分,"-20° 50' 14""",22h 29m 39s,695
 NGC 3132 - 八裂星云 - Southern Ring Nebula,https://en.wikipedia.org/wiki/NGC_3132,南半球优势,行星状星云,船帆座 - Vela,2-5月,"Ha(氢阿尔法), OIII(氧III)",南天环状星云，韦伯望远镜拍摄对象,8.2,62×47角秒,"-40° 26' 11""",10h 07m 02s,2000
 NGC 6302 - 虫状星云 - Bug Nebula,https://en.wikipedia.org/wiki/Bug_Nebula,南半球优势,行星状星云,天蝎座 - Scorpius,6-8月,"Ha(氢阿尔法), OIII(氧III)",双极行星状星云，哈勃拍摄名作,9.6,50角秒,"-37° 06' 13""",17h 13m 44s,3400
-NGC 2440,https://en.wikipedia.org/wiki/NGC_2440,全年可见,行星状星云,船尾座 - Puppis,1-4月,"Ha(氢阿尔法), OIII(氧III)",不规则行星状星云，中心白矮星最热之一,9.4,72×32角秒,"-18° 12' 32""",07h 41m 55s,4000
+NGC 2440 - 船尾座行星状星云 - Puppis Planetary Nebula,https://en.wikipedia.org/wiki/NGC_2440,全年可见,行星状星云,船尾座 - Puppis,1-4月,"Ha(氢阿尔法), OIII(氧III)",不规则行星状星云，中心白矮星最热之一,9.4,72×32角秒,"-18° 12' 32""",07h 41m 55s,4000
 IC 5148 - 备胎星云 - Spare Tyre Nebula,https://en.wikipedia.org/wiki/IC_5148,南半球优势,行星状星云,天鹤座 - Grus,8-11月,"Ha(氢阿尔法), OIII(氧III)",大型环状行星状星云，南半球位置极佳,11,120角秒,"-39° 23' 08""",21h 59m 35s,3000
-NGC 2516,https://en.wikipedia.org/wiki/NGC_2516,南半球专属,疏散星团,船底座 - Carina,1-4月,"RGB(宽彩), 无滤镜",钻石十字星团，明亮疏散星团，肉眼可见,3.8,30角分,"-60° 45' 12""",07h 58m 04s,1300
-NGC 2547,https://en.wikipedia.org/wiki/NGC_2547,南半球优势,疏散星团,船帆座 - Vela,2-4月,"RGB(宽彩), 无滤镜",年轻疏散星团，含多颗亮星,4.7,20角分,"-49° 12' 00""",08h 10m 09s,1500
+NGC 2516 - 钻石十字星团 - Diamond Cross Cluster,https://en.wikipedia.org/wiki/NGC_2516,南半球专属,疏散星团,船底座 - Carina,1-4月,"RGB(宽彩), 无滤镜",钻石十字星团，明亮疏散星团，肉眼可见,3.8,30角分,"-60° 45' 12""",07h 58m 04s,1300
+NGC 2547 - 船帆座星团 - Vela Cluster,https://en.wikipedia.org/wiki/NGC_2547,南半球优势,疏散星团,船帆座 - Vela,2-4月,"RGB(宽彩), 无滤镜",年轻疏散星团，含多颗亮星,4.7,20角分,"-49° 12' 00""",08h 10m 09s,1500
 NGC 3532 - 许愿井星团 - Wishing Well Cluster,https://en.wikipedia.org/wiki/NGC_3532,南半球优势,疏散星团,船底座 - Carina,3-6月,"RGB(宽彩), 无滤镜",南天最明亮疏散星团之一，视觉效果极佳,3.0,55角分,"-58° 45' 12""",11h 05m 39s,1300
 NGC 3766 - 珍珠星团 - Pearl Cluster,https://en.wikipedia.org/wiki/NGC_3766,南半球优势,疏散星团,半人马座 - Centaurus,4-7月,"RGB(宽彩), 无滤镜",富含蓝白色恒星的美丽星团,5.3,12角分,"-61° 37' 00""",11h 36m 14s,5800
 IC 2602 - 南天昴星团 - Southern Pleiades,https://en.wikipedia.org/wiki/IC_2602,南半球专属,疏散星团,船底座 - Carina,2-5月,"RGB(宽彩), 无滤镜",肉眼可见，南半球版昴星团,1.9,50角分,"-64° 24' 00""",10h 42m 58s,479
-NGC 6752,https://en.wikipedia.org/wiki/NGC_6752,南半球专属,球状星团,孔雀座 - Pavo,7-10月,"L(宽带亮度), 无滤镜",第三亮球状星团，极易分解,5.4,20角分,"-59° 59' 04""",19h 10m 52s,13000
-NGC 362,https://en.wikipedia.org/wiki/NGC_362,南半球专属,球状星团,杜鹃座 - Tucana,10-1月,"L(宽带亮度), 无滤镜",靠近SMC，明亮密集球状星团,6.6,13角分,"-70° 50' 57""",01h 03m 14s,27700
-NGC 288,https://en.wikipedia.org/wiki/NGC_288,南半球优势,球状星团,玉夫座 - Sculptor,9-12月,"L(宽带亮度), 无滤镜",较松散球状星团，易分解,8.1,13角分,"-26° 34' 57""",00h 52m 45s,28700
-NGC 1851,https://en.wikipedia.org/wiki/NGC_1851,南半球优势,球状星团,天鸽座 - Columba,12-3月,"L(宽带亮度), 无滤镜",明亮致密球状星团,7.3,11角分,"-40° 02' 48""",05h 14m 07s,39500
-NGC 2808,https://en.wikipedia.org/wiki/NGC_2808,南半球优势,球状星团,船底座 - Carina,2-5月,"L(宽带亮度), 无滤镜",明亮致密球状星团，含多重恒星族群,6.2,14角分,"-64° 51' 48""",09h 12m 03s,31300
+NGC 6752 - 孔雀座球状星团 - Pavo Globular Cluster,https://en.wikipedia.org/wiki/NGC_6752,南半球专属,球状星团,孔雀座 - Pavo,7-10月,"L(宽带亮度), 无滤镜",第三亮球状星团，极易分解,5.4,20角分,"-59° 59' 04""",19h 10m 52s,13000
+NGC 362 - 杜鹃座球状星团 - Tucana Globular Cluster,https://en.wikipedia.org/wiki/NGC_362,南半球专属,球状星团,杜鹃座 - Tucana,10-1月,"L(宽带亮度), 无滤镜",靠近SMC，明亮密集球状星团,6.6,13角分,"-70° 50' 57""",01h 03m 14s,27700
+NGC 288 - 玉夫座球状星团 - Sculptor Globular Cluster,https://en.wikipedia.org/wiki/NGC_288,南半球优势,球状星团,玉夫座 - Sculptor,9-12月,"L(宽带亮度), 无滤镜",较松散球状星团，易分解,8.1,13角分,"-26° 34' 57""",00h 52m 45s,28700
+NGC 1851 - 天鸽座球状星团 - Columba Globular Cluster,https://en.wikipedia.org/wiki/NGC_1851,南半球优势,球状星团,天鸽座 - Columba,12-3月,"L(宽带亮度), 无滤镜",明亮致密球状星团,7.3,11角分,"-40° 02' 48""",05h 14m 07s,39500
+NGC 2808 - 船底座球状星团 - Carina Globular Cluster,https://en.wikipedia.org/wiki/NGC_2808,南半球优势,球状星团,船底座 - Carina,2-5月,"L(宽带亮度), 无滤镜",明亮致密球状星团，含多重恒星族群,6.2,14角分,"-64° 51' 48""",09h 12m 03s,31300
 NGC 6334 - 猫爪星云 - Cat's Paw Nebula,https://en.wikipedia.org/wiki/NGC_6334,南半球优势,发射星云,天蝎座 - Scorpius,6-8月,"Ha(氢阿尔法), OIII(氧III)",形似猫爪的发射星云，恒星形成区,5.5,35角分,"-35° 57' 00""",17h 19m 58s,5500
 NGC 6357 - 龙虾星云 - Lobster Nebula,https://en.wikipedia.org/wiki/NGC_6357,南半球优势,发射星云,天蝎座 - Scorpius,6-8月,"Ha(氢阿尔法), OIII(氧III)",包含开放星团Pismis 24，大质量恒星形成区,6.5,40角分,"-34° 12' 00""",17h 24m 43s,5500
-NGC 3576,https://en.wikipedia.org/wiki/NGC_3576,南半球优势,发射星云,船底座 - Carina,3-6月,"Ha(氢阿尔法), OIII(氧III)",明亮发射星云，含双极结构,6,3角分,"-61° 21' 00""",11h 11m 30s,9000
-NGC 6188,https://en.wikipedia.org/wiki/NGC_6188,南半球优势,发射星云,天坛座 - Ara,6-8月,"Ha(氢阿尔法), OIII(氧III)",围绕NGC 6193星团的发射星云,5.2,20角分,"-48° 47' 00""",16h 40m 30s,4000
-NGC 55,https://en.wikipedia.org/wiki/NGC_55,南半球优势,不规则星系,玉夫座 - Sculptor,9-12月,"L(宽带亮度), RGB(宽彩)",侧向不规则星系，玉夫座群成员,8.2,32×6角分,"-39° 11' 48""",00h 14m 54s,6500000
-NGC 247,https://en.wikipedia.org/wiki/NGC_247,南半球优势,旋涡星系,鲸鱼座 - Cetus,9-12月,"L(宽带亮度), RGB(宽彩)",中等大小侧向星系,9.1,21×7角分,"-20° 45' 37""",00h 47m 08s,11100000
+NGC 3576 - 船底座发射星云 - Carina Emission Nebula,https://en.wikipedia.org/wiki/NGC_3576,南半球优势,发射星云,船底座 - Carina,3-6月,"Ha(氢阿尔法), OIII(氧III)",明亮发射星云，含双极结构,6,3角分,"-61° 21' 00""",11h 11m 30s,9000
+NGC 6188 - 天坛座发射星云 - Ara Emission Nebula,https://en.wikipedia.org/wiki/NGC_6188,南半球优势,发射星云,天坛座 - Ara,6-8月,"Ha(氢阿尔法), OIII(氧III)",围绕NGC 6193星团的发射星云,5.2,20角分,"-48° 47' 00""",16h 40m 30s,4000
+NGC 55 - 玉夫座不规则星系 - Sculptor Irregular Galaxy,https://en.wikipedia.org/wiki/NGC_55,南半球优势,不规则星系,玉夫座 - Sculptor,9-12月,"L(宽带亮度), RGB(宽彩)",侧向不规则星系，玉夫座群成员,8.2,32×6角分,"-39° 11' 48""",00h 14m 54s,6500000
+NGC 247 - 针状星系 - Needle Galaxy,https://en.wikipedia.org/wiki/NGC_247,南半球优势,旋涡星系,鲸鱼座 - Cetus,9-12月,"L(宽带亮度), RGB(宽彩)",中等大小侧向星系,9.1,21×7角分,"-20° 45' 37""",00h 47m 08s,11100000
 NGC 1316 - Fornax A,https://en.wikipedia.org/wiki/NGC_1316,南半球优势,透镜状星系,天炉座 - Fornax,11-1月,"L(宽带亮度), RGB(宽彩)",强射电源星系，显示合并痕迹,8.5,12×9角分,"-37° 12' 30""",03h 22m 42s,62000000
 NGC 1365 - 大棒旋星系 - Great Barred Spiral,https://en.wikipedia.org/wiki/NGC_1365,南半球优势,棒旋星系,天炉座 - Fornax,11-1月,"L(宽带亮度), RGB(宽彩)",天炉座星系团中最显著棒旋星系,9.6,11×6角分,"-36° 08' 26""",03h 33m 36s,56000000
-NGC 2997,https://en.wikipedia.org/wiki/NGC_2997,南半球优势,旋涡星系,唧筒座 - Antlia,2-5月,"L(宽带亮度), RGB(宽彩)",面向我们的美丽旋涡星系,9.4,8×7角分,"-31° 11' 28""",09h 45m 38s,40000000
+NGC 2997 - 唧筒座旋涡星系 - Antlia Spiral Galaxy,https://en.wikipedia.org/wiki/NGC_2997,南半球优势,旋涡星系,唧筒座 - Antlia,2-5月,"L(宽带亮度), RGB(宽彩)",面向我们的美丽旋涡星系,9.4,8×7角分,"-31° 11' 28""",09h 45m 38s,40000000
 M83 - 南风车星系 - Southern Pinwheel,https://en.wikipedia.org/wiki/Messier_83,南半球优势,棒旋星系,长蛇座 - Hydra,3-6月,"Ha(氢阿尔法), L(宽带亮度), RGB(宽彩)",最亮旋涡星系之一，面对地球,7.5,13×12角分,"-29° 51' 57""",13h 37m 00s,15000000
 M7 - 托勒密星团 - Ptolemy Cluster,https://en.wikipedia.org/wiki/Messier_7,全年可见,疏散星团,天蝎座 - Scorpius,6-8月,"RGB(宽彩), 无滤镜",肉眼可见的明亮疏散星团,3.3,80角分,"-34° 47' 34""",17h 53m 51s,980
 M6 - 蝴蝶星团 - Butterfly Cluster,https://en.wikipedia.org/wiki/Messier_6,全年可见,疏散星团,天蝎座 - Scorpius,6-8月,"RGB(宽彩), 无滤镜",形似蝴蝶的疏散星团,4.2,25角分,"-32° 13' 00""",17h 40m 20s,1600
 M17 - 天鹅星云 - Omega/Swan Nebula,https://en.wikipedia.org/wiki/Omega_Nebula,全年可见,发射星云,人马座 - Sagittarius,6-8月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",明亮发射星云，形似天鹅,6.0,11角分,"-16° 10' 36""",18h 20m 26s,5000
-M22 - 人马座星团,https://en.wikipedia.org/wiki/Messier_22,全年可见,球状星团,人马座 - Sagittarius,6-9月,"L(宽带亮度), 无滤镜",最近最亮球状星团之一，易分解,5.1,32角分,"-23° 54' 17""",18h 36m 24s,10400
-M4,https://en.wikipedia.org/wiki/Messier_4,全年可见,球状星团,天蝎座 - Scorpius,6-8月,"L(宽带亮度), 无滤镜",最近的球状星团之一,5.9,36角分,"-26° 31' 32""",16h 23m 35s,7200
-M68,https://en.wikipedia.org/wiki/Messier_68,全年可见,球状星团,长蛇座 - Hydra,3-5月,"L(宽带亮度), 无滤镜",明亮球状星团,8.2,11角分,"-26° 44' 38""",12h 39m 28s,33600
-M93,https://en.wikipedia.org/wiki/Messier_93,全年可见,疏散星团,船尾座 - Puppis,1-3月,"RGB(宽彩), 无滤镜",含蝶形排列恒星的疏散星团,6.0,22角分,"-23° 51' 12""",07h 44m 30s,3600
+M22 - 人马座球状星团 - Sagittarius Cluster,https://en.wikipedia.org/wiki/Messier_22,全年可见,球状星团,人马座 - Sagittarius,6-9月,"L(宽带亮度), 无滤镜",最近最亮球状星团之一，易分解,5.1,32角分,"-23° 54' 17""",18h 36m 24s,10400
+M4 - 天蝎座球状星团 - Scorpius Globular Cluster,https://en.wikipedia.org/wiki/Messier_4,全年可见,球状星团,天蝎座 - Scorpius,6-8月,"L(宽带亮度), 无滤镜",最近的球状星团之一,5.9,36角分,"-26° 31' 32""",16h 23m 35s,7200
+M68 - 长蛇座球状星团 - Hydra Globular Cluster,https://en.wikipedia.org/wiki/Messier_68,全年可见,球状星团,长蛇座 - Hydra,3-5月,"L(宽带亮度), 无滤镜",明亮球状星团,8.2,11角分,"-26° 44' 38""",12h 39m 28s,33600
+M93 - 船尾座疏散星团 - Puppis Open Cluster,https://en.wikipedia.org/wiki/Messier_93,全年可见,疏散星团,船尾座 - Puppis,1-3月,"RGB(宽彩), 无滤镜",含蝶形排列恒星的疏散星团,6.0,22角分,"-23° 51' 12""",07h 44m 30s,3600
 M1 - 蟹状星云 - Crab Nebula,https://en.wikipedia.org/wiki/Crab_Nebula,低空可见,超新星遗迹,金牛座 - Taurus,11-3月,"Ha(氢阿尔法), OIII(氧III), SII(硫II)",著名超新星遗迹，含脉冲星,8.4,6×4角分,"+22° 00' 52""",05h 34m 32s,6500
 M11 - 野鸭星团 - Wild Duck Cluster,https://en.wikipedia.org/wiki/Messier_11,全年可见,疏散星团,盾牌座 - Scutum,7-9月,"RGB(宽彩), 无滤镜",极致密疏散星团，像球状星团,6.3,14角分,"-06° 16' 00""",18h 51m 05s,6000
 M13 - 武仙座大星团 - Hercules Cluster,https://en.wikipedia.org/wiki/Messier_13,低空可见,球状星团,武仙座 - Hercules,5-8月,"L(宽带亮度), 无滤镜",北半球最亮球状星团,5.8,20角分,"+36° 27' 35""",16h 41m 41s,22200
-M15,https://en.wikipedia.org/wiki/Messier_15,低空可见,球状星团,飞马座 - Pegasus,8-11月,"L(宽带亮度), 无滤镜",致密核心球状星团,6.2,18角分,"+12° 10' 01""",21h 29m 58s,33600
+M15 - 飞马座球状星团 - Pegasus Globular Cluster,https://en.wikipedia.org/wiki/Messier_15,低空可见,球状星团,飞马座 - Pegasus,8-11月,"L(宽带亮度), 无滤镜",致密核心球状星团,6.2,18角分,"+12° 10' 01""",21h 29m 58s,33600
 M27 - 哑铃星云 - Dumbbell Nebula,https://en.wikipedia.org/wiki/Dumbbell_Nebula,低空可见,行星状星云,狐狸座 - Vulpecula,7-10月,"Ha(氢阿尔法), OIII(氧III)",最大最亮行星状星云之一,7.5,8×6角分,"+22° 43' 16""",19h 59m 36s,1360
-M35,https://en.wikipedia.org/wiki/Messier_35,低空可见,疏散星团,双子座 - Gemini,12-3月,"RGB(宽彩), 无滤镜",明亮疏散星团,5.3,28角分,"+24° 20' 00""",06h 08m 54s,2800
-M37,https://en.wikipedia.org/wiki/Messier_37,低空可见,疏散星团,御夫座 - Auriga,12-3月,"RGB(宽彩), 无滤镜",御夫座最丰富星团,6.2,24角分,"+32° 33' 00""",05h 52m 18s,4500
-M41,https://en.wikipedia.org/wiki/Messier_41,全年可见,疏散星团,大犬座 - Canis Major,1-3月,"RGB(宽彩), 无滤镜",天狼星附近明亮星团,4.5,38角分,"-20° 44' 00""",06h 46m 00s,2300
+M35 - 双子座疏散星团 - Gemini Open Cluster,https://en.wikipedia.org/wiki/Messier_35,低空可见,疏散星团,双子座 - Gemini,12-3月,"RGB(宽彩), 无滤镜",明亮疏散星团,5.3,28角分,"+24° 20' 00""",06h 08m 54s,2800
+M37 - 御夫座疏散星团 - Auriga Open Cluster,https://en.wikipedia.org/wiki/Messier_37,低空可见,疏散星团,御夫座 - Auriga,12-3月,"RGB(宽彩), 无滤镜",御夫座最丰富星团,6.2,24角分,"+32° 33' 00""",05h 52m 18s,4500
+M41 - 大犬座疏散星团 - Canis Major Open Cluster,https://en.wikipedia.org/wiki/Messier_41,全年可见,疏散星团,大犬座 - Canis Major,1-3月,"RGB(宽彩), 无滤镜",天狼星附近明亮星团,4.5,38角分,"-20° 44' 00""",06h 46m 00s,2300
 M44 - 蜂巢星团 - Beehive Cluster,https://en.wikipedia.org/wiki/Messier_44,低空可见,疏散星团,巨蟹座 - Cancer,1-5月,"RGB(宽彩), 无滤镜",肉眼可见的大型疏散星团,3.7,95角分,"+19° 59' 00""",08h 40m 24s,577
-M46,https://en.wikipedia.org/wiki/Messier_46,全年可见,疏散星团,船尾座 - Puppis,1-4月,"RGB(宽彩), 无滤镜",含行星状星云NGC 2438,6.0,27角分,"-14° 49' 00""",07h 41m 46s,5400
-M47,https://en.wikipedia.org/wiki/Messier_47,全年可见,疏散星团,船尾座 - Puppis,1-4月,"RGB(宽彩), 无滤镜",明亮年轻疏散星团,4.2,30角分,"-14° 30' 00""",07h 36m 35s,1600
-M48,https://en.wikipedia.org/wiki/Messier_48,全年可见,疏散星团,长蛇座 - Hydra,2-5月,"RGB(宽彩), 无滤镜",松散的明亮星团,5.5,54角分,"-05° 48' 00""",08h 13m 43s,1500
-M50,https://en.wikipedia.org/wiki/Messier_50,全年可见,疏散星团,麒麟座 - Monoceros,1-4月,"RGB(宽彩), 无滤镜",心形排列的疏散星团,5.9,16角分,"-08° 20' 00""",07h 02m 47s,3200
+M46 - 船尾座疏散星团 - Puppis Open Cluster,https://en.wikipedia.org/wiki/Messier_46,全年可见,疏散星团,船尾座 - Puppis,1-4月,"RGB(宽彩), 无滤镜",含行星状星云NGC 2438,6.0,27角分,"-14° 49' 00""",07h 41m 46s,5400
+M47 - 船尾座疏散星团 - Puppis Open Cluster,https://en.wikipedia.org/wiki/Messier_47,全年可见,疏散星团,船尾座 - Puppis,1-4月,"RGB(宽彩), 无滤镜",明亮年轻疏散星团,4.2,30角分,"-14° 30' 00""",07h 36m 35s,1600
+M48 - 长蛇座疏散星团 - Hydra Open Cluster,https://en.wikipedia.org/wiki/Messier_48,全年可见,疏散星团,长蛇座 - Hydra,2-5月,"RGB(宽彩), 无滤镜",松散的明亮星团,5.5,54角分,"-05° 48' 00""",08h 13m 43s,1500
+M50 - 麒麟座疏散星团 - Monoceros Open Cluster,https://en.wikipedia.org/wiki/Messier_50,全年可见,疏散星团,麒麟座 - Monoceros,1-4月,"RGB(宽彩), 无滤镜",心形排列的疏散星团,5.9,16角分,"-08° 20' 00""",07h 02m 47s,3200
 M57 - 环状星云 - Ring Nebula,https://en.wikipedia.org/wiki/Ring_Nebula,低空可见,行星状星云,天琴座 - Lyra,6-10月,"Ha(氢阿尔法), OIII(氧III)",著名环状行星状星云,8.8,1.4×1角分,"+33° 01' 45""",18h 53m 35s,2300
 M63 - 向日葵星系 - Sunflower Galaxy,https://en.wikipedia.org/wiki/Messier_63,北半球天体,旋涡星系,猎犬座 - Canes Venatici,从不升起,"L(宽带亮度), RGB(宽彩)",-38度看不到,8.6,13×8角分,"+42° 01' 45""",13h 15m 49s,29000000
 M64 - 黑眼星系 - Black Eye Galaxy,https://en.wikipedia.org/wiki/Black_Eye_Galaxy,低空可见,旋涡星系,后发座 - Coma Berenices,4-6月,"L(宽带亮度), RGB(宽彩)",具有暗尘埃带的星系,8.5,10×5角分,"+21° 40' 58""",12h 56m 44s,24000000
-M65,https://en.wikipedia.org/wiki/Messier_65,低空可见,旋涡星系,狮子座 - Leo,3-5月,"L(宽带亮度), RGB(宽彩)",狮子座三重奏成员,9.3,10×3角分,"+13° 05' 32""",11h 18m 56s,35000000
-M66,https://en.wikipedia.org/wiki/Messier_66,低空可见,旋涡星系,狮子座 - Leo,3-5月,"L(宽带亮度), RGB(宽彩)",狮子座三重奏成员，不对称,8.9,9×4角分,"+12° 59' 30""",11h 20m 15s,36000000
-M67,https://en.wikipedia.org/wiki/Messier_67,低空可见,疏散星团,巨蟹座 - Cancer,2-5月,"RGB(宽彩), 无滤镜",古老疏散星团，40亿年,6.1,30角分,"+11° 49' 00""",08h 51m 18s,2700
-M71,https://en.wikipedia.org/wiki/Messier_71,低空可见,球状星团,天箭座 - Sagitta,7-10月,"L(宽带亮度), 无滤镜",松散球状星团,8.2,7角分,"+18° 46' 45""",19h 53m 46s,13000
+M65 - 狮子座旋涡星系 - Leo Spiral Galaxy,https://en.wikipedia.org/wiki/Messier_65,低空可见,旋涡星系,狮子座 - Leo,3-5月,"L(宽带亮度), RGB(宽彩)",狮子座三重奏成员,9.3,10×3角分,"+13° 05' 32""",11h 18m 56s,35000000
+M66 - 狮子座旋涡星系 - Leo Spiral Galaxy,https://en.wikipedia.org/wiki/Messier_66,低空可见,旋涡星系,狮子座 - Leo,3-5月,"L(宽带亮度), RGB(宽彩)",狮子座三重奏成员，不对称,8.9,9×4角分,"+12° 59' 30""",11h 20m 15s,36000000
+M67 - 巨蟹座疏散星团 - Cancer Open Cluster,https://en.wikipedia.org/wiki/Messier_67,低空可见,疏散星团,巨蟹座 - Cancer,2-5月,"RGB(宽彩), 无滤镜",古老疏散星团，40亿年,6.1,30角分,"+11° 49' 00""",08h 51m 18s,2700
+M71 - 天箭座球状星团 - Sagitta Globular Cluster,https://en.wikipedia.org/wiki/Messier_71,低空可见,球状星团,天箭座 - Sagitta,7-10月,"L(宽带亮度), 无滤镜",松散球状星团,8.2,7角分,"+18° 46' 45""",19h 53m 46s,13000
 M74 - 幽灵星系 - Phantom Galaxy,https://en.wikipedia.org/wiki/Phantom_Galaxy,低空可见,旋涡星系,双鱼座 - Pisces,10-12月,"L(宽带亮度), RGB(宽彩)",完美面对的旋涡星系，暗弱,9.4,10×9角分,"+15° 47' 01""",01h 36m 42s,30000000
-M77,https://en.wikipedia.org/wiki/Messier_77,全年可见,旋涡星系,鲸鱼座 - Cetus,10-1月,"L(宽带亮度), RGB(宽彩)",西佛星系，活跃核心,8.9,7×6角分,"-00° 00' 48""",02h 42m 40s,47000000
-M78,https://en.wikipedia.org/wiki/Messier_78,低空可见,反射星云,猎户座 - Orion,12-3月,"L(宽带亮度), RGB(宽彩)",明亮反射星云,8.3,8×6角分,"+00° 04' 45""",05h 46m 46s,1600
-M79,https://en.wikipedia.org/wiki/Messier_79,全年可见,球状星团,天兔座 - Lepus,12-2月,"L(宽带亮度), 无滤镜",猎户座外的球状星团,7.7,9角分,"-24° 31' 27""",05h 24m 11s,42100
+M77 - 鲸鱼座旋涡星系 - Cetus Spiral Galaxy,https://en.wikipedia.org/wiki/Messier_77,全年可见,旋涡星系,鲸鱼座 - Cetus,10-1月,"L(宽带亮度), RGB(宽彩)",西佛星系，活跃核心,8.9,7×6角分,"-00° 00' 48""",02h 42m 40s,47000000
+M78 - 猎户座反射星云 - Orion Reflection Nebula,https://en.wikipedia.org/wiki/Messier_78,低空可见,反射星云,猎户座 - Orion,12-3月,"L(宽带亮度), RGB(宽彩)",明亮反射星云,8.3,8×6角分,"+00° 04' 45""",05h 46m 46s,1600
+M79 - 天兔座球状星团 - Lepus Globular Cluster,https://en.wikipedia.org/wiki/Messier_79,全年可见,球状星团,天兔座 - Lepus,12-2月,"L(宽带亮度), 无滤镜",猎户座外的球状星团,7.7,9角分,"-24° 31' 27""",05h 24m 11s,42100
 M81 - 波德星系 - Bode's Galaxy,https://en.wikipedia.org/wiki/Messier_81,北半球天体,旋涡星系,大熊座 - Ursa Major,从不升起,"L(宽带亮度), RGB(宽彩)",-38度看不到,6.9,27×14角分,"+69° 03' 55""",09h 55m 33s,11800000
 M82 - 雪茄星系 - Cigar Galaxy,https://en.wikipedia.org/wiki/Messier_82,北半球天体,不规则星系,大熊座 - Ursa Major,从不升起,"Ha(氢阿尔法), L(宽带亮度), RGB(宽彩)",-38度看不到，星暴星系,8.4,11×5角分,"+69° 40' 47""",09h 55m 52s,11500000
 M97 - 猫头鹰星云 - Owl Nebula,https://en.wikipedia.org/wiki/Owl_Nebula,北半球天体,行星状星云,大熊座 - Ursa Major,从不升起,"Ha(氢阿尔法), OIII(氧III)",-38度看不到,9.9,3角分,"+55° 01' 08""",11h 14m 48s,2030
 M101 - 风车星系 - Pinwheel Galaxy,https://en.wikipedia.org/wiki/Pinwheel_Galaxy,北半球天体,旋涡星系,大熊座 - Ursa Major,从不升起,"Ha(氢阿尔法), L(宽带亮度), RGB(宽彩)",-38度看不到，面对的大型旋涡星系,7.9,29×27角分,"+54° 20' 57""",14h 03m 13s,21000000
-M106,https://en.wikipedia.org/wiki/Messier_106,北半球天体,旋涡星系,猎犬座 - Canes Venatici,从不升起,"L(宽带亮度), RGB(宽彩)",-38度看不到,8.4,19×8角分,"+47° 18' 14""",12h 18m 58s,23500000
+M106 - 猎犬座旋涡星系 - Canes Venatici Spiral Galaxy,https://en.wikipedia.org/wiki/Messier_106,北半球天体,旋涡星系,猎犬座 - Canes Venatici,从不升起,"L(宽带亮度), RGB(宽彩)",-38度看不到,8.4,19×8角分,"+47° 18' 14""",12h 18m 58s,23500000
