@@ -724,6 +724,82 @@ const handleFirstDrag = () => {
 - ✅ 增强沉浸感
 
 ---
+### ADR-013: 音乐控制与用户交互检测
+
+**日期**: 2025-11-15
+
+**状态**: 已接受
+
+**背景**:
+需要在用户首次拖动场景时自动播放背景音乐，但遇到以下挑战：
+1. OrbitControls 的 `onStart` 事件在滚轮缩放(zoom)时也会触发
+2. 滚轮操作不算"足够的用户交互"来绕过浏览器的自动播放限制
+3. OrbitControls 内部的 `pointerdown` 监听器优先级高于全局监听器，导致状态检查时序问题
+
+**决策**:
+使用全局鼠标状态追踪 + `requestAnimationFrame` 延迟检查来区分真实拖动和滚轮缩放。
+
+实现方式：
+```jsx
+// App.js
+const musicRef = useRef();
+const isMouseDown = useRef(false);
+
+const handleFirstInteraction = () => {
+  if (isMouseDown.current) {
+    musicRef.current?.play();
+  }
+};
+
+useEffect(() => {
+  const handlePointerDown = () => { isMouseDown.current = true; };
+  const handlePointerUp = () => { isMouseDown.current = false; };
+  
+  window.addEventListener('pointerdown', handlePointerDown);
+  window.addEventListener('pointerup', handlePointerUp);
+  
+  return () => {
+    window.removeEventListener('pointerdown', handlePointerDown);
+    window.removeEventListener('pointerup', handlePointerUp);
+  };
+}, []);
+
+<OrbitControls 
+  onStart={() => {
+    requestAnimationFrame(() => handleFirstInteraction());
+  }}
+/>
+```
+
+MusicControl 组件确保只在播放成功后设置锁：
+```jsx
+useEffect(() => {
+  if (playing) {
+    audio.play()
+      .then(() => { hasPlayed.current = true; })
+      .catch(() => { 
+        setPlaying(false);
+        hasPlayed.current = false; // 允许重试
+      });
+  }
+}, [playing]);
+```
+
+**理由**:
+- **时序保证**: `requestAnimationFrame` 确保全局 `pointerdown` 事件已处理
+- **简洁可靠**: 布尔标志比时间戳检测更简单，不需要调试阈值
+- **符合浏览器策略**: 只在真实拖动（鼠标按下）时播放音乐
+
+**替代方案**:
+1. 使用 `onStart` + `onChange`: 会被滚轮触发，难以区分
+2. 检测鼠标按下时间戳: 代码复杂，需要精确的时间阈值
+3. 使用 `setTimeout` 延迟: 不如 `requestAnimationFrame` 优雅
+
+**影响**:
+- 用户体验: 只在拖动场景时播放音乐，符合直觉
+- 性能: 全局事件监听器开销极小
+- 维护性: 逻辑清晰，易于理解事件执行顺序
+---
 
 ## 通用设计模式和最佳实践
 

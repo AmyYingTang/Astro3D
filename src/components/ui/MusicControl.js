@@ -29,10 +29,20 @@ const MusicControl = forwardRef(function MusicControl(
   // 暴露外部控制方法
   useImperativeHandle(ref, () => ({
     play: () => {
+      console.log('🎵 [MusicControl] play() 被调用', {
+        hasPlayed: hasPlayed.current,
+        playing: playing,
+        audioReady: !!audioRef.current
+      });
+
       if (!hasPlayed.current) {
+        console.log('✅ [MusicControl] 设置 playing = true');
+
         setPlaying(true);
         hasPlayed.current = true;
-      }
+      } else {
+        console.log('⛔ [MusicControl] 已经播放过，跳过');
+      }    
     },
     pause: () => setPlaying(false),
   }));
@@ -42,13 +52,20 @@ const MusicControl = forwardRef(function MusicControl(
   const audio = audioRef.current;
   if (!audio) return;
 
+  console.log('🔄 [MusicControl] useEffect 触发', { playing });
+
   let fadeInterval; // ⭐ 用于清理
 
   if (playing) {
+    console.log('▶️ [MusicControl] 尝试播放音频...');
     audio.volume = 0;
     audio
       .play()
       .then(() => {
+        console.log('✅ [MusicControl] 播放成功！设置 hasPlayed = true');
+        // ⭐ 只在播放成功后才锁定
+        hasPlayed.current = true;
+
         // 🎧 平滑淡入
         let currentVolume = 0;
         const target = volume;
@@ -59,16 +76,19 @@ const MusicControl = forwardRef(function MusicControl(
           if (currentVolume >= target) {
             currentVolume = target;
             clearInterval(fadeInterval);
+            console.log('🎶 [MusicControl] 淡入完成');
           }
           audio.volume = currentVolume;
         }, 50);
       })
       .catch((err) => {
-        console.error("播放失败:", err); // ⭐ 查看控制台
+        console.error('❌ [MusicControl] 播放失败:', err.name, err.message);
+
         setPlaying(false); // ⭐ 自动关闭播放状态
         hasPlayed.current = false; // ⭐ 允许重试
       });
   } else {
+    console.log('⏸️ [MusicControl] 淡出/暂停');
     // 🎧 平滑淡出
     let currentVolume = audio.volume;
     fadeInterval = setInterval(() => {

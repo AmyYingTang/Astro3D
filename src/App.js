@@ -15,11 +15,7 @@ import "./components/ui/RangeSlider.css";
 import  MusicControl  from "./components/ui/MusicControl";
 import HelpPanel from './components/ui/HelpPanel';
 
-import { 
-  useWelcomeAnimation, 
-  WelcomeAnimationUI,
-  WelcomeAnimationController  // 新增：在 Canvas 内部使用
-} from './WelcomeAnimation';
+import { useWelcomeAnimation, WelcomeAnimationUI, WelcomeAnimationController } from './WelcomeAnimation';
 
 export default function App() {
   const { 
@@ -49,12 +45,23 @@ export default function App() {
   } = useCelestialFilter(celestialData);
 
   const musicRef = useRef();
+  const isMouseDown = useRef(false); // ⭐ 改用布尔值
 
   const handleFirstInteraction = () => {
-    musicRef.current?.play();
-  };  
+    console.log('🎯 [App] handleFirstInteraction 触发');
+    console.log('🔍 [App] isMouseDown.current:', isMouseDown.current);
+    
+    if (isMouseDown.current) {
+      console.log('🖱️ [App] 真实拖动，触发音乐');
+      musicRef.current?.play();
+    } else {
+      console.log('🔍 [App] zoom 操作，忽略');
+    }
+  };
+
   
   useEffect(() => {
+
     fetch("/data/celestial_objects_full.csv")      
       .then((res) => res.text())
       .then((text) => {
@@ -72,6 +79,27 @@ export default function App() {
         }));
         setcelestialData(cleaned);
       });
+  }, []);
+
+  
+  useEffect(() => {
+    const handlePointerDown = () => {
+      isMouseDown.current = true;
+      console.log('👇 [App] 鼠标按下');
+    };
+    
+    const handlePointerUp = () => {
+      isMouseDown.current = false;
+      console.log('👆 [App] 鼠标抬起');
+    };
+    
+    window.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('pointerup', handlePointerUp);
+    
+    return () => {
+      window.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('pointerup', handlePointerUp);
+    };
   }, []);
   
   return (    
@@ -103,7 +131,18 @@ export default function App() {
           <CelestialObjects data={filteredData} showLabels={showLabels && !isPlaying} isAnimating={isPlaying && step >= 2}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
-        <OrbitControls enablePan={true} onStart={handleFirstInteraction} onChange={handleFirstInteraction}  panSpeed={1} maxDistance={50} minDistance={2}/>
+        <OrbitControls 
+          enablePan={true} 
+          onStart={() => {
+            console.log('🎯 [App] OrbitControls onStart 触发');
+            // ⭐ 在下一帧检查
+            requestAnimationFrame(() => {
+              handleFirstInteraction();
+            });
+          }}
+          panSpeed={1} 
+          maxDistance={50} 
+          minDistance={2}/>
 
       </Canvas>
       
