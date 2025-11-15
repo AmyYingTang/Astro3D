@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { CelestialObject } from "./CelestialObject";
 import { convertRA, convertDEC, raDecToXYZ } from "../../utils/coordinates";
 import { astronomicalScore } from "../../utils/dataProcessing";
 import { useStaggeredFadeIn } from '../ui/WelcomeAnimation';
 
 export function CelestialObjects({data, showLabels, isAnimating = false}) {
+  const [activeObjectIndex, setActiveObjectIndex] = useState(null);
+
   const visibleIndices = useStaggeredFadeIn(data.length, isAnimating);
 
   // 自动检测并调整重叠天体位置
@@ -87,17 +89,25 @@ export function CelestialObjects({data, showLabels, isAnimating = false}) {
 
         return (
           <mesh 
+            key={obj.index}  
             scale={[scale, scale, scale]}  // ⭐ 添加缩放
             opacity={opacity}              // ⭐ 添加透明度
             transparent                    // ⭐ 启用透明
           >
             {/* 你的天体渲染代码 */}
             <CelestialObject 
-              key={obj.index} 
+              //key={obj.index} 
               obj={obj} 
               index={obj.index}
               overridePosition={obj.position}
               showLabels={showLabels}
+              isActive={activeObjectIndex === obj.index}
+              onActivate={() => setActiveObjectIndex(obj.index)}
+              onDeactivate={() => {
+                if (activeObjectIndex === obj.index) {
+                  setActiveObjectIndex(null);
+                }
+              }}
             />
           </mesh>
         );

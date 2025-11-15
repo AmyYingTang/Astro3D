@@ -7,7 +7,7 @@ import { extractWikiTitle, convertRA, convertDEC, raDecToXYZ } from "../../utils
 import { astronomicalScore } from "../../utils/dataProcessing";
 import { ImageSprite } from "./ImageSprite";
 
-export function CelestialObject({ obj, index, overridePosition, showLabels }) {
+export function CelestialObject({ obj, index, overridePosition, showLabels, isActive, onActivate, onDeactivate}) {
   console.log(`......................: ${obj.wikiUrl}`);
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
   const fontScale = useFontScale(); 
@@ -44,6 +44,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
       leaveTimeoutRef.current = null;
     }
     setHovered(true);
+    onActivate?.();
   };
 
   const handleObjectLeave = () => {
@@ -51,6 +52,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
     leaveTimeoutRef.current = setTimeout(() => {
       if (!isPanelHovered) {
         setHovered(false);
+        onDeactivate?.(); 
       }
     }, 150);
   };
@@ -70,6 +72,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
     // 立即隐藏，因为鼠标已经离开整个hover区域
     leaveTimeoutRef.current = setTimeout(() => {
       setHovered(false);
+      onDeactivate?.(); 
     }, 150);
   };
 
@@ -93,6 +96,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
         // 如果正在拖动，立即隐藏Panel
         setHovered(false);
         setIsPanelHovered(false);
+        onDeactivate?.(); 
       }
     };
     
@@ -306,7 +310,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           </Text>
           
         </Billboard>
-        {hovered && <InfoPanel />}
+        {(hovered && isActive)  && <InfoPanel />}
       </group>
     );
   }
@@ -347,7 +351,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
         </Text>
        
       </Billboard>
-      {hovered && <InfoPanel />}
+      {(hovered && isActive)  && <InfoPanel />}
       {loading && (
         <Html position={[0, -0.15, 0]} center>
           <div style={{ 
