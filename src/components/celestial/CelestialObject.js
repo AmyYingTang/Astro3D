@@ -150,7 +150,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.8)',
           userSelect: 'none',
           cursor: 'pointer',
-          minWidth: imageUrl ? '170px' : 'auto',
+          minWidth: imageUrl ? '190px' : 'auto',
           pointerEvents: 'auto',
         }}
         onClick={handleClick}
