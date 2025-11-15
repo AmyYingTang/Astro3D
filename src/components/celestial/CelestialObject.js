@@ -160,7 +160,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           onPointerEnter={handlePanelEnter}
           onPointerLeave={handlePanelLeave}
         >
-        {imageUrl && (
+        {/* {imageUrl && (
           <div style={{ marginBottom: '10px', textAlign: 'center' }}>
             <img 
               src={imageUrl} 
@@ -174,6 +174,60 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
               }} 
               alt={obj.name}
             />
+          </div>
+        )} */}
+        {imageUrl && (
+          <div style={{ 
+            marginBottom: '10px', 
+            position: 'relative',
+            width: '170px',
+            height: '170px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto'
+          }}>
+            {/* 光晕层 */}
+            <div style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(100,150,255,0.2) 0%, transparent 70%)',
+              animation: 'celestialPulse 3s ease-in-out infinite'
+            }} />
+            
+            <div style={{
+              position: 'absolute',
+              width: '85%',
+              height: '85%',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(100,150,255,0.3) 0%, transparent 70%)',
+              animation: 'celestialPulse 3s ease-in-out infinite 0.5s'
+            }} />
+            
+            {/* 图片 */}
+            <img 
+              src={imageUrl} 
+              width="130" 
+              height="130" 
+              style={{ 
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '2px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 0 20px rgba(100, 150, 255, 0.6)',
+                position: 'relative',
+                zIndex: 2
+              }} 
+              alt={obj.name}
+            />
+            
+            <style>{`
+              @keyframes celestialPulse {
+                0%, 100% { opacity: 0.4; transform: scale(1); }
+                50% { opacity: 0.8; transform: scale(1.1); }
+              }
+            `}</style>
           </div>
         )}
         <div style={{ 
