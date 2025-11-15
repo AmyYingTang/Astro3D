@@ -94,7 +94,7 @@ export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete
     timeline.to(camera.position, {
       x: 0,
       y: 0,
-      z: 5,
+      z: 8,
       duration: 2,
       ease: 'power2.inOut',
       onStart: () => onStepChange?.(4),
@@ -103,7 +103,7 @@ export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete
       },
       onComplete: () => {
         if (controls) {
-          controls.target.set(0, 0, 0);
+          controls.target.set(0, 0,0);
           controls.update();
         }
       }

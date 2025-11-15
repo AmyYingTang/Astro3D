@@ -114,7 +114,7 @@ export default function App() {
         onSkip={skipAnimation} 
       />
 
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+      <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
         <color attach="background" args={["#000"]} />
         <ambientLight intensity={1.6} />
         <pointLight position={[5, 5, 5]} />
