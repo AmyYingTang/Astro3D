@@ -15,7 +15,7 @@ import "./components/ui/RangeSlider.css";
 import  MusicControl  from "./components/ui/MusicControl";
 import HelpPanel from './components/ui/HelpPanel';
 
-import { useWelcomeAnimation, WelcomeAnimationUI, WelcomeAnimationController } from './WelcomeAnimation';
+import { useWelcomeAnimation, WelcomeAnimationUI, WelcomeAnimationController } from './components/ui/WelcomeAnimation';
 
 export default function App() {
   const { 

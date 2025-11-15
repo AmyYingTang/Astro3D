@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { CelestialObject } from "./CelestialObject";
 import { convertRA, convertDEC, raDecToXYZ } from "../../utils/coordinates";
 import { astronomicalScore } from "../../utils/dataProcessing";
-import { useStaggeredFadeIn } from '../../WelcomeAnimation';
+import { useStaggeredFadeIn } from '../ui/WelcomeAnimation';
 
 export function CelestialObjects({data, showLabels, isAnimating = false}) {
   const visibleIndices = useStaggeredFadeIn(data.length, isAnimating);

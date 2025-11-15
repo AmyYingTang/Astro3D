@@ -8,11 +8,22 @@ import gsap from 'gsap';
 export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete }) {
   const { camera, controls } = useThree();
   const hasStarted = useRef(false);
+  const timelineRef = useRef(null);
 
   useEffect(() => {
     if (isPlaying && !hasStarted.current) {
       hasStarted.current = true;
       playWelcomeSequence();
+    }
+
+     // ⭐ 新增：当 isPlaying 变为 false 时，杀死动画
+    if (!isPlaying && timelineRef.current) {
+      timelineRef.current.kill();
+      timelineRef.current = null;
+      if (controls) {
+        controls.enabled = true;
+      }
+      hasStarted.current = false;
     }
   }, [isPlaying]);
 
@@ -28,8 +39,10 @@ export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete
         }
         onComplete?.();
         hasStarted.current = false;
+        timelineRef.current = null; // ⭐ 清空引用
       }
     });
+    timelineRef.current = timeline; // ⭐ 清空引用
 
     timeline.to(camera.position, {
       x: 0,
