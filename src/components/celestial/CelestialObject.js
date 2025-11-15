@@ -269,6 +269,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
         <ImageSprite 
           imageUrl={imageUrl} 
           size={0.3}
+          position={[x, y, z]}  
           onPointerEnter={handleObjectEnter}
           onPointerLeave={handleObjectLeave}
           onClick={handleClick}
