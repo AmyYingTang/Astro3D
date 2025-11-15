@@ -13,6 +13,7 @@ import { CelestialFilter } from "./components/ui/CelestialFilter";
 import { useCelestialFilter } from "./hooks/useCelestialFilter";
 import "./components/ui/RangeSlider.css"; 
 import  MusicControl  from "./components/ui/MusicControl";
+import HelpPanel from './components/ui/HelpPanel';
 
 import { 
   useWelcomeAnimation, 
@@ -49,7 +50,7 @@ export default function App() {
 
   const musicRef = useRef();
 
-  const handleFirstDrag = () => {
+  const handleFirstInteraction = () => {
     musicRef.current?.play();
   };  
   
@@ -102,42 +103,11 @@ export default function App() {
           <CelestialObjects data={filteredData} showLabels={showLabels && !isPlaying} isAnimating={isPlaying && step >= 2}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
-        <OrbitControls enablePan={true} onStart={handleFirstDrag} panSpeed={1} maxDistance={50} minDistance={2}/>
+        <OrbitControls enablePan={true} onStart={handleFirstInteraction} onChange={handleFirstInteraction}  panSpeed={1} maxDistance={50} minDistance={2}/>
 
       </Canvas>
       
-      <div style={{
-        position: 'absolute',
-        top: '20px',
-        left: '20px',
-        color: 'white',
-        background: 'rgba(0,0,0,0.7)',
-        padding: '15px',
-        borderRadius: '8px',
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '14px',
-        maxWidth: '300px'
-      }}>
-        <h3 style={{ margin: '0 0 10px 0' }}>MyAstro3D beta</h3>
-        <p style={{ margin: '5px 0', fontSize: '12px' }}>
-          
-          • 鼠标左键拖动旋转 /右键平移/ 滚轮缩放<br/>
-          • <strong>悬停星体</strong>查看详细信息<br/>
-          • <strong>点击星体</strong>打开Wikipedia页面<br/>
-          • Credits:<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;• Celestial objects images from Wikipedia<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;• Earth textures by Solar System Scope<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;• Milky Way texture by <a
-              href="https://josefrancisco.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: '#4da3ff' }}
-            >ESO/José Francisco
-            </a>
-            <br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;• Music by Maksym Malko from Pixabay<br/>
-        </p>
-      </div>
+      <HelpPanel />
       
       {/* UI 控件容器 */}
       <div

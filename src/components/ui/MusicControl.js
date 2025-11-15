@@ -39,42 +39,55 @@ const MusicControl = forwardRef(function MusicControl(
 
   // 控制播放 / 音量 + 淡入逻辑
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
+  const audio = audioRef.current;
+  if (!audio) return;
 
-    if (playing) {
-      audio.volume = 0;
-      audio
-        .play()
-        .then(() => {
-          // 🎧 平滑淡入
-          let currentVolume = 0;
-          const target = volume;
-          const steps = Math.max(1, Math.floor(fadeDuration / 50));
-          const stepSize = target / steps;
-          const fadeIn = setInterval(() => {
-            currentVolume += stepSize;
-            if (currentVolume >= target) {
-              currentVolume = target;
-              clearInterval(fadeIn);
-            }
-            audio.volume = currentVolume;
-          }, 50);
-        })
-        .catch(() => {});
-    } else {
-      // 可选：淡出逻辑
-      const fadeOut = setInterval(() => {
-        if (audio.volume <= 0.05) {
-          clearInterval(fadeOut);
-          audio.pause();
-          audio.volume = 0;
-        } else {
-          audio.volume -= 0.05;
-        }
-      }, 50);
-    }
-  }, [playing]);
+  let fadeInterval; // ⭐ 用于清理
+
+  if (playing) {
+    audio.volume = 0;
+    audio
+      .play()
+      .then(() => {
+        // 🎧 平滑淡入
+        let currentVolume = 0;
+        const target = volume;
+        const steps = Math.max(1, Math.floor(fadeDuration / 50));
+        const stepSize = target / steps;
+        fadeInterval = setInterval(() => {
+          currentVolume += stepSize;
+          if (currentVolume >= target) {
+            currentVolume = target;
+            clearInterval(fadeInterval);
+          }
+          audio.volume = currentVolume;
+        }, 50);
+      })
+      .catch((err) => {
+        console.error("播放失败:", err); // ⭐ 查看控制台
+        setPlaying(false); // ⭐ 自动关闭播放状态
+        hasPlayed.current = false; // ⭐ 允许重试
+      });
+  } else {
+    // 🎧 平滑淡出
+    let currentVolume = audio.volume;
+    fadeInterval = setInterval(() => {
+      currentVolume -= 0.05;
+      if (currentVolume <= 0) {
+        currentVolume = 0;
+        clearInterval(fadeInterval);
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      audio.volume = currentVolume;
+    }, 50);
+  }
+
+  // ⭐ cleanup: 组件卸载或 playing 变化时清理 interval
+  return () => {
+    if (fadeInterval) clearInterval(fadeInterval);
+  };
+}, [playing, fadeDuration, volume]); // ⭐ 添加依赖项
 
   // 手动调节音量
   useEffect(() => {
