@@ -156,29 +156,13 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           minWidth: imageUrl ? '190px' : 'auto',
           pointerEvents: 'auto',
         }}
-        onClick={handleClick}
-        onMouseEnter={handlePanelEnter}
-          onMouseEnter={handlePanelEnter}
+          onClick={handleClick}
+          onMouseEnter={handlePanelEnter}          
           onMouseLeave={handlePanelLeave}
           onPointerEnter={handlePanelEnter}
           onPointerLeave={handlePanelLeave}
         >
-        {/* {imageUrl && (
-          <div style={{ marginBottom: '10px', textAlign: 'center' }}>
-            <img 
-              src={imageUrl} 
-              width="150" 
-              height="150" 
-              style={{ 
-                borderRadius: '4px',
-                display: 'block',
-                margin: '0 auto',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-              }} 
-              alt={obj.name}
-            />
-          </div>
-        )} */}
+       
         {imageUrl && (
           <div style={{ 
             marginBottom: '10px', 

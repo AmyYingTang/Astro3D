@@ -9,7 +9,7 @@ export function useWikipediaImage(wikiPageName) {
       try {
         console.log(`Fetching image for Wikipedia page: ${wikiPageName}`);
         
-        const imageApiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(wikiPageName)}&prop=pageimages&pithumbsize=500`;
+        const imageApiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(wikiPageName)}&prop=pageimages&pithumbsize=500&redirects=1`;
         
         const response = await fetch(imageApiUrl);
         const data = await response.json();
