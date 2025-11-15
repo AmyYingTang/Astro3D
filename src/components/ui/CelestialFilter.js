@@ -156,36 +156,36 @@ export function CelestialFilter({
           maxHeight: 'calc(90vh - 120px)'
         }}>
           <div style={{ 
-            marginTop: '15px', 
+            marginTop: '5px', 
             paddingTop: '15px', 
             borderTop: '1px solid rgba(255,255,255,0.2)' 
           }}>
             <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
               <input 
                 type="checkbox"
-                checked={showLabels}
-                onChange={(e) => onShowLabelsChange(e.target.checked)}
+                checked={!showLabels}
+                onChange={(e) => onShowLabelsChange(!e.target.checked)}
                 style={{ marginRight: '8px' }}
               />
-              <span>显示星体名称</span>
+              <span>显示完整名称</span>
             </label>
           </div>
 
           {/* 名称搜索 */}
           <div style={{ marginBottom: '15px' }}>
-            <label style={{ 
+            {/* <label style={{ 
               display: 'block', 
               fontSize: '13px', 
               fontWeight: 'bold',
               marginBottom: '5px' 
             }}>
               星体名称
-            </label>
+            </label> */}
             <input
               type="text"
               value={filters.nameSearch || ''}
               onChange={handleNameChange}
-              placeholder="搜索..."
+              placeholder="搜索星体..."
               style={{
                 width: '90%',
                 padding: '8px',

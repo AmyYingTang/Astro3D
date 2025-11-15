@@ -283,22 +283,25 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
           lockY={false}
           lockZ={false}
         >
-          {showLabels && (
-            <Text
-              position={[0, -0.2, 0]}
-              fontSize={0.1 * fontScale}
-              color="#ffffff"
-              anchorX="center"
-              anchorY="top"
-              outlineWidth={0.01}
-              outlineColor="black"
-              onPointerEnter={handleObjectEnter}
-              onPointerLeave={handleObjectLeave}
-              onClick={handleClick}
-            >
-              {obj.name}
-            </Text>
-          )}
+          
+          <Text
+            position={[0, -0.2, 0]}
+            fontSize={0.1 * fontScale}
+            color="#ffffff"
+            anchorX="center"
+            anchorY="top"
+            outlineWidth={0.01}
+            outlineColor="black"
+            onPointerEnter={handleObjectEnter}
+            onPointerLeave={handleObjectLeave}
+            onClick={handleClick}
+          >
+            {showLabels
+              ? obj.name
+              : obj.name.split("-")[0].trim()
+            }
+          </Text>
+          
         </Billboard>
         {hovered && <InfoPanel />}
       </group>
@@ -321,22 +324,25 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
         lockY={false}
         lockZ={false}
       >
-        {showLabels && (
-          <Text
-            position={[0.1, 0.1, 0]}
-            fontSize={0.12 * fontScale}
-            color="#ffffff"
-            anchorX="left"
-            anchorY="bottom"
-            outlineWidth={0.01}
-            outlineColor="black"
-            onPointerEnter={handleObjectEnter}
-            onPointerLeave={handleObjectLeave}
-            onClick={handleClick}
-          >
-            {obj.name}
-          </Text>
-        )}
+
+        <Text
+          position={[0.1, 0.1, 0]}
+          fontSize={0.12 * fontScale}
+          color="#ffffff"
+          anchorX="left"
+          anchorY="bottom"
+          outlineWidth={0.01}
+          outlineColor="black"
+          onPointerEnter={handleObjectEnter}
+          onPointerLeave={handleObjectLeave}
+          onClick={handleClick}
+        >
+          {showLabels
+            ? obj.name
+            : obj.name.split("-")[0].trim()
+          }
+        </Text>
+       
       </Billboard>
       {hovered && <InfoPanel />}
       {loading && (

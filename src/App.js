@@ -128,7 +128,7 @@ export default function App() {
           <Earth />
           <CelestialGrid />
           <Axes />
-          <CelestialObjects data={filteredData} showLabels={showLabels && !isPlaying} isAnimating={isPlaying && step >= 2}/>
+          <CelestialObjects data={filteredData} showLabels={!showLabels && !isPlaying} isAnimating={isPlaying && step >= 2}/>
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls 
