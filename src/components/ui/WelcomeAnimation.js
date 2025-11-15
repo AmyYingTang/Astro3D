@@ -94,8 +94,8 @@ export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete
     timeline.to(camera.position, {
       x: 0,
       y: 0,
-      z: 8,
-      duration: 2,
+      z: 7,
+      duration: 3,
       ease: 'power2.inOut',
       onStart: () => onStepChange?.(4),
       onUpdate: () => {

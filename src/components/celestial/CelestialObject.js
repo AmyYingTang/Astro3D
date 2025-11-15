@@ -271,20 +271,21 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
   if (imageUrl && !loading) {
     return (
       <group position={[x, y, z]}>
-        <ImageSprite 
-          imageUrl={imageUrl} 
-          size={0.3}
-          position={[x, y, z]}  
-          onPointerEnter={handleObjectEnter}
-          onPointerLeave={handleObjectLeave}
-          onClick={handleClick}
-        />
+        
         <Billboard
           follow={true}
           lockX={false}
           lockY={false}
           lockZ={false}
         >
+          <ImageSprite 
+            imageUrl={imageUrl} 
+            size={0.3}
+            position={[x, y, z]}  
+            onPointerEnter={handleObjectEnter}
+            onPointerLeave={handleObjectLeave}
+            onClick={handleClick}
+          />
           
           <Text
             position={[0, -0.2, 0]}
@@ -312,21 +313,21 @@ export function CelestialObject({ obj, index, overridePosition, showLabels }) {
 
   return (
     <group position={[x, y, z]}>
-      <mesh
-        onPointerEnter={handleObjectEnter}
-        onPointerLeave={handleObjectLeave}
-        onClick={handleClick}
-      >
-        <sphereGeometry args={[0.05, 16, 16]} />
-        <meshBasicMaterial color={color} />
-      </mesh>
+      
       <Billboard
         follow={true}
         lockX={false}
         lockY={false}
         lockZ={false}
       >
-
+        <mesh
+          onPointerEnter={handleObjectEnter}
+          onPointerLeave={handleObjectLeave}
+          onClick={handleClick}
+        >
+          <sphereGeometry args={[0.05, 16, 16]} />
+          <meshBasicMaterial color={color} />
+        </mesh>
         <Text
           position={[0.1, 0.1, 0]}
           fontSize={0.12 * fontScale}

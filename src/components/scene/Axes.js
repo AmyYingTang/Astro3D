@@ -20,7 +20,7 @@ export function Axes({ length = 5.1 }) {
         >
           <Text   
             position={[0, 0, 0]}         
-            fontSize={0.2}
+            fontSize={0.08}
             color={color}
             anchorX="centre"
             anchorY="middle"
