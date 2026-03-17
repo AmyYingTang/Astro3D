@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * 📖 HelpPanel
- * - 可折叠的帮助信息面板
- * - 默认只显示图标，点击后展开详细信息
+ * - 默认展开，用户交互后自动收起
  */
 export default function HelpPanel() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const close = () => setIsOpen(false);
+    window.addEventListener('pointerdown', close, { once: true });
+    return () => window.removeEventListener('pointerdown', close);
+  }, []);
 
   return (
     <div
@@ -42,7 +49,7 @@ export default function HelpPanel() {
           e.target.style.background = 'rgba(0, 0, 0, 0.7)';
           e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
         }}
-        title="帮助"
+        title={t('help.tooltip')}
       >
         {isOpen ? '✕' : '?'}
       </button>
@@ -64,9 +71,9 @@ export default function HelpPanel() {
         >
           <h3 style={{ margin: '0 0 10px 0' }}>MyAstro3D beta</h3>
           <p style={{ margin: '5px 0', fontSize: '12px' }}>
-            • 鼠标左键拖动旋转 / 右键平移 / 滚轮缩放<br />
-            • <strong>悬停星体</strong>查看详细信息<br />
-            • <strong>点击星体</strong>打开Wikipedia页面<br />
+            • {t('help.mouseInstructions')}<br />
+            • <strong>{t('help.hoverPrompt')}</strong>{t('help.hoverAction')}<br />
+            • <strong>{t('help.clickPrompt')}</strong>{t('help.clickAction')}<br />
             • Credits:<br />
             &nbsp;&nbsp;&nbsp;&nbsp;• Celestial objects images from Wikipedia<br />
             &nbsp;&nbsp;&nbsp;&nbsp;• Earth textures by Solar System Scope<br />

@@ -1,0 +1,57 @@
+{
+  "app": {
+    "replayWelcome": "🎬 Replay Welcome"
+  },
+  "welcome": {
+    "step0": "Preparing...",
+    "step1": "Departing from Earth 🚀",
+    "step2": "Exploring the Cosmos ✨",
+    "step3": "Gazing at the Stars ✨",
+    "step4": "Welcome to MyAstro3D!",
+    "skip": "Skip ⏭"
+  },
+  "help": {
+    "tooltip": "Help",
+    "mouseInstructions": "Left-click drag to rotate / Right-click to pan / Scroll to zoom",
+    "hoverPrompt": "Hover over an object",
+    "hoverAction": "to view details",
+    "clickPrompt": "Click an object",
+    "clickAction": "to open its Wikipedia page"
+  },
+  "filter": {
+    "title": "🔍 Object Filter",
+    "reset": "Reset",
+    "showFullName": "Show Full Names",
+    "searchPlaceholder": "Search objects...",
+    "ra": "Right Ascension (RA)",
+    "dec": "Declination (DEC)",
+    "objectType": "Object Type",
+    "filterType": "Filter",
+    "showing": "Showing {{filtered}} / {{total}} objects",
+    "filtered": "{{count}} objects filtered"
+  },
+  "info": {
+    "distance": "Distance (ly)",
+    "type": "Type",
+    "filter": "Recommended Filter",
+    "constellation": "Constellation",
+    "magnitude": "Apparent Mag.",
+    "angularDiameter": "Angular Diameter",
+    "summary": "Summary",
+    "clickWiki": "Click anywhere to view on Wikipedia →",
+    "loading": "Loading..."
+  },
+  "deepsky": {
+    "clickZoom": "Click to zoom",
+    "clickReturn": "Click to return",
+    "distance": "Distance",
+    "exposure": "Exposure",
+    "photographer": "Photographer",
+    "fov": "FOV",
+    "name_ngc2736": "NGC 2736 Pencil Nebula",
+    "dist_ngc2736": "815 ly"
+  },
+  "loading": {
+    "initializing": "Initializing scene..."
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RangeSlider } from './RangeSlider';
 import { CollapsibleSection } from './CollapsibleSection';
 
@@ -23,6 +24,7 @@ export function CelestialFilter({
   showLabels,
   onShowLabelsChange
 }) {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(true);
   const [typeExpanded, setTypeExpanded] = useState(false);
   const [filterExpanded, setFilterExpanded] = useState(false);
@@ -117,7 +119,7 @@ export function CelestialFilter({
           alignItems: 'center',
           gap: '8px'
         }}>
-          🔍 星体过滤器
+          {t('filter.title')}
           <span style={{ fontSize: '12px', color: '#888' }}>
             {isExpanded ? '▼' : '▶'}
           </span>
@@ -144,7 +146,7 @@ export function CelestialFilter({
             e.target.style.background = 'rgba(74, 158, 255, 0.2)';
           }}
         >
-          重置
+          {t('filter.reset')}
         </button>
       </div>
 
@@ -167,7 +169,7 @@ export function CelestialFilter({
                 onChange={(e) => onShowLabelsChange(!e.target.checked)}
                 style={{ marginRight: '8px' }}
               />
-              <span>显示完整名称</span>
+              <span>{t('filter.showFullName')}</span>
             </label>
           </div>
 
@@ -185,7 +187,7 @@ export function CelestialFilter({
               type="text"
               value={filters.nameSearch || ''}
               onChange={handleNameChange}
-              placeholder="搜索星体..."
+              placeholder={t('filter.searchPlaceholder')}
               style={{
                 width: '90%',
                 padding: '8px',
@@ -203,7 +205,7 @@ export function CelestialFilter({
 
           {/* RA 滑块 */}
           <RangeSlider
-            label="赤经 (RA)"
+            label={t('filter.ra')}
             min={0}
             max={24}
             step={0.1}
@@ -214,7 +216,7 @@ export function CelestialFilter({
 
           {/* DEC 滑块 */}
           <RangeSlider
-            label="赤纬 (DEC)"
+            label={t('filter.dec')}
             min={-90}
             max={90}
             step={1}
@@ -226,7 +228,7 @@ export function CelestialFilter({
 
           {/* 天体类型 - 折叠区域 */}
           <CollapsibleSection
-            title="星体类型"
+            title={t('filter.objectType')}
             expanded={typeExpanded}
             onToggle={() => setTypeExpanded(!typeExpanded)}
             count={filters.types.length > 0 ? filters.types.length : undefined}
@@ -251,7 +253,7 @@ export function CelestialFilter({
 
           {/* 滤镜类型 - 折叠区域 */}
           <CollapsibleSection
-            title="滤镜"
+            title={t('filter.filterType')}
             expanded={filterExpanded}
             onToggle={() => setFilterExpanded(!filterExpanded)}
             count={filters.filters.length > 0 ? filters.filters.length : undefined}
@@ -286,7 +288,7 @@ export function CelestialFilter({
             textAlign: 'center'
           }}>
             <div style={{ color: '#4a9eff', fontWeight: 'bold' }}>
-              显示 {filteredObjects} / {totalObjects} 个星体
+              {t('filter.showing', { filtered: filteredObjects, total: totalObjects })}
             </div>
             {filteredObjects < totalObjects && (
               <div style={{ 
@@ -294,7 +296,7 @@ export function CelestialFilter({
                 fontSize: '11px', 
                 color: '#aaa' 
               }}>
-                {totalObjects - filteredObjects} 个星体被过滤
+                {t('filter.filtered', { count: totalObjects - filteredObjects })}
               </div>
             )}
           </div>

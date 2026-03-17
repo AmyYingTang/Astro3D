@@ -1,4 +1,5 @@
 import React, { Suspense, useState, useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 import Papa from "papaparse";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
@@ -8,19 +9,22 @@ import { MilkyWay } from "./components/scene/MilkyWay";
 import { CelestialGrid } from "./components/celestial/CelestialGrid";
 import { Axes } from "./components/scene/Axes";
 import { CelestialObjects } from "./components/celestial/CelestialObjects";
+import { DeepSkyPhoto } from "./components/celestial/DeepSkyPhoto";
 import { LoadingIndicator } from "./components/scene/LoadingIndicator";
 import { CelestialFilter } from "./components/ui/CelestialFilter";
 import { useCelestialFilter } from "./hooks/useCelestialFilter";
 import "./components/ui/RangeSlider.css"; 
 import  MusicControl  from "./components/ui/MusicControl";
 import HelpPanel from './components/ui/HelpPanel';
+import LanguageSwitcher from './components/ui/LanguageSwitcher';
 
 import { useWelcomeAnimation, WelcomeAnimationUI, WelcomeAnimationController } from './components/ui/WelcomeAnimation';
 
 export default function App() {
-  const { 
-    isPlaying, 
-    step, 
+  const { t } = useTranslation();
+  const {
+    isPlaying,
+    step,
     skipAnimation,
     handleComplete,
     handleStepChange,
@@ -132,6 +136,20 @@ export default function App() {
           <CelestialGrid />
           <Axes />
           <CelestialObjects data={filteredData} showLabels={!showLabels && !isPlaying} isAnimating={isPlaying && step >= 2}/>
+          
+          {/* 深空摄影作品展示 */}
+          <DeepSkyPhoto
+            imageUrl="/photos/NGC2736_7200s.png"
+            ra="9h 0m 17s"
+            dec="-45° 54′ 57″"
+            fovDeg={1.5}
+            name={t('deepsky.name_ngc2736')}
+            metadata={{
+              distance: t('deepsky.dist_ngc2736'),
+              exposure: "7200s",
+              photographer: "Your Name"
+            }}
+          />
         </Suspense>
         <Stars radius={100} depth={50} count={5000} factor={2} fade />
         <OrbitControls 
@@ -168,6 +186,7 @@ export default function App() {
       >
         
 
+        <LanguageSwitcher />
         <MusicControl ref={musicRef} fadeDuration={1200}  />
 
         {/* 🔧 添加右侧过滤器面板 */}
@@ -211,7 +230,7 @@ export default function App() {
               e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
             }}
           >
-            🎬 重播欢迎动画
+            {t('app.replayWelcome')}
           </button>
         )}
         

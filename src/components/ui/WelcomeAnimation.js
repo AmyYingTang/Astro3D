@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
+import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 
 /**
@@ -169,12 +170,13 @@ export function useWelcomeAnimation() {
  * 推荐指数：⭐⭐⭐⭐⭐
  */
 export function WelcomeAnimationUI({ isPlaying, step, onSkip }) {
+  const { t } = useTranslation();
   const messages = {
-    0: "准备启程...",
-    1: "从地球出发 🚀",
-    2: "探索宇宙空间 ✨",
-    3: "环顾星辰大海 ✨",
-    4: "欢迎来到 MyAstro3D！"
+    0: t('welcome.step0'),
+    1: t('welcome.step1'),
+    2: t('welcome.step2'),
+    3: t('welcome.step3'),
+    4: t('welcome.step4')
   };
 
   if (!isPlaying && step === 0) return null;
@@ -279,7 +281,7 @@ export function WelcomeAnimationUI({ isPlaying, step, onSkip }) {
           e.target.style.transform = 'scale(1)';
         }}
       >
-        跳过 ⏭
+        {t('welcome.skip')}
       </button>
 
       <style>{`
@@ -297,6 +299,7 @@ export function WelcomeAnimationUI({ isPlaying, step, onSkip }) {
  * 推荐指数：⭐⭐⭐⭐
  */
 export function WelcomeAnimationUIMinimal({ isPlaying, step, onSkip }) {
+  const { t } = useTranslation();
   if (!isPlaying && step === 0) return null;
 
   return (
@@ -353,7 +356,7 @@ export function WelcomeAnimationUIMinimal({ isPlaying, step, onSkip }) {
           e.target.style.opacity = '0.7';
         }}
       >
-        跳过 ⏭
+        {t('welcome.skip')}
       </button>
     </div>
   );

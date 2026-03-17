@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Text, Html, Billboard } from "@react-three/drei";
 import * as THREE from "three";
+import { useTranslation } from 'react-i18next';
 import { useWikipediaImage } from "../../hooks/useWikipediaImage";
 import { useFontScale } from "../../hooks/useFontScale";
 import { extractWikiTitle, convertRA, convertDEC, raDecToXYZ } from "../../utils/coordinates";
 import { astronomicalScore } from "../../utils/dataProcessing";
+import { getDisplayName, getShortName, getConstellation, getType, getFilter, getSummary, getAngularDiameter } from "../../utils/nameUtils";
 import { ImageSprite } from "./ImageSprite";
 
 export function CelestialObject({ obj, index, overridePosition, showLabels, isActive, onActivate, onDeactivate}) {
   console.log(`......................: ${obj.wikiUrl}`);
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.startsWith('zh') ? 'zh' : 'en';
   const { imageUrl, loading } = useWikipediaImage(extractWikiTitle(obj.wikiUrl));
   const fontScale = useFontScale(); 
 
@@ -228,7 +232,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels, isAc
           color: '#4a9eff',
           textAlign: 'center'
         }}>
-          {obj.name}
+          {getDisplayName(obj.name, lang)}
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
           <span style={{ color: '#888' }}>RA:</span> {obj.ra}
@@ -237,25 +241,25 @@ export function CelestialObject({ obj, index, overridePosition, showLabels, isAc
           <span style={{ color: '#888' }}>DEC:</span> {obj.dec}
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>距离光年:</span> {parseFloat(obj.dist).toLocaleString()} ly
+          <span style={{ color: '#888' }}>{t('info.distance')}:</span> {parseFloat(obj.dist).toLocaleString()} ly
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>天体类型:</span> {obj.type} 
+          <span style={{ color: '#888' }}>{t('info.type')}:</span> {getType(obj.type, lang)}
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>推荐拍摄滤镜:</span> {obj.filter} 
+          <span style={{ color: '#888' }}>{t('info.filter')}:</span> {getFilter(obj.filter, lang)}
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>星座:</span> {obj.constel} 
+          <span style={{ color: '#888' }}>{t('info.constellation')}:</span> {getConstellation(obj.constel, lang)}
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>视星等:</span> {obj.appaMag} 
+          <span style={{ color: '#888' }}>{t('info.magnitude')}:</span> {obj.appaMag}
         </div>
         <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>角直径:</span> {obj.angDia} 
+          <span style={{ color: '#888' }}>{t('info.angularDiameter')}:</span> {getAngularDiameter(obj.angDia, lang)}
         </div>
          <div style={{ fontSize: `${10 * fontScale}px`, marginBottom: '2px' }}>
-          <span style={{ color: '#888' }}>简介:</span> {obj.summary} 
+          <span style={{ color: '#888' }}>{t('info.summary')}:</span> {getSummary(obj.summary, lang)}
         </div>
         <div style={{ 
           marginTop: '8px',
@@ -266,7 +270,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels, isAc
           fontStyle: 'italic',
           textAlign: 'center'
         }}>
-          {loading ? 'Loading...' : 'Click anywhere to view on Wikipedia →'}
+          {loading ? t('info.loading') : t('info.clickWiki')}
         </div>
       </div>
     </Html>
@@ -304,8 +308,8 @@ export function CelestialObject({ obj, index, overridePosition, showLabels, isAc
             onClick={handleClick}
           >
             {showLabels
-              ? obj.name
-              : obj.name.split("-")[0].trim()
+              ? getDisplayName(obj.name, lang)
+              : getShortName(obj.name)
             }
           </Text>
           

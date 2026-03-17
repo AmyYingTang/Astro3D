@@ -1,0 +1,57 @@
+{
+  "app": {
+    "replayWelcome": "🎬 重播欢迎动画"
+  },
+  "welcome": {
+    "step0": "准备启程...",
+    "step1": "从地球出发 🚀",
+    "step2": "探索宇宙空间 ✨",
+    "step3": "环顾星辰大海 ✨",
+    "step4": "欢迎来到 MyAstro3D！",
+    "skip": "跳过 ⏭"
+  },
+  "help": {
+    "tooltip": "帮助",
+    "mouseInstructions": "鼠标左键拖动旋转 / 右键平移 / 滚轮缩放",
+    "hoverPrompt": "悬停星体",
+    "hoverAction": "查看详细信息",
+    "clickPrompt": "点击星体",
+    "clickAction": "打开Wikipedia页面"
+  },
+  "filter": {
+    "title": "🔍 星体过滤器",
+    "reset": "重置",
+    "showFullName": "显示完整名称",
+    "searchPlaceholder": "搜索星体...",
+    "ra": "赤经 (RA)",
+    "dec": "赤纬 (DEC)",
+    "objectType": "星体类型",
+    "filterType": "滤镜",
+    "showing": "显示 {{filtered}} / {{total}} 个星体",
+    "filtered": "{{count}} 个星体被过滤"
+  },
+  "info": {
+    "distance": "距离光年",
+    "type": "天体类型",
+    "filter": "推荐拍摄滤镜",
+    "constellation": "星座",
+    "magnitude": "视星等",
+    "angularDiameter": "角直径",
+    "summary": "简介",
+    "clickWiki": "点击任意处查看Wikipedia →",
+    "loading": "加载中..."
+  },
+  "deepsky": {
+    "clickZoom": "点击放大",
+    "clickReturn": "点击返回",
+    "distance": "距离",
+    "exposure": "曝光",
+    "photographer": "拍摄",
+    "fov": "视场角",
+    "name_ngc2736": "NGC 2736 铅笔星云",
+    "dist_ngc2736": "815 光年"
+  },
+  "loading": {
+    "initializing": "正在初始化场景..."
+  }
+}
