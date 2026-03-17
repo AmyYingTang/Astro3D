@@ -21,8 +21,9 @@ async function processBatch() {
   const batch = new Map(pendingRequests);
   pendingRequests = new Map();
 
-  const pageNames = [...batch.keys()];
+  const pageNames = [...batch.keys()].filter(n => n && n.trim());
   if (pageNames.length === 0) return;
+  console.log(`[Wiki batch] Processing ${pageNames.length} titles:`, pageNames.slice(0, 5), '...');
 
   // 分批处理（每批最多50个，Wikipedia API限制）
   for (let i = 0; i < pageNames.length; i += BATCH_SIZE) {
@@ -38,10 +39,18 @@ async function fetchBatch(pageNames, callbackMap, retries = 2) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       if (attempt > 0) {
-        await new Promise(r => setTimeout(r, 1000 * attempt));
+        await new Promise(r => setTimeout(r, 2000 * attempt));
       }
       const response = await fetch(url);
+
+      // Wikipedia returns HTML (not JSON) when rate-limiting
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('json')) {
+        throw new Error(`Rate limited (got ${contentType})`);
+      }
+
       const data = await response.json();
+      console.log(`[Wiki batch] ${pageNames.length} titles, got ${Object.keys(data.query?.pages || {}).length} pages`);
 
       // 构建 redirect 映射: 原始title -> 目标title
       const redirectMap = {};
@@ -67,18 +76,21 @@ async function fetchBatch(pageNames, callbackMap, retries = 2) {
       }
 
       // 为每个请求的pageName找到对应的thumbnail
+      let foundCount = 0;
       for (const pageName of pageNames) {
         // 跟踪 normalize -> redirect -> final title
         let resolvedTitle = normalizedMap[pageName] || pageName;
         resolvedTitle = redirectMap[resolvedTitle] || resolvedTitle;
         const thumbnail = titleToThumb[resolvedTitle] || null;
 
+        if (thumbnail) foundCount++;
         imageCache.set(pageName, thumbnail);
         const callbacks = callbackMap.get(pageName) || [];
         for (const cb of callbacks) {
           cb(thumbnail);
         }
       }
+      console.log(`[Wiki batch] Found ${foundCount}/${pageNames.length} thumbnails`);
       return; // 成功，退出重试循环
     } catch (error) {
       if (attempt === retries) {
