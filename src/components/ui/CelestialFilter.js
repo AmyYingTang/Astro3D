@@ -50,29 +50,6 @@ export function CelestialFilter({
     });
   };
 
-  const handleTypeToggle = (type) => {
-    const currentTypes = filters.types || [];
-    const newTypes = currentTypes.includes(type)
-      ? currentTypes.filter(t => t !== type)
-      : [...currentTypes, type];
-    onFilterChange({
-      ...filters,
-      types: newTypes
-    });
-  };
-
-  const handleFilterToggle = (filter) => {
-    const currentFilters = filters.filters || [];
-    const newFilters = currentFilters.includes(filter)
-      ? currentFilters.filter(f => f !== filter)
-      : [...currentFilters, filter];
-    onFilterChange({
-      ...filters,
-      filters: newFilters
-    });
-  };
-
-
   const handleReset = () => {
     onFilterChange({
       ra: [0, 24],

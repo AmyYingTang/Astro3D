@@ -58,9 +58,6 @@ export function DeepSkyPhoto({
   const width = photoSize * Math.max(1, aspectRatio);
   const height = photoSize * Math.max(1, 1/aspectRatio);
 
-  // 计算照片应该面向的方向（朝向球心，即原点）
-  const lookAtCenter = position.clone().normalize().multiplyScalar(-1);
-  
   // 点击放大
   const handleClick = () => {
     if (isZooming) return;

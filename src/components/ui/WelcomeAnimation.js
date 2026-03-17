@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
+import { useThree } from '@react-three/fiber';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 
@@ -11,24 +11,7 @@ export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete
   const hasStarted = useRef(false);
   const timelineRef = useRef(null);
 
-  useEffect(() => {
-    if (isPlaying && !hasStarted.current) {
-      hasStarted.current = true;
-      playWelcomeSequence();
-    }
-
-     // ⭐ 新增：当 isPlaying 变为 false 时，杀死动画
-    if (!isPlaying && timelineRef.current) {
-      timelineRef.current.kill();
-      timelineRef.current = null;
-      if (controls) {
-        controls.enabled = true;
-      }
-      hasStarted.current = false;
-    }
-  }, [isPlaying]);
-
-  const playWelcomeSequence = () => {
+  const playWelcomeSequence = useCallback(() => {
     if (controls) {
       controls.enabled = false;
     }
@@ -109,7 +92,24 @@ export function WelcomeAnimationController({ onStepChange, isPlaying, onComplete
         }
       }
     });
-  };
+  }, [camera, controls, onStepChange, onComplete]);
+
+  useEffect(() => {
+    if (isPlaying && !hasStarted.current) {
+      hasStarted.current = true;
+      playWelcomeSequence();
+    }
+
+    // 当 isPlaying 变为 false 时，杀死动画
+    if (!isPlaying && timelineRef.current) {
+      timelineRef.current.kill();
+      timelineRef.current = null;
+      if (controls) {
+        controls.enabled = true;
+      }
+      hasStarted.current = false;
+    }
+  }, [isPlaying, controls, playWelcomeSequence]);
 
   return null;
 }

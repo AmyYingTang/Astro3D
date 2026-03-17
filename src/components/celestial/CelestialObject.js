@@ -134,7 +134,7 @@ export function CelestialObject({ obj, index, overridePosition, showLabels, isAc
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [hovered]);
+  }, [hovered, onDeactivate]);
 
   const InfoPanel = () => (
     <Html 

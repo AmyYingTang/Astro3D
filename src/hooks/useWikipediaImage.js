@@ -69,16 +69,16 @@ export function useWikipediaImage(wikiPageName) {
 // 🚀 导出辅助函数：批量预加载
 export async function preloadWikipediaImages(wikiPageNames, onProgress) {
   const total = wikiPageNames.length;
-  let loaded = 0;
 
   console.log(`🚀 开始预加载 ${total} 个Wikipedia图片...`);
 
   // 分批处理，避免同时发送过多请求
   const BATCH_SIZE = 5;
-  
+  const counter = { loaded: 0 };
+
   for (let i = 0; i < wikiPageNames.length; i += BATCH_SIZE) {
     const batch = wikiPageNames.slice(i, i + BATCH_SIZE);
-    
+
     // 并发请求当前批次
     await Promise.allSettled(
       batch.map(async (pageName) => {
@@ -90,16 +90,16 @@ export async function preloadWikipediaImages(wikiPageNames, onProgress) {
 
         try {
           const imageApiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(pageName)}&prop=pageimages&pithumbsize=500&redirects=1`;
-          
+
           const response = await fetch(imageApiUrl);
           const data = await response.json();
-          
+
           const pages = data.query?.pages;
           const pageId = Object.keys(pages)[0];
           const thumbnail = pages[pageId]?.thumbnail?.source;
 
           imageCache.set(pageName, thumbnail || null);
-          
+
           if (thumbnail) {
             console.log(`✅ 预加载成功: ${pageName}`);
           } else {
@@ -109,12 +109,12 @@ export async function preloadWikipediaImages(wikiPageNames, onProgress) {
           console.error(`❌ 预加载失败: ${pageName}`, error);
           imageCache.set(pageName, null);
         } finally {
-          loaded++;
+          counter.loaded++;
           if (onProgress) {
             onProgress({
-              loaded,
+              loaded: counter.loaded,
               total,
-              progress: (loaded / total) * 100
+              progress: (counter.loaded / total) * 100
             });
           }
         }
@@ -134,7 +134,7 @@ export function getCacheStats() {
     withoutImages: 0
   };
 
-  for (const [key, value] of imageCache.entries()) {
+  for (const [, value] of imageCache.entries()) {
     if (value) {
       stats.withImages++;
     } else {
