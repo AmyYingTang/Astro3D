@@ -1,67 +1,108 @@
 import { useState, useEffect } from "react";
 
-// 🔥 全局缓存 - 在模块顶层，所有组件共享
+// 全局缓存 - 在模块顶层，所有组件共享
 const imageCache = new Map();
 
-// 🚦 请求队列 - 限制并发请求数，避免Wikipedia API速率限制
-const MAX_CONCURRENT = 3;
-let activeRequests = 0;
-const requestQueue = [];
+// 批量请求系统：收集短时间内的所有请求，合并为单次API调用
+const BATCH_DELAY = 100; // 等待100ms收集请求
+const BATCH_SIZE = 50;   // Wikipedia API每次最多50个title
+let pendingRequests = new Map(); // pageName -> [resolve callbacks]
+let batchTimer = null;
 
-function enqueueRequest(fn) {
-  return new Promise((resolve, reject) => {
-    const run = async () => {
-      activeRequests++;
-      try {
-        resolve(await fn());
-      } catch (e) {
-        reject(e);
-      } finally {
-        activeRequests--;
-        if (requestQueue.length > 0) {
-          const next = requestQueue.shift();
-          next();
-        }
-      }
-    };
-
-    if (activeRequests < MAX_CONCURRENT) {
-      run();
-    } else {
-      requestQueue.push(run);
-    }
-  });
+function scheduleBatch() {
+  if (batchTimer) return;
+  batchTimer = setTimeout(processBatch, BATCH_DELAY);
 }
 
-async function fetchWikipediaImage(pageName, retries = 2) {
-  const imageApiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(pageName)}&prop=pageimages&pithumbsize=500&redirects=1`;
+async function processBatch() {
+  batchTimer = null;
+
+  // 取出所有待处理请求
+  const batch = new Map(pendingRequests);
+  pendingRequests = new Map();
+
+  const pageNames = [...batch.keys()];
+  if (pageNames.length === 0) return;
+
+  // 分批处理（每批最多50个，Wikipedia API限制）
+  for (let i = 0; i < pageNames.length; i += BATCH_SIZE) {
+    const chunk = pageNames.slice(i, i + BATCH_SIZE);
+    await fetchBatch(chunk, batch);
+  }
+}
+
+async function fetchBatch(pageNames, callbackMap, retries = 2) {
+  const titles = pageNames.map(n => encodeURIComponent(n)).join('|');
+  const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${titles}&prop=pageimages&pithumbsize=500&redirects=1`;
 
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       if (attempt > 0) {
         await new Promise(r => setTimeout(r, 1000 * attempt));
       }
-      const response = await fetch(imageApiUrl);
+      const response = await fetch(url);
       const data = await response.json();
 
-      const pages = data.query?.pages;
-      if (!pages) {
-        imageCache.set(pageName, null);
-        return null;
+      // 构建 redirect 映射: 原始title -> 目标title
+      const redirectMap = {};
+      if (data.query?.redirects) {
+        for (const r of data.query.redirects) {
+          redirectMap[r.from] = r.to;
+        }
+      }
+      // 构建 normalized 映射: 原始title -> 规范title
+      const normalizedMap = {};
+      if (data.query?.normalized) {
+        for (const n of data.query.normalized) {
+          normalizedMap[n.from] = n.to;
+        }
       }
 
-      const pageId = Object.keys(pages)[0];
-      const thumbnail = pages[pageId]?.thumbnail?.source || null;
-      imageCache.set(pageName, thumbnail);
-      return thumbnail;
+      // 构建 title -> thumbnail 映射
+      const titleToThumb = {};
+      const pages = data.query?.pages || {};
+      for (const pageId of Object.keys(pages)) {
+        const page = pages[pageId];
+        titleToThumb[page.title] = page.thumbnail?.source || null;
+      }
+
+      // 为每个请求的pageName找到对应的thumbnail
+      for (const pageName of pageNames) {
+        // 跟踪 normalize -> redirect -> final title
+        let resolvedTitle = normalizedMap[pageName] || pageName;
+        resolvedTitle = redirectMap[resolvedTitle] || resolvedTitle;
+        const thumbnail = titleToThumb[resolvedTitle] || null;
+
+        imageCache.set(pageName, thumbnail);
+        const callbacks = callbackMap.get(pageName) || [];
+        for (const cb of callbacks) {
+          cb(thumbnail);
+        }
+      }
+      return; // 成功，退出重试循环
     } catch (error) {
       if (attempt === retries) {
-        console.error(`❌ 加载失败: ${pageName}`, error);
-        imageCache.set(pageName, null);
-        return null;
+        console.error(`❌ 批量加载失败:`, error);
+        for (const pageName of pageNames) {
+          imageCache.set(pageName, null);
+          const callbacks = callbackMap.get(pageName) || [];
+          for (const cb of callbacks) {
+            cb(null);
+          }
+        }
       }
     }
   }
+}
+
+function requestImage(pageName) {
+  return new Promise((resolve) => {
+    if (!pendingRequests.has(pageName)) {
+      pendingRequests.set(pageName, []);
+    }
+    pendingRequests.get(pageName).push(resolve);
+    scheduleBatch();
+  });
 }
 
 export function useWikipediaImage(wikiPageName) {
@@ -83,18 +124,12 @@ export function useWikipediaImage(wikiPageName) {
 
     let cancelled = false;
 
-    enqueueRequest(() => fetchWikipediaImage(wikiPageName))
-      .then((thumbnail) => {
-        if (!cancelled) {
-          setImageUrl(thumbnail);
-          setLoading(false);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      });
+    requestImage(wikiPageName).then((thumbnail) => {
+      if (!cancelled) {
+        setImageUrl(thumbnail);
+        setLoading(false);
+      }
+    });
 
     return () => { cancelled = true; };
   }, [wikiPageName]);
@@ -102,67 +137,37 @@ export function useWikipediaImage(wikiPageName) {
   return { imageUrl, loading };
 }
 
-// 🚀 导出辅助函数：批量预加载
+// 导出辅助函数：批量预加载
 export async function preloadWikipediaImages(wikiPageNames, onProgress) {
   const total = wikiPageNames.length;
-
-  console.log(`🚀 开始预加载 ${total} 个Wikipedia图片...`);
-
-  // 分批处理，避免同时发送过多请求
-  const BATCH_SIZE = 5;
   const counter = { loaded: 0 };
 
   for (let i = 0; i < wikiPageNames.length; i += BATCH_SIZE) {
-    const batch = wikiPageNames.slice(i, i + BATCH_SIZE);
+    const chunk = wikiPageNames.slice(i, i + BATCH_SIZE);
+    const uncached = chunk.filter(n => !imageCache.has(n));
 
-    // 并发请求当前批次
-    await Promise.allSettled(
-      batch.map(async (pageName) => {
-        // 跳过已缓存的
-        if (imageCache.has(pageName)) {
-          console.log(`⏭️ 已缓存，跳过: ${pageName}`);
-          return;
-        }
+    if (uncached.length > 0) {
+      const callbackMap = new Map();
+      for (const name of uncached) {
+        callbackMap.set(name, []);
+      }
+      await fetchBatch(uncached, callbackMap);
+    }
 
-        try {
-          const imageApiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(pageName)}&prop=pageimages&pithumbsize=500&redirects=1`;
-
-          const response = await fetch(imageApiUrl);
-          const data = await response.json();
-
-          const pages = data.query?.pages;
-          const pageId = Object.keys(pages)[0];
-          const thumbnail = pages[pageId]?.thumbnail?.source;
-
-          imageCache.set(pageName, thumbnail || null);
-
-          if (thumbnail) {
-            console.log(`✅ 预加载成功: ${pageName}`);
-          } else {
-            console.log(`⚠️ 无图片: ${pageName}`);
-          }
-        } catch (error) {
-          console.error(`❌ 预加载失败: ${pageName}`, error);
-          imageCache.set(pageName, null);
-        } finally {
-          counter.loaded++;
-          if (onProgress) {
-            onProgress({
-              loaded: counter.loaded,
-              total,
-              progress: (counter.loaded / total) * 100
-            });
-          }
-        }
-      })
-    );
+    counter.loaded += chunk.length;
+    if (onProgress) {
+      onProgress({
+        loaded: counter.loaded,
+        total,
+        progress: (counter.loaded / total) * 100
+      });
+    }
   }
 
-  console.log(`🎉 预加载完成！共缓存 ${imageCache.size} 个图片`);
   return imageCache;
 }
 
-// 🔍 导出辅助函数：查看缓存状态
+// 导出辅助函数：查看缓存状态
 export function getCacheStats() {
   const stats = {
     totalCached: imageCache.size,
@@ -178,12 +183,10 @@ export function getCacheStats() {
     }
   }
 
-  console.log('📊 缓存状态:', stats);
   return stats;
 }
 
-// 🗑️ 导出辅助函数：清空缓存（用于调试）
+// 导出辅助函数：清空缓存（用于调试）
 export function clearImageCache() {
   imageCache.clear();
-  console.log('🗑️ 缓存已清空');
 }
