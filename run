@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# 一键启动脚本:换机器 clone 后,只靠 ./run 就能把项目跑起来。
+# 用法:
+#   ./run         缺依赖先装,再启动开发服务器
+#   ./run setup   只装依赖,不启动
+#   ./run help    打印用法
+set -euo pipefail
+
+# 始终在脚本所在目录执行
+cd "$(dirname "$0")"
+
+# ─────────────────────────────────────────────────────────────
+# 按项目改:启动命令 / 端口
+# 本项目是 Create React App,npm start -> react-scripts start
+# npm 会自动读取项目里的 .npmrc(含 legacy-peer-deps=true)
+START_CMD="npm start"
+PORT=3000
+# ─────────────────────────────────────────────────────────────
+
+# 装依赖:仅在 node_modules 缺失,或 package-lock.json 比 node_modules 新时才装
+install_deps() {
+  if [ ! -d node_modules ] || [ package-lock.json -nt node_modules ]; then
+    echo "==> 安装依赖(npm install)..."
+    npm install
+    # 触碰目录,刷新时间戳,避免下次重复安装
+    touch node_modules
+  else
+    echo "==> 依赖已是最新,跳过安装。"
+  fi
+}
+
+case "${1:-}" in
+  help|-h|--help)
+    cat <<'EOF'
+用法:
+  ./run         缺依赖先装,再启动开发服务器(http://localhost:3000)
+  ./run setup   只装依赖,不启动
+  ./run help    打印用法
+EOF
+    ;;
+  setup)
+    install_deps
+    echo "==> setup 完成,未启动。运行 ./run 可启动。"
+    ;;
+  "")
+    install_deps
+    echo "==> 启动开发服务器,浏览器打开 http://localhost:${PORT}"
+    exec $START_CMD
+    ;;
+  *)
+    echo "未知参数:$1" >&2
+    echo "用法:./run [setup|help]" >&2
+    exit 1
+    ;;
+esac
